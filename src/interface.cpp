@@ -1,6 +1,39 @@
 
 #include "interface.hpp"
 
+void printTitle(string title, int largura, auto cor) {
+	int spaceOnLeft = (largura-title.length())/2;
+	int spaceExtra = title.length()%2;
+	cout << setfill('*') << setw(largura) << ""<< endl;
+	cout << "**" 
+		<< setfill(' ') << setw(spaceOnLeft-2) << ""
+		<< cor << title <<fRESET 
+		<< setfill(' ') << setw(spaceOnLeft-2+spaceExtra) << ""
+		<< "**" << endl;
+	cout << setfill('*') << setw(largura) << "" << endl;
+}
+
+void printMenu() {
+	string title="Pet Fera";
+	int spaceOnLeft = (60-title.length())/2;
+	int spaceExtra = title.length()%2;
+	cout << setfill('*') << setw(60) << ""<< endl;
+	cout << "**" 
+		<< setfill(' ') << setw(spaceOnLeft-2) << ""
+		<< fGREEN << "Pet Fera" <<fRESET 
+		<< setfill(' ') << setw(spaceOnLeft-2+spaceExtra) << ""
+		<< "**" << endl;
+	title="Menu Principal";
+	spaceOnLeft = (60-title.length())/2;
+	spaceExtra = title.length()%2;
+	cout << "**" 
+		<< setfill(' ') << setw(spaceOnLeft-2) << ""
+		<< "Menu Principal" 
+		<< setfill(' ') << setw(spaceOnLeft-2+spaceExtra) << ""
+		<< "**" << endl;
+	cout << setfill('*') << setw(60) << "" << endl;
+}
+
 void run()
 {
 	
@@ -8,7 +41,8 @@ void run()
 	do
 	{
 		CLS;
-		std::cout << fGREEN << "Pet Fera" << fRESET << " - Menu principal" << std::endl << std::endl;
+		printMenu();
+		// std::cout << fGREEN << "Pet Fera" << fRESET << " - Menu principal" << std::endl << std::endl;
 
 		std::cout << "C. Cadastrar novo animal." << std::endl;
 		std::cout << "R. Remover um animal" << std::endl;
