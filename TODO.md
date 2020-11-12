@@ -47,7 +47,7 @@
 
  [ ] - Verificar vazamentos de memória e erros de acesso de com o Valgrind
 
- [ ] - 
+ [ ] - Verificar o acesso do professor (username: imdcode) ao repositório do GitHub
  
  [ ] - 
  
