@@ -13,7 +13,7 @@ class PetFera
 private:
 	std::map<std::string, Veterinario> veterinarios; //Map permite que um veterinário seja encontrado por referência a um nome
 	std::map<std::string, Tratador> tratadores; //Map permite que um tratador seja encontrado por referência a um nome
-	std::vector<Animal> animais;
+	std::vector<Animal*> animais;
 
 public:
 	void cadAnimal(); //Interface pública
@@ -22,7 +22,7 @@ public:
 	void listClass(); //Interface pública
 	void listRespn(); //Interface pública
 
-	//void cadAnimal();
+	bool addAnimal(Animal* novo); //adiciona o animal no vetor
 	//void remAnimal();
 	//void altAnimal();
 	//void listClass();

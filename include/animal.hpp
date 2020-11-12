@@ -18,15 +18,18 @@ enum classificacao
 class Animal
 {
 public:
-	Animal(short id, classificacao classificacao_, bool perigoso, string NF);
+	Animal(short id, classificacao classificacao_,char ameacadaExtincao, char perigoso, string NF);
+	Animal();
 	~Animal();
 	short getId();
 	classificacao getClassificacao();
 	void printAnimal();
+	// virtual ostream& imprimeDados(ostream& o) const = 0;
+	// friend ostream& operator<< (ostream& o, Animal& a);
 protected:
 	short id;
 	classificacao classificacao_;
-	bool ameacadaExtincao; // indica se o animal corre risco de extincao
-	bool perigoso;         // indica se o animal é perigoso/venenoso
+	char ameacadaExtincao; // indica se a especie corre risco de extincao
+	char perigoso;         // indica se o animal é perigoso/venenoso
 	string NF= NULL;       // Nota Fical
 };

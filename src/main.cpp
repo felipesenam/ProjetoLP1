@@ -1,10 +1,12 @@
 #include <iostream>
 
 #include "interface.hpp"
+#include "petfera.hpp"
 
 int main(/*int argc, char* argv[]*/)
 {
-	run();
+	PetFera pets;
+	run(pets);
 
 	return 0;
 }
