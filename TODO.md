@@ -1,5 +1,9 @@
 # AFAZERES
 
+ [ ] - 
+
+ [ ] - 
+
  [ ] - Cadastro de um novo animal a ser comercializado;
 
  [ ] - Remoção de um animal da lista de disponíveis após a sua comercialização;
@@ -13,13 +17,7 @@
  [ ] - Todas as atividades relacionadas ao cadastro (Inserção, Alteração, Remoção e Consulta) de Veterinários e Tratadores.
 
  [ ] - 
-
- [ ] - 
-
- [ ] - 
-
- [ ] - 
-
+ 
  [ ] - 
 
  [ ] - Preparar o vídeo da apresentação da implementação e disponibilizá-lo no YouTube
@@ -32,14 +30,7 @@
  [ ] - 
  
  [ ] - 
- 
- [ ] - 
- 
- [ ] - 
- 
- [ ] - 
- 
- [ ] - 
+
  
 # LEMBRAR DE
 
@@ -52,10 +43,4 @@
  [ ] - 
  
  [ ] - 
- 
- [ ] - 
- 
- [ ] - 
- 
- [ ] - 
- 
+

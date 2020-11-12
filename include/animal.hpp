@@ -4,6 +4,8 @@
 #include <ostream>
 #include <iostream>
 
+#include "lib.hpp"
+
 using namespace std;
 
 enum classificacao
@@ -11,7 +13,6 @@ enum classificacao
 	nativo,
 	exotico,
 	domestico
-	
 };
 
 class Animal
@@ -26,6 +27,6 @@ protected:
 	short id;
 	classificacao classificacao_;
 	bool ameacadaExtincao; // indica se o animal corre risco de extincao
-	bool perigoso; // indica se o animal é perigoso/venenoso
-	string NF= NULL; //Nota Fical
+	bool perigoso;         // indica se o animal é perigoso/venenoso
+	string NF= NULL;       // Nota Fical
 };

@@ -22,45 +22,61 @@
 ##################################################
 
 #################### EXAMPLE #####################
-# TARGET_LIST=1 #ALWAYS SEPARATE TARGETS WITH BLANK SPACES
+# TARGET_LIST=example #ALWAYS SEPARATE TARGETS WITH BLANK SPACES
 
-# FILE-1=prog.exe
+# FILE-example=prog.exe
 
-# COMPILER-1=x86_64-w64-mingw32-c++
-# COMPILATION_FLAGS-1=-Wall -Wextra -pedantic #YOU CAN LEAVE THIS SPACE IN BLANK
-# LINKER_FLAGS-1=-static -static-libgcc -static-libstdc++ #YOU CAN LEAVE THIS SPACE IN BLANK
+# COMPILER-example=x86_64-w64-mingw32-c++
+# COMPILATION_FLAGS-example=-Wall -Wextra -pedantic #YOU CAN LEAVE THIS SPACE IN BLANK
+# LINKER_FLAGS-example=-static -static-libgcc -static-libstdc++ #YOU CAN LEAVE THIS SPACE IN BLANK
 
-# MAINFILE-1=main
-# SRCPATH-1=./src/
-# INCPATH-1=./include/ #SEPARATE WITH BLANK SPACES IF THERE IS MORE THAN ONE PATH
-# OBJPATH-1=./objects/Windows/
+# MAINFILE-example=main
+# SRCPATH-example=./src/
+# INCPATH-example=./include/ #SEPARATE WITH BLANK SPACES IF THERE IS MORE THAN ONE PATH
+# OBJPATH-example=./objects/Windows/
 
-# SOURCE_EXT-1=.cpp
-# HEADER_EXT-1=.h
+# SOURCE_EXT-example=.cpp
+# HEADER_EXT-example=.h
 ##################################################
 
 ##################### TARGETS ####################
-TARGET_LIST=PROJETO_LP1
+TARGET_LIST=debug release
 
-FILE-PROJETO_LP1=prog
+FILE-debug=prog
 
-COMPILER-PROJETO_LP1=g++
-COMPILATION_FLAGS-PROJETO_LP1=-Wall -Wextra -pedantic -g
-LINKER_FLAGS-PROJETO_LP1=
+COMPILER-debug=g++
+COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -Debug
+LINKER_FLAGS-debug=
 
-MAINFILE-PROJETO_LP1=main
-SRCPATH-PROJETO_LP1=./src/
-INCPATH-PROJETO_LP1=./include/
-OBJPATH-PROJETO_LP1=./objects/Linux/
+MAINFILE-debug=main
+ SRCPATH-debug=./src/
+ INCPATH-debug=./include/
+ OBJPATH-debug=./objects/Debug/
 
-SOURCE_EXT-PROJETO_LP1=.cpp
-HEADER_EXT-PROJETO_LP1=.h
+SOURCE_EXT-debug=.cpp
+HEADER_EXT-debug=.hpp
+#================================================#
+FILE-release=Pet_Fera
+
+COMPILER-release=g++
+COMPILATION_FLAGS-release=-O3 -Wall -Wextra -pedantic
+LINKER_FLAGS-release=-static -static-libgcc -static-libstdc++
+
+MAINFILE-release=main
+ SRCPATH-release=./src/
+ INCPATH-release=./include/
+ OBJPATH-release=./objects/Release/
+
+SOURCE_EXT-release=.cpp
+HEADER_EXT-release=.hpp
 ##################################################
 
 ##################### DEFINES ####################
-.DEFAULT_GOAL:=all
+FIRST_TARGET=$(firstword $(TARGET_LIST))
 
-FILE?=$(firstword $(TARGET_LIST))
+.DEFAULT_GOAL:=$(FIRST_TARGET)
+
+FILE=
 
 FILE-SOURCE=$(wildcard $(SRCPATH-$(FILE))*$(SOURCE_EXT-$(FILE)))
 HEADERS=$(wildcard $(INCPATH-$(FILE))*$(HEADER_EXT-$(FILE)))
@@ -83,7 +99,7 @@ all: objdir
 
 %:
 	@ $(eval FILE=$@)
-	@ if [ "$(findstring $(FILE),$(TARGET_LIST))" = "$(FILE)" ]; then ($(MAKE) --silent --stop FILE=$(FILE) $(FILE-$(FILE));printf "[100%%] Built target %s\n" $(FILE);); else (echo "make: There is no recipe for target '$(FILE)'"; exit); fi
+	@ if [ "$(findstring $(FILE),$(TARGET_LIST))" = "$(FILE)" ]; then ($(MAKE) --silent --stop FILE=$(FILE) objdir $(FILE-$(FILE));printf "[100%%] Built target %s\n" $(FILE);); else (echo "make: There is no recipe for target '$(FILE)'"; exit); fi
 
 $(FILE-$(FILE)): $(OBJECTS)
 	@ printf "[%3i%%]" $$(($(CURCOUNT)*100/$(OBJCOUNT)))
@@ -107,6 +123,6 @@ objdir:
 
 clean:
 	@ $(foreach F,$(TARGET_LIST), $(shell rm -rf $(OBJPATH-$(F))*.o $(FILE-$(F)) *~))
-	@ echo "make: All binaries have been deleted."
+	@ echo "All binaries have been deleted."
 
 .PHONY: all clean
