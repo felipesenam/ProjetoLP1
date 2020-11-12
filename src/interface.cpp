@@ -1,15 +1,14 @@
 
 #include "interface.hpp"
 
-
-void printTitle(string title, int largura, auto cor) {
+void printTitle(string title, int largura, std::string cor) {
 	CLS;
 	int spaceOnLeft = (largura-title.length())/2;
 	int spaceExtra = title.length()%2;
 	cout << setfill('*') << setw(largura) << ""<< endl;
 	cout << "**" 
 		<< setfill(' ') << setw(spaceOnLeft-2) << ""
-		<< cor << title <<fRESET 
+		<< Color(cor) << title << Color(fRESET) 
 		<< setfill(' ') << setw(spaceOnLeft-2+spaceExtra) << ""
 		<< "**" << endl;
 	cout << setfill('*') << setw(largura) << "" << endl;
@@ -23,7 +22,7 @@ void printMenu() {
 	cout << setfill('*') << setw(60) << ""<< endl;
 	cout << "**" 
 		<< setfill(' ') << setw(spaceOnLeft-2) << ""
-		<< fGREEN << "Pet Fera" <<fRESET 
+		<< Color(fGREEN) << "Pet Fera" << Color(fRESET) 
 		<< setfill(' ') << setw(spaceOnLeft-2+spaceExtra) << ""
 		<< "**" << endl;
 	title="Menu Principal";
@@ -58,7 +57,7 @@ void run(PetFera pets)
 		std::cin >> opt;
 
 		if(opt == "C" || opt == "c"){
-			printTitle("Cadastrar Animal", 60, fRESET);
+			printTitle("Cadastrar Animal", 60, fGREEN);
 			pets.cadAnimal();
 			cout << "Operação realizada com sucesso." << endl;
 		}

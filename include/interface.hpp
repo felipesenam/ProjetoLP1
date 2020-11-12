@@ -7,7 +7,6 @@
 #include "animal.hpp"
 #include "petfera.hpp"
 #include "lib.hpp"
-#include "colourplus.hpp"
 
 using std::setfill;
 using std::setw;
@@ -18,5 +17,5 @@ using std::endl;
 
 void run(PetFera pets);
 
-void printTitle(string title, int largura, auto cor);
+void printTitle(string title, int largura, std::string cor);
 void printMenu();
