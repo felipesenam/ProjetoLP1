@@ -99,7 +99,7 @@ std::string Color(std::string color);
 
 #define OSENVPART
 #define CLS system("clear")
-#define PAUSE system("read -n1 -p \"Pressione qualquer tecla para continuar. . .\"")
+#define PAUSE {getchar(); std::cout<<"Pressione qualquer tecla para continuar..."<<endl; getchar(); }
 
 #endif
 

@@ -21,11 +21,10 @@ public:
 	Animal(short id, classificacao classificacao_,char ameacadaExtincao, char perigoso, string NF);
 	Animal();
 	~Animal();
-	short getId();
-	classificacao getClassificacao();
+	short getId() const;
+	classificacao getClassificacao() const;
 	void printAnimal();
-	// virtual ostream& imprimeDados(ostream& o) const = 0;
-	// friend ostream& operator<< (ostream& o, Animal& a);
+	friend ostream& operator<< (ostream& saida, Animal& a);
 protected:
 	short id;
 	classificacao classificacao_;

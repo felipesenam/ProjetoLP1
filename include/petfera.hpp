@@ -24,8 +24,9 @@ public:
 	void listClass(); //Interface pública
 	void listRespn(); //Interface pública
 
-	bool addAnimal(Animal* novo); //adiciona o animal no vetor
-	//void remAnimal();
+	bool addAnimal(Animal* novo); //adiciona o animal no vector
+	Animal* remAnimal_(int id); //remove o animal do vector
+	Animal* buscarId(int id); // busca o animal pelo id
 	//void altAnimal();
 	//void listClass();
 	//void listRespn();

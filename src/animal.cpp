@@ -13,13 +13,13 @@ Animal::~Animal()
 {}
 
 short 
-Animal::getId()
+Animal::getId() const
 {
 	return this->id;
 }
 
 classificacao 
-Animal::getClassificacao()
+Animal::getClassificacao() const
 {
 	return this->classificacao_;
 }
@@ -34,6 +34,9 @@ Animal::printAnimal()
 	<<"NF: "<<this->NF<<endl;
 }
 
-// ostream& operator<< (ostream& o, Animal& a) {
-// 	return a.imprimeDados(o);
-// }
+ostream& operator<< (ostream& saida, Animal& a) {
+	cout << "id: "<< a.id<<endl << "Classificação: "<< a.classificacao_<<endl
+	 <<"extinção? "<<a.ameacadaExtincao<<endl <<"perigoso? "<<a.perigoso<<endl
+	 <<"NF: "<<a.NF<<endl;
+	return saida;
+}

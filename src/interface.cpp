@@ -64,6 +64,7 @@ void run(PetFera pets)
 		else if(opt == "R" || opt == "r")
 		{
 			printTitle("Remover um animal", 60, fRESET);
+			pets.remAnimal();
 
 		}
 		else if(opt == "A" || opt == "a")
