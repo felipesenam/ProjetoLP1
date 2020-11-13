@@ -59,7 +59,7 @@ HEADER_EXT-debug=.hpp
 FILE-release=Pet_Fera
 
 COMPILER-release=g++
-COMPILATION_FLAGS-release=-O3 -Wall -Wextra -pedantic
+COMPILATION_FLAGS-release=-O3 -Wall -Wextra -pedantic -Wno-unused-result
 LINKER_FLAGS-release=-static -static-libgcc -static-libstdc++
 
 MAINFILE-release=main
