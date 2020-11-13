@@ -5,8 +5,8 @@
 #include <limits>
 
 #include "animal.hpp"
-#include "petfera.hpp"
 #include "lib.hpp"
+#include "petfera.hpp"
 
 using std::setfill;
 using std::setw;

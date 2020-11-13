@@ -1,6 +1,5 @@
 
 #include "petfera.hpp"
-#include "interface.hpp"
 
 void PetFera::cadAnimal()
 {

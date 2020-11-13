@@ -45,7 +45,7 @@ TARGET_LIST=debug release
 FILE-debug=prog
 
 COMPILER-debug=g++
-COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -Debug
+COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -Debug -std=c++11
 LINKER_FLAGS-debug=
 
 MAINFILE-debug=main
@@ -59,7 +59,7 @@ HEADER_EXT-debug=.hpp
 FILE-release=Pet_Fera
 
 COMPILER-release=g++
-COMPILATION_FLAGS-release=-O3 -Wall -Wextra -pedantic -Wno-unused-result
+COMPILATION_FLAGS-release=-O3 -Wall -Wextra -pedantic -Wno-unused-result -std=c++11
 LINKER_FLAGS-release=-static -static-libgcc -static-libstdc++
 
 MAINFILE-release=main

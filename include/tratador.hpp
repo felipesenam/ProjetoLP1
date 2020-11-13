@@ -4,9 +4,9 @@
 
 enum Seguranca
 {
-	Verde,   // Aves
-	Azul,    // Aves, mamíferos e répteis
-	Vermelho // Venenosos ou perigosos
+	Verde,
+	Azul,
+	Vermelho
 };
 
 class Tratador
