@@ -1,12 +1,12 @@
 #include <iostream>
 
-#include "interface.hpp"
 #include "petfera.hpp"
 
 int main(/*int argc, char* argv[]*/)
 {
-	PetFera pets;
-	run(pets);
+	std::unique_ptr<PetFera> petfera(new PetFera());
+
+	petfera->run();
 
 	return 0;
 }

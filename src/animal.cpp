@@ -24,6 +24,16 @@ Animal::getClassificacao() const
 	return this->classificacao_;
 }
 
+Tratador* Animal::getTratador()
+{
+	return this->tratador;
+}
+	
+Veterinario* Animal::getVeterinario()
+{
+	return this->veterinario;
+}
+
 void 
 Animal::printAnimal()
 {

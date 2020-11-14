@@ -2,14 +2,19 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
+#include <iomanip>
+
+std::string Color(std::string color);
+
+void printTitle(std::string title, int largura, std::string cor);
+void printMenu();
 
 #ifdef ebug
 #define Debug(x) std::cout << x
 #else
 #define Debug(x)
 #endif
-
-std::string Color(std::string color);
 
 #ifdef WIN32
 
