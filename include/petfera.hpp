@@ -5,6 +5,7 @@
 #include <map>
 #include <limits>
 
+#include "funcionario.hpp"
 #include "veterinario.hpp"
 #include "tratador.hpp"
 #include "animal.hpp"
@@ -13,8 +14,9 @@ class PetFera
 {
 private:
 	std::map<std::string, Veterinario*> veterinarios; //Map permite que um veterinário seja encontrado por referência a um nome
-	std::map<std::string, Tratador*> tratadores;      //Map permite que um tratador seja encontrado por referência a um nome
+	std::map<short, Tratador*> tratadores;      //Map permite que um tratador seja encontrado por referência a um nome
 	std::vector<Animal*> animais;
+	short idTratador = 1;
 
 public:
 	PetFera();
@@ -38,6 +40,7 @@ public:
 	bool remVetr();
 	bool altVetr();
 	std::map<std::string, Veterinario*>::iterator findCRMV(std::string CRMV);
+	std::map<short, Tratador*>::iterator findIdTratador(short id);
 
 	bool cadTrat();
 	bool remTrat();

@@ -241,7 +241,7 @@ bool PetFera::cadVetr()
 			std::cout << "Já existe um veterinário com este número de CRMV cadastrado." << std::endl;
 	} while (1);
 
-	Veterinario *vet = new Veterinario(nome, CRMV);
+	Veterinario *vet = new Veterinario(nome,2,ativo, CRMV);
 	veterinarios.emplace(nome, vet);
 
 	return true;
@@ -284,18 +284,70 @@ std::map<std::string, Veterinario*>::iterator PetFera::findCRMV(std::string CRMV
 	return veterinarios.end();
 }
 
+
 bool PetFera::cadTrat()
 {
+	std::string nome;
+	short id;
 
+	std::cout << "Insira o nome do tratador: " << std::endl;
+	cin.ignore();
+	getline(std::cin, nome);
+
+	do
+	{
+		std::cout << "Insira o id do tratador: " << std::endl;
+		std::cin >> id;
+		if(findIdTratador(id) == tratadores.end())
+			break;
+		else
+			std::cout << "Já existe um tratador com este número de id cadastrado." << std::endl;
+	} while (1);
+
+	Tratador *vet = new Tratador(nome, id, ativo, Vermelho );
+	tratadores.emplace(id, vet);
+
+	return true;
 }
 bool PetFera::remTrat()
 {
+	short idTratador;
+
+	do
+	{
+		std::cout << "Insira o id do tratador: " << std::endl;
+		std::cin >> idTratador;
+		auto iter = findIdTratador(idTratador);
+		if(iter != tratadores.end())
+		{
+			std::cout << iter->first << " foi desvinculado da loja." << std::endl;
+			tratadores.erase(iter);
+			break;
+		}
+		else
+			std::cout << "id não encontrado." << std::endl;
+	} while (1);
+
+	PAUSE;
+	return false;
 
 }
 bool PetFera::altTrat()
 {
 
 }
+std::map<short, Tratador*>::iterator PetFera::findIdTratador(short id)
+{
+	for(auto i = tratadores.begin(); i != tratadores.end(); ++i)
+	{
+		if(i->second->getId() == id)
+		{
+			return i;
+		}
+	}
+	return tratadores.end();
+}
+
 
 void PetFera::listFunc()
 {
@@ -308,7 +360,8 @@ void PetFera::listFunc()
 	std::cout << "Tratadores:" << std::endl;
 	for(auto i : this->tratadores)
 	{
-		
+		std::cout << i.second->getNome() << std::endl;
+		std::cout << "id:" << i.second->getId() << std::endl << std::endl;
 	}
 	PAUSE;
 }

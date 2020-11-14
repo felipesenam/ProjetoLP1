@@ -4,9 +4,9 @@
 
  [ ] - 
 
- [ ] - Cadastro de um novo animal a ser comercializado;
+ [X] - Cadastro de um novo animal a ser comercializado;
 
- [ ] - Remoção de um animal da lista de disponíveis após a sua comercialização;
+ [X] - Remoção de um animal da lista de disponíveis após a sua comercialização;
 
  [ ] - Alteração dos dados cadastrais de um animal;
 

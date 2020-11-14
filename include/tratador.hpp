@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "funcionario.hpp"
 
 enum Seguranca
 {
@@ -9,20 +10,14 @@ enum Seguranca
 	Vermelho
 };
 
-class Tratador
-{
+class Tratador : public Funcionario{
 public:
 	Tratador();
-	Tratador(std::string, Seguranca);
+	Tratador(std::string, short, Status, Seguranca);
 	~Tratador();
-
-	std::string getNome() const;
 	Seguranca getSeguranca() const;
-
-	void setNome(std::string);
 	void setSeguranca(Seguranca);
 
 private:
-	std::string nome;
 	Seguranca seguranca;
 };
