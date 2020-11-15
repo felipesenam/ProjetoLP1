@@ -28,39 +28,44 @@ std::string Color(std::string color)
 	return std::string();
 }
 
-void printTitle(std::string title, int largura, std::string cor)
+void printTitle(std::string title, std::string cor)
 {
 	CLS;
-	int spaceOnLeft = (largura-title.length())/2;
+	int spaceOnLeft = (BOXWIDTH-title.length())/2;
 	int spaceExtra = title.length()%2;
-	std::cout << std::setfill('*') << std::setw(largura) << ""<< std::endl;
+	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << ""<< std::endl;
 	std::cout << "**" 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
 		<< Color(cor) << title << Color(fRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
 		<< "**" << std::endl;
-	std::cout << std::setfill('*') << std::setw(largura) << "" << std::endl;
+	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << "" << std::endl;
 }
 
-void printMenu()
+void printMenu(std::string title, std::string subtitle, std::string cor)
 {
 	CLS;
-	std::string title="Pet Fera";
-	int spaceOnLeft = (60-title.length())/2;
+	int spaceOnLeft = (BOXWIDTH - title.length()) / 2;
 	int spaceExtra = title.length()%2;
-	std::cout << std::setfill('*') << std::setw(60) << ""<< std::endl;
+	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << ""<< std::endl;
 	std::cout << "**" 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
-		<< Color(fGREEN) << "Pet Fera" << Color(fRESET) 
+		<< Color(cor) << title << Color(fRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
 		<< "**" << std::endl;
-	title="Menu Principal";
-	spaceOnLeft = (60-title.length())/2;
-	spaceExtra = title.length()%2;
+
+	spaceOnLeft = (BOXWIDTH - subtitle.length()) / 2;
+	spaceExtra = subtitle.length()%2;
 	std::cout << "**" 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
-		<< "Menu Principal" 
+		<< subtitle 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
 		<< "**" << std::endl;
-	std::cout << std::setfill('*') << std::setw(60) << "" << std::endl;
+	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << "" << std::endl;
+}
+
+void ffBuffer()
+{
+	int input;
+	while ((input = getchar()) != EOF && input != '\n');
 }

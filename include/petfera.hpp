@@ -13,10 +13,12 @@
 class PetFera
 {
 private:
-	std::map<std::string, Veterinario*> veterinarios; //Map permite que um veterinário seja encontrado por referência a um nome
-	std::map<short, Tratador*> tratadores;      //Map permite que um tratador seja encontrado por referência a um nome
+	std::vector<Veterinario*> veterinarios;
+	std::vector<Tratador*> tratadores;
 	std::vector<Animal*> animais;
+
 	short idTratador = 1;
+	short funcionarios = 0;
 
 public:
 	PetFera();
@@ -27,6 +29,7 @@ public:
 	void altAnimal(); //Interface pública
 	void listClass(); //Interface pública
 	void listRespn(); //Interface pública
+	
 	void gerCad();    //Interface pública
 
 	bool addAnimal(Animal* novo); // Adiciona o animal no vector
@@ -37,15 +40,13 @@ public:
 	//void listRespn();
 
 	bool cadVetr();
-	bool remVetr();
 	bool altVetr();
-	std::map<std::string, Veterinario*>::iterator findCRMV(std::string CRMV);
-	std::map<short, Tratador*>::iterator findIdTratador(short id);
+	std::vector<Veterinario*>::iterator findCRMV(std::string CRMV);
 
 	bool cadTrat();
-	bool remTrat();
 	bool altTrat();
 
+	bool remFunc();
 	void listFunc();
 
 	void run();

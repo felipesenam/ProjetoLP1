@@ -7,8 +7,14 @@
 
 std::string Color(std::string color);
 
-void printTitle(std::string title, int largura, std::string cor);
-void printMenu();
+void printTitle(std::string title, std::string cor);
+void printMenu(std::string title, std::string subtitle, std::string cor);
+
+void ffBuffer();
+
+#define RETURNIF(x, y, z) if(x == y){ std::cout << "Operação cancelada pelo usuário." << std::endl; PAUSE; return z;}
+
+#define BOXWIDTH 60
 
 #ifdef ebug
 #define Debug(x) std::cout << x
@@ -104,7 +110,6 @@ void printMenu();
 
 #define OSENVPART
 #define CLS system("clear")
-#define PAUSE {getchar(); std::cout<<"Pressione qualquer tecla para continuar..."<<endl; getchar(); }
+#define PAUSE ffBuffer(); std::cout << "Pressione qualquer tecla para continuar. . ." << std::endl; getchar();
 
 #endif
-

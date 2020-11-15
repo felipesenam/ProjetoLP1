@@ -2,7 +2,7 @@
 
  [ ] - 
 
- [ ] - 
+ [ ] - !! Separar interfaces públicas (recebimento de dados) de interfaces internas (tratamento dos dados)
 
  [X] - Cadastro de um novo animal a ser comercializado;
 
