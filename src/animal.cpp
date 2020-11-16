@@ -12,17 +12,33 @@ Animal::Animal(){}
 Animal::~Animal()
 {}
 
-short 
-Animal::getId() const
+short Animal::getId() const
 {
 	return this->id;
 }
 
-classificacao 
-Animal::getClassificacao() const
+classificacao Animal::getClassificacao() const
 {
 	return this->classificacao_;
 }
+
+void Animal::setClassificacao(classificacao classificacao_)
+{
+	this->classificacao_ = classificacao_;
+}
+void Animal::setAmeacadaExtincao(char ameacadaExtincao)
+{
+	this->ameacadaExtincao=ameacadaExtincao;
+}
+void Animal::setPerigoso(char perigoso)
+{
+	this->perigoso=perigoso;
+}
+void Animal::setNF(string NF)
+{
+	this->NF=NF;
+}
+
 
 Tratador* Animal::getTratador()
 {
@@ -34,8 +50,7 @@ Veterinario* Animal::getVeterinario()
 	return this->veterinario;
 }
 
-void 
-Animal::printAnimal()
+void Animal::printAnimal()
 {
 	cout<<"id: "<< this->id<<endl
 	<<"Classificação: "<< this->classificacao_<<endl

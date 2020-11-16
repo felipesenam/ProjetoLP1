@@ -17,8 +17,9 @@ private:
 	std::vector<Tratador*> tratadores;
 	std::vector<Animal*> animais;
 
-	short idTratador = 1;
+	// short idTratador = 1;
 	short funcionarios = 0;
+	short idAnimal = 0;
 
 public:
 	PetFera();

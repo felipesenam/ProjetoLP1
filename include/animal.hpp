@@ -30,6 +30,10 @@ public:
 
 	short getId() const;
 	classificacao getClassificacao() const;
+	void setClassificacao(classificacao classificacao_);
+	void setAmeacadaExtincao(char ameacadaExtincao);
+	void setPerigoso(char perigoso);
+	void setNF(string NF);
 
 	Tratador* getTratador();
 	Veterinario* getVeterinario();

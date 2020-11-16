@@ -16,6 +16,8 @@ public:
 	~Funcionario();
 	std::string getNome() const;
 	short getId() const;
+	void setNome(std::string nome);
+	void setStatus(Status status); 
 
 protected:
 	std::string nome;

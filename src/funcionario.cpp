@@ -14,3 +14,10 @@
 	{
 		return this->id;
 	}
+
+	void Funcionario::setNome(std::string nome){
+		this->nome=nome;
+	}
+	void Funcionario::setStatus(Status status){
+		this->status=status;
+	}
