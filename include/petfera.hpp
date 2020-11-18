@@ -17,7 +17,6 @@ private:
 	std::vector<Tratador*> tratadores;
 	std::vector<Animal*> animais;
 
-	// short idTratador = 1;
 	short funcionarios = 0;
 	short idAnimal = 0;
 
@@ -26,26 +25,37 @@ public:
 	~PetFera();
 
 	void cadAnimal(); //Interface pública
-	void remAnimal(); //Interface pública
+	Animal* cadAnimal(std::string, Classificacao, char, char, string, Tratador*, Veterinario*);
+
+	void remAnimal();       //Interface pública
+	bool remAnimal(int); // Remove o animal do vector
+
 	void altAnimal(); //Interface pública
 	void listClass(); //Interface pública
 	void listRespn(); //Interface pública
 	
 	void gerCad();    //Interface pública
 
-	bool addAnimal(Animal* novo); // Adiciona o animal no vector
-	Animal* remAnimal_(int id);   // Remove o animal do vector
-	Animal* buscarId(int id);     // Busca o animal pelo id
+	bool addAnimal(Animal*); // Adiciona o animal no vector
+	
+	Animal* buscarId(int);     // Busca o animal pelo id
 	//void altAnimal();
 	//void listClass();
 	//void listRespn();
 
-	bool cadVetr();
+	void cadVetr();
+	Veterinario* cadVetr(std::string, Status, std::string);
+	Veterinario* cadVetr(Veterinario*);
 	bool altVetr();
 	std::vector<Veterinario*>::iterator findCRMV(std::string CRMV);
 
-	bool cadTrat();
+	void cadTrat();
+	Tratador* cadTrat(std::string, Status, Seguranca);
+	Tratador* cadTrat(Tratador*);
 	bool altTrat();
+
+	Veterinario* buscaVetr(int);
+	Tratador* buscaTrat(int);
 
 	bool remFunc();
 	void listFunc();

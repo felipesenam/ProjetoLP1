@@ -11,8 +11,11 @@ void printTitle(std::string title, std::string cor);
 void printMenu(std::string title, std::string subtitle, std::string cor);
 
 void ffBuffer();
+bool isany(const char, std::string);
 
 #define RETURNIF(x, y, z) if(x == y){ std::cout << "Operação cancelada pelo usuário." << std::endl; PAUSE; return z;}
+#define VOIDRETURN
+#define WARN(x) std::cout << Color(fYELLOW) << x << Color(fRESET);
 
 #define BOXWIDTH 60
 

@@ -6,12 +6,13 @@
 
 enum Seguranca
 {
-	Verde,
-	Azul,
-	Vermelho
+	verde,
+	azul,
+	vermelho
 };
 
-class Tratador : public Funcionario{
+class Tratador : public Funcionario
+{
 public:
 	Tratador();
 	Tratador(std::string, short, Status, Seguranca);

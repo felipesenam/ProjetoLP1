@@ -69,3 +69,15 @@ void ffBuffer()
 	int input;
 	while ((input = getchar()) != EOF && input != '\n');
 }
+
+bool isany(const char letter, std::string vect)
+{
+	for(auto l : vect)
+	{
+		if(letter == l)
+		{
+			return true;
+		}
+	}
+	return false;
+}
