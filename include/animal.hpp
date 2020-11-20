@@ -10,6 +10,14 @@
 
 using namespace std;
 
+enum Classe
+{
+	anfibio,
+	reptil,
+	ave,
+	mamifero
+};
+
 enum Classificacao
 {
 	nativo,
@@ -25,11 +33,13 @@ private:
 
 public:
 	Animal();
-	Animal(std::string especie, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, string NF);
+	Animal(std::string especie, Classe classe, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, string NF);
 	~Animal();
 
 	std::string getEspecie();
 	void setEspecie(std::string);
+	Classe getClasse();
+	void setClasse(Classe);
 
 	short getId() const;
 	Classificacao getClassificacao() const;
@@ -47,9 +57,11 @@ public:
 
 protected:
 	std::string especie;
+	Classe classe;
 	short id;
 	Classificacao classificacao;
 	char ameacadaExtincao; // indica se a especie corre risco de extincao
 	char perigoso;         // indica se o animal é perigoso/venenoso
 	string NF = NULL;      // Nota Fical
+	
 };

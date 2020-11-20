@@ -25,7 +25,7 @@ public:
 	~PetFera();
 
 	void cadAnimal(); //Interface pública
-	Animal* cadAnimal(std::string, Classificacao, char, char, string, Tratador*, Veterinario*);
+	Animal* cadAnimal(std::string, Classe, Classificacao, char, char, string, Tratador*, Veterinario*);
 
 	void remAnimal();       //Interface pública
 	bool remAnimal(int); // Remove o animal do vector

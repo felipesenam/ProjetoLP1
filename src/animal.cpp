@@ -4,8 +4,8 @@
 Animal::~Animal()
 {}
 
-Animal::Animal(std::string especie, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, string NF) :
-	especie(especie), id(id), classificacao(classificacao), ameacadaExtincao(ameacadaExtincao),
+Animal::Animal(std::string especie, Classe classe, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, string NF) :
+	especie(especie), classe(classe), id(id), classificacao(classificacao), ameacadaExtincao(ameacadaExtincao),
 	perigoso(perigoso),NF(NF)
 {
 	Debug("Animal " << this->id << " [" << this << "] foi criado." << endl);
@@ -22,6 +22,16 @@ std::string Animal::getEspecie()
 void Animal::setEspecie(std::string especie)
 {
 	this->especie = especie;
+}
+
+Classe Animal::getClasse()
+{
+	return this->classe;
+}
+
+void Animal::setClasse(Classe classe)
+{
+	this->classe=classe;
 }
 
 short Animal::getId() const
@@ -79,6 +89,7 @@ ostream& operator<< (ostream& saida, Animal& a)
 	cout 
 		<< "id: " << a.id << endl
 		<< "Classificação: " << a.classificacao << endl
+		<< "Classe: "<< a.classe << endl
 		<< "extinção? " << a.ameacadaExtincao << endl
 		<< "perigoso? " << a.perigoso << endl
 		<< "NF: "<< a.NF << endl;
