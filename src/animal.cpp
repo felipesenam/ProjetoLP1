@@ -4,9 +4,9 @@
 Animal::~Animal()
 {}
 
-Animal::Animal(std::string especie, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF) :
-	especie(especie), id(id), classificacao(classificacao), ameacadaExtincao(ameacadaExtincao),
-	perigoso(perigoso),NF(NF)
+Animal::Animal(std::string especie, Classe classe, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF) :
+	especie(especie), classe(classe), id(id), classificacao(classificacao),
+	ameacadaExtincao(ameacadaExtincao),	perigoso(perigoso),NF(NF)
 {
 	Debug("Animal " << this->id << " [" << this << "] foi criado." << std::endl);
 }
@@ -22,6 +22,16 @@ std::string Animal::getEspecie()
 void Animal::setEspecie(std::string especie)
 {
 	this->especie = especie;
+}
+
+Classe Animal::getClasse()
+{
+	return this->classe;
+}
+
+void Animal::setClasse(Classe classe)
+{
+	this->classe=classe;
 }
 
 short Animal::getId() const
@@ -80,8 +90,9 @@ std::ostream& operator<< (std::ostream& o, Animal& animal)
 		<< "ID: " << animal.id << std::endl
 		<< "ESPÉCIE: " << animal.especie << std::endl	
 		<< "CLASSIFICAÇÃO: " << animal.classificacao << std::endl
+		<< "CLASSE: " << animal.classe << std::endl
 		<< "CORRE RISCO DE EXTINÇÃO: " << animal.ameacadaExtincao << std::endl
 		<< "PERIGOSO: " << animal.perigoso << std::endl
-		<< "NOTA FISCAL: "<< animal.NF << std::endl;
+		<< "NOTA FISCAL: " << animal.NF << std::endl;
 	return o;
 }

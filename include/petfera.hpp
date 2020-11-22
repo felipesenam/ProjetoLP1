@@ -20,9 +20,10 @@ public:
 	PetFera();
 	~PetFera();
 
+
 	/********* ANIMAIS ********/
 	void cadAnimal();
-	Animal* cadAnimal(std::string, Classificacao, char, char, std::string, Tratador*, Veterinario*);
+	Animal* cadAnimal(std::string, Classe, Classificacao, char, char, std::string, Tratador*, Veterinario*);
 
 	void remAnimal();
 	bool remAnimal(int);

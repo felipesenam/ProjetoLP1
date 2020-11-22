@@ -19,8 +19,9 @@ PetFera::~PetFera()
 void PetFera::cadAnimal()
 {
 	Classificacao classificacao;
-	char ameacadaExtincao, perigoso, cClassificacao;        
+	char ameacadaExtincao, perigoso, cClassificacao, cClasse;        
 	std::string NF, especie;
+	Classe classe;
 	int idt, idv;
 	Tratador* tratador = nullptr;
 	Veterinario* veterinario = nullptr;
@@ -28,6 +29,21 @@ void PetFera::cadAnimal()
 	std::cout << "Informe a espécie do animal: " << std::endl;
 	std::cin >> especie; ffBuffer();
 	RETURNIF(especie, "0", VOIDRETURN);
+	
+	do
+	{
+		std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
+		std::cin >> cClasse; ffBuffer();
+		RETURNIF(cClasse, '0', VOIDRETURN);
+		if (isany(cClasse, "AaBbMmRr"))
+		{
+			break;
+		}
+		else
+		{
+			WARN("Opção inválida" << std::endl);
+		}
+	} while (1);
 
 	do
 	{
@@ -132,13 +148,22 @@ void PetFera::cadAnimal()
 		classificacao = domestico;
 	} 
 
-	cadAnimal(especie, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario);
+	if (cClasse=='A' || cClasse=='a')
+		classe= anfibio;
+	else if (cClasse=='B' || cClasse=='b')
+		classe=ave;
+	else if (cClasse=='R' || cClasse=='r')
+		classe=reptil;
+	else if (cClasse=='m' || cClasse=='M')
+		classe=mamifero;
+	cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario);
 
 	PAUSE;
 }
-Animal* PetFera::cadAnimal(std::string especie, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF, Tratador* tratador, Veterinario* veterinario)
+
+Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF, Tratador* tratador, Veterinario* veterinario)
 {
-	Animal* animal = new Animal(especie, animais.size() + 1, classificacao, ameacadaExtincao, perigoso, NF);
+	Animal* animal = new Animal(especie, classe, animais.size() + 1, classificacao, ameacadaExtincao, perigoso, NF);
 	this->animais.push_back(animal);
 
 	animal->setTratador(tratador);       // Futuramente pode vir a ser passado pelo construtor
