@@ -42,10 +42,11 @@
 ##################### TARGETS ####################
 TARGET_LIST=debug release
 
+#================================================#
 FILE-debug=prog
 
 COMPILER-debug=g++
-COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -Debug -std=c++11
+COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -DDEBUG -DNOCLS -std=c++11
 LINKER_FLAGS-debug=
 
 MAINFILE-debug=main
@@ -69,6 +70,8 @@ MAINFILE-release=main
 
 SOURCE_EXT-release=.cpp
 HEADER_EXT-release=.hpp
+#================================================#
+
 ##################################################
 
 ##################### DEFINES ####################

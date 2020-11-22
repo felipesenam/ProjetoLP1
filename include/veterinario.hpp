@@ -15,6 +15,8 @@ public:
 
 	void setCRMV(std::string);
 
+	void print(std::ostream&);
+
 private:
 	std::string CRMV;
 };

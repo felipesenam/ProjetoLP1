@@ -18,3 +18,10 @@ void Veterinario::setCRMV(std::string CRMV)
 {
 	this->CRMV = CRMV;
 }
+
+void Veterinario::print(std::ostream& o)
+{
+	o << "ID: " << this->getId() << std::endl;
+	o << "NOME: " << this->getNome() << std::endl;
+	o << "CRMV: " << this->getCRMV() << std::endl;
+}

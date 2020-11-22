@@ -19,7 +19,7 @@ bool isany(const char, std::string);
 
 #define BOXWIDTH 60
 
-#ifdef ebug
+#ifdef DEBUG
 #define Debug(x) std::cout << x
 #else
 #define Debug(x)
@@ -67,8 +67,13 @@ bool isany(const char, std::string);
 #define bWHITE         "31"
 
 #define OSENVPART system("chcp 65001 >nul")
-#define CLS system("cls")
 #define PAUSE system("pause")
+
+#ifndef NOCLS
+#define CLS system("cls")
+#else
+#define CLS
+#endif
 
 #else
 
@@ -112,7 +117,12 @@ bool isany(const char, std::string);
 #define bWHITE         "\x1b[107m"
 
 #define OSENVPART
-#define CLS system("clear")
 #define PAUSE ffBuffer(); std::cout << "Pressione qualquer tecla para continuar. . ." << std::endl; getchar();
+
+#ifndef NOCLS
+#define CLS system("clear")
+#else
+#define CLS
+#endif
 
 #endif

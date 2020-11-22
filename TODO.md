@@ -12,7 +12,7 @@
 
  [ ] - Listagem dos dados cadastrais de um determinado animal ou de uma classe de animais;
 
- [ ] - Listagem de animais sob a responsabilidade de um determinado Veterinário ou Tratador;
+ [x] - Listagem de animais sob a responsabilidade de um determinado Veterinário ou Tratador;
 
  [ ] - Todas as atividades relacionadas ao cadastro (Inserção, Alteração, Remoção e Consulta) de Veterinários e Tratadores.
 
@@ -38,7 +38,7 @@
 
  [ ] - Verificar vazamentos de memória e erros de acesso de com o Valgrind
 
- [ ] - Verificar o acesso do professor (username: imdcode) ao repositório do GitHub
+ [x] - Verificar o acesso do professor (username: imdcode) ao repositório do GitHub
  
  [ ] - 
  

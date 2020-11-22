@@ -1,8 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
 
 #include "funcionario.hpp"
+#include "lib.hpp"
 
 enum Seguranca
 {
@@ -19,6 +21,8 @@ public:
 	~Tratador();
 	Seguranca getSeguranca() const;
 	void setSeguranca(Seguranca);
+
+	void print(std::ostream&);
 
 private:
 	Seguranca seguranca;
