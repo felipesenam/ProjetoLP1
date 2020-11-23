@@ -34,9 +34,9 @@ public:
 	Animal(std::string especie, Classe classe, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF);
 	~Animal();
 
-	std::string getEspecie();
+	std::string getEspecie() const;
 	void setEspecie(std::string);
-	Classe getClasse();
+	Classe getClasse() const;
 	void setClasse(Classe);
 
 	short getId() const;

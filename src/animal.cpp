@@ -14,7 +14,7 @@ Animal::Animal(std::string especie, Classe classe, short id, Classificacao class
 Animal::Animal()
 {}
 
-std::string Animal::getEspecie()
+std::string Animal::getEspecie() const
 {
 	return this->especie;
 }
@@ -24,7 +24,7 @@ void Animal::setEspecie(std::string especie)
 	this->especie = especie;
 }
 
-Classe Animal::getClasse()
+Classe Animal::getClasse() const
 {
 	return this->classe;
 }
