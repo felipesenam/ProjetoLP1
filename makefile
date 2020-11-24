@@ -40,22 +40,7 @@
 ##################################################
 
 ##################### TARGETS ####################
-TARGET_LIST=debug release
-
-#================================================#
-FILE-debug=prog
-
-COMPILER-debug=g++
-COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -DDEBUG -DNOCLS -std=c++11
-LINKER_FLAGS-debug=
-
-MAINFILE-debug=main
- SRCPATH-debug=./src/
- INCPATH-debug=./include/
- OBJPATH-debug=./objects/Debug/
-
-SOURCE_EXT-debug=.cpp
-HEADER_EXT-debug=.hpp
+TARGET_LIST=release debug
 #================================================#
 FILE-release=Pet_Fera
 
@@ -65,13 +50,26 @@ LINKER_FLAGS-release=-static -static-libgcc -static-libstdc++
 
 MAINFILE-release=main
  SRCPATH-release=./src/
- INCPATH-release=./include/
+ INCPATH-release=./include/ ./include/exotico/ ./include/nativo/
  OBJPATH-release=./objects/Release/
 
 SOURCE_EXT-release=.cpp
 HEADER_EXT-release=.hpp
 #================================================#
+FILE-debug=prog
 
+COMPILER-debug=g++
+COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -DDEBUG -DNOCLS -std=c++11
+LINKER_FLAGS-debug=
+
+MAINFILE-debug=main
+ SRCPATH-debug=./src/
+ INCPATH-debug=./include/ ./include/exotico/ ./include/nativo/
+ OBJPATH-debug=./objects/Debug/
+
+SOURCE_EXT-debug=.cpp
+HEADER_EXT-debug=.hpp
+#================================================#
 ##################################################
 
 ##################### DEFINES ####################
@@ -81,9 +79,9 @@ FIRST_TARGET=$(firstword $(TARGET_LIST))
 
 FILE=
 
-FILE-SOURCE=$(wildcard $(SRCPATH-$(FILE))*$(SOURCE_EXT-$(FILE)))
+FILE_SOURCE=$(wildcard $(SRCPATH-$(FILE))*$(SOURCE_EXT-$(FILE)))
 HEADERS=$(wildcard $(INCPATH-$(FILE))*$(HEADER_EXT-$(FILE)))
-OBJECTS=$(subst $(SOURCE_EXT-$(FILE)),.o,$(subst $(SRCPATH-$(FILE)),$(OBJPATH-$(FILE)),$(FILE-SOURCE)))
+OBJECTS=$(subst $(SOURCE_EXT-$(FILE)),.o, $(subst $(SRCPATH-$(FILE)),$(OBJPATH-$(FILE)),$(FILE_SOURCE)))
 
 OBJCOUNT=$$(($(words $(OBJECTS))+1))
 CURCOUNT=1
@@ -107,18 +105,18 @@ all: objdir
 $(FILE-$(FILE)): $(OBJECTS)
 	@ printf "[%3i%%]" $$(($(CURCOUNT)*100/$(OBJCOUNT)))
 	@ echo " \e[92mLinking executable $(FILE-$(FILE))\e[0m"
-	@ $(COMPILER-$(FILE)) $^ $(COMPILATION_FLAGS-$(FILE)) $(LINKER_FLAGS-$(FILE)) -o $(FILE-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I)))
+	@ $(COMPILER-$(FILE)) $^ $(COMPILATION_FLAGS-$(FILE)) $(LINKER_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $(FILE-$(FILE))
 
 $(OBJPATH-$(FILE))%.o: $(SRCPATH-$(FILE))%$(SOURCE_EXT-$(FILE)) $(HEADERS)
 	@ printf "[%3i%%]" $$(($(CURCOUNT)*100/$(OBJCOUNT)))
 	@ echo " \e[32mBuilding $(COMPILER-$(FILE)) object $@\e[0m"
-	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) -o $@ $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I)))
+	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $@
 	@ $(eval CURCOUNT=$(shell echo $$(($(CURCOUNT)+1))))
 
 $(OBJPATH-$(FILE))$(MAINFILE-$(FILE)).o: $(SRCPATH-$(FILE))$(MAINFILE-$(FILE))$(SOURCE_EXT-$(FILE)) $(HEADERS)
 	@ printf "[%3i%%]" $$(($(CURCOUNT)*100/$(OBJCOUNT)))
 	@ echo " \e[32mBuilding $(COMPILER-$(FILE)) object $@\e[0m"
-	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) -o $@ $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I)))
+	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $@
 	@ $(eval CURCOUNT=$(shell echo $$(($(CURCOUNT)+1))))
 
 objdir:

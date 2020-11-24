@@ -6,7 +6,9 @@ class Mamifero: public Animal
 {
 public:
 	Mamifero();
-	Mamifero(std::string especie, Classe classe, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF);
+	Mamifero(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF);
 	~Mamifero();
+	
+	void print(std::ostream&);
 	
 };

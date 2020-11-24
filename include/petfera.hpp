@@ -10,6 +10,24 @@
 #include "tratador.hpp"
 #include "animal.hpp"
 
+#include "nativo/nativo.hpp"
+#include "exotico/exotico.hpp"
+
+#include "anfibio.hpp"
+#include "ave.hpp"
+#include "mamifero.hpp"
+#include "reptil.hpp"
+
+#include "nativo/anfibioNativo.hpp"
+#include "nativo/aveNativo.hpp"
+#include "nativo/mamiferoNativo.hpp"
+#include "nativo/reptilNativo.hpp"
+
+#include "exotico/anfibioExotico.hpp"
+#include "exotico/aveExotico.hpp"
+#include "exotico/mamiferoExotico.hpp"
+#include "exotico/reptilExotico.hpp"
+
 class PetFera
 {
 private:
@@ -23,7 +41,7 @@ public:
 
 	/********* ANIMAIS ********/
 	void cadAnimal();
-	Animal* cadAnimal(std::string, Classe, Classificacao, char, char, std::string, Tratador*, Veterinario*);
+	Animal* cadAnimal(std::string, Classe, Classificacao, char, char, std::string, Tratador*, Veterinario*, std::string);
 
 	void remAnimal();
 	bool remAnimal(int);

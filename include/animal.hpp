@@ -31,17 +31,13 @@ private:
 
 public:
 	Animal();
-	Animal(std::string especie, Classe classe, short id, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF);
-	~Animal();
+	Animal(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF);
+	virtual ~Animal();
 
 	std::string getEspecie() const;
 	void setEspecie(std::string);
-	Classe getClasse() const;
-	void setClasse(Classe);
 
 	short getId() const;
-	Classificacao getClassificacao() const;
-	void setClassificacao(Classificacao classificacao);
 	void setAmeacadaExtincao(char ameacadaExtincao);
 	void setPerigoso(char perigoso);
 	void setNF(std::string NF);
@@ -51,14 +47,13 @@ public:
 	void setTratador(Tratador*);
 	void setVeterinario(Veterinario*);
 
+	virtual void print(std::ostream& o) = 0;
 	friend std::ostream& operator<< (std::ostream& o, Animal& animal);
 
 protected:
 	std::string especie;
-	Classe classe;
 	short id;
-	Classificacao classificacao;
 	char ameacadaExtincao; // indica se a especie corre risco de extincao
 	char perigoso;         // indica se o animal é perigoso/venenoso
-	std::string NF;      // Nota Fical
+	std::string NF;        // Nota Fical
 };

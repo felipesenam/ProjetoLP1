@@ -20,7 +20,7 @@ void PetFera::cadAnimal()
 {
 	Classificacao classificacao;
 	char ameacadaExtincao, perigoso, cClassificacao, cClasse;        
-	std::string NF, especie;
+	std::string NF, especie, extra;
 	Classe classe;
 	int idt, idv;
 	Tratador* tratador = nullptr;
@@ -50,8 +50,24 @@ void PetFera::cadAnimal()
 		std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
 		std::cin >> cClassificacao; ffBuffer();
 		RETURNIF(cClassificacao, '0', VOIDRETURN);
-		if (isany(cClassificacao, "NnEeDd"))
+		if (isany(cClassificacao, "Dd"))
 		{
+			break;
+		}
+		else if (isany(cClassificacao, "NnEe"))
+		{
+			if(cClassificacao == 'N' || cClassificacao == 'n')
+			{
+				std::cout << "Informe a licença de transporte:" << std::endl;
+				std::cin >> extra; ffBuffer();
+				RETURNIF(extra, "0", VOIDRETURN);
+			}
+			else
+			{
+				std::cout << "Informe o território de origem do animal:" << std::endl;
+				std::cin >> extra; ffBuffer();
+				RETURNIF(extra, "0", VOIDRETURN);
+			}
 			break;
 		}
 		else
@@ -148,22 +164,86 @@ void PetFera::cadAnimal()
 		classificacao = domestico;
 	} 
 
-	if (cClasse=='A' || cClasse=='a')
-		classe= anfibio;
-	else if (cClasse=='B' || cClasse=='b')
-		classe=ave;
-	else if (cClasse=='R' || cClasse=='r')
-		classe=reptil;
-	else if (cClasse=='m' || cClasse=='M')
-		classe=mamifero;
-	cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario);
+	classe = anfibio;
+	if (cClasse == 'B' || cClasse == 'b')
+	{
+		classe = ave;
+	}
+	else if (cClasse == 'R' || cClasse == 'r')
+	{
+		classe = reptil;
+	}
+	else if (cClasse == 'M' || cClasse == 'm')
+	{
+		classe = mamifero;
+	}
+	cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
 
 	PAUSE;
 }
 
-Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF, Tratador* tratador, Veterinario* veterinario)
+Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF, Tratador* tratador, Veterinario* veterinario, std::string extra)
 {
-	Animal* animal = new Animal(especie, classe, animais.size() + 1, classificacao, ameacadaExtincao, perigoso, NF);
+	Animal* animal = nullptr;
+
+	if(classificacao == domestico)
+	{
+		if(classe == anfibio)
+		{
+			animal = new Anfibio(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+		}
+		else if (classe == ave)
+		{
+			animal = new Ave(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+		}
+		else if (classe == mamifero)
+		{
+			animal = new Mamifero(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+		}
+		else if (classe == reptil)
+		{
+			animal = new Reptil(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+		}
+	}
+	else if(classificacao == exotico)
+	{
+		if(classe == anfibio)
+		{
+			animal = new AnfibioExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+		else if (classe == ave)
+		{
+			animal = new AveExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+		else if (classe == mamifero)
+		{
+			animal = new MamiferoExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+		else if (classe == reptil)
+		{
+			animal = new ReptilExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+	}
+	else if(classificacao == nativo)
+	{
+		if(classe == anfibio)
+		{
+			animal = new AnfibioNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+		else if (classe == ave)
+		{
+			animal = new AveNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+		else if (classe == mamifero)
+		{
+			animal = new MamiferoNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+		else if (classe == reptil)
+		{
+			animal = new ReptilNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+		}
+	}
+
 	this->animais.push_back(animal);
 
 	animal->setTratador(tratador);       // Futuramente pode vir a ser passado pelo construtor
@@ -235,24 +315,9 @@ void PetFera::altAnimal()
 	}while(1);
 
 	std::string strClassificacao_;
-	Classificacao classificacao;
 	char ameacadaExtincao;
 	char perigoso;
 	std::string NF;
-
-	do
-	{
-		std::cout << "Insira a classificação para manejo: N - Nativo | E - Exotico | D - Domestico" << std::endl;
-		std::cin >> strClassificacao_;
-		RETURNIF(strClassificacao_, "0", VOIDRETURN);
-		if (strClassificacao_ != "N" && strClassificacao_ != "n"
-			&& strClassificacao_ != "E" && strClassificacao_ != "e"
-			&& strClassificacao_ != "D" && strClassificacao_ != "d")
-			std::cout << "Opção inválida" << std::endl;
-	} while (strClassificacao_ != "N" && strClassificacao_ != "n"
-			&& strClassificacao_ != "E" && strClassificacao_ != "e"
-			&& strClassificacao_ != "D" && strClassificacao_ != "d");
-	std::cin.clear();
 
 	do
 	{
@@ -283,21 +348,10 @@ void PetFera::altAnimal()
 	RETURNIF(NF, "0", VOIDRETURN);
 	std::cin.clear();
 
-	classificacao=nativo;
-	if (strClassificacao_ == "E" || strClassificacao_ == "e")
-	{
-		classificacao = exotico;
-	}
-	else if (strClassificacao_ == "D" || strClassificacao_ == "d")
-	{
-		classificacao = domestico;
-	} 
-
 	for(auto a = animais.begin(); a != animais.end(); ++a)
 	{
 		if((*a)->getId() == idAlter)
 		{
-			(*a)->setClassificacao(classificacao);
 			(*a)->setAmeacadaExtincao(ameacadaExtincao);
 			(*a)->setPerigoso(perigoso);
 			(*a)->setNF(NF);
