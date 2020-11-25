@@ -1,6 +1,12 @@
 
 #include "lib.hpp"
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 std::string Color(std::string color)
 {
 #ifdef WIN32
@@ -28,6 +34,12 @@ std::string Color(std::string color)
 	return std::string();
 }
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 void printTitle(std::string title, std::string cor)
 {
 	CLS;
@@ -42,6 +54,12 @@ void printTitle(std::string title, std::string cor)
 	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << "" << std::endl;
 }
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 void printMenu(std::string title, std::string subtitle, std::string cor)
 {
 	CLS;
@@ -64,12 +82,24 @@ void printMenu(std::string title, std::string subtitle, std::string cor)
 	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << "" << std::endl;
 }
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 void ffBuffer()
 {
 	int input;
 	while ((input = getchar()) != EOF && input != '\n');
 }
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 bool isany(const char letter, std::string vect)
 {
 	for(auto l : vect)

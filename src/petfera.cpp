@@ -1,9 +1,16 @@
 
 #include "petfera.hpp"
 
+/**
+ * @brief Construtor padrão
+*/
 PetFera::PetFera()
 {}
 
+/**
+ * @brief Destrutor padrão
+ * @details Desaloca toda a memória alocada por funcionários e animais
+*/
 PetFera::~PetFera()
 {
 	for(auto f : this->funcionarios)
@@ -16,6 +23,10 @@ PetFera::~PetFera()
 	}
 }
 
+/**
+ * @brief Interface de cadastro de um Animal
+ * @details Recolhe os dados necessários para realizar o cadastro de um animal
+*/
 void PetFera::cadAnimal()
 {
 	Classificacao classificacao;
@@ -182,6 +193,20 @@ void PetFera::cadAnimal()
 	PAUSE;
 }
 
+/**
+ * @brief Realiza o cadastro de um Animal
+ * @details Recebe os dados cadastrais de um animal e o insere no catálogo de animais da PetFera
+ * @param especie :: Especifica a espécie do animal
+ * @param classe :: Informa a classe na qual o animal se encaixa (anfíbio, ave, mamífero ou réptil)
+ * @param classificacao :: Informa a classificação do animal (doméstico, nativo ou exótico)
+ * @param ameacadaExtincao :: Informa se o animal está em risco de extinção
+ * @param perigoso :: Informa se o animal é perigoso
+ * @param NF :: Nota fiscal do animal
+ * @param tratador :: Informa o tratador ao qual o animal está associado
+ * @param veterinario :: Informa o veterinário ao qual o animal está associado
+ * @param extra :: Caso o animal seja do tipo nativo ou exótico, serão exigidos dados extras que dizem respeito ao porte legal e país de origem do mesmo.
+ * @return Retorna um apontador ao animal recém-cadastrado
+*/
 Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao classificacao, char ameacadaExtincao, char perigoso, std::string NF, Tratador* tratador, Veterinario* veterinario, std::string extra)
 {
 	Animal* animal = nullptr;
@@ -252,6 +277,10 @@ Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao cla
 	return animal;
 }
 
+/**
+ * @brief Interface de remoção de um Animal
+ * @details Recolhe os dados necessários para que o animal seja removido do catálogo
+*/
 void PetFera::remAnimal()
 {
 	Animal* animal = nullptr;
@@ -282,6 +311,13 @@ void PetFera::remAnimal()
 	
 	PAUSE;
 }
+
+/**
+ * @brief Remove um Animal da loja
+ * @details Recebe o id de um animal da PetFera e o retira do catálogo
+ * @param id :: Informa o número de identificação do animal
+ * @return Retorna um valor booleano referente ao sucesso da operação
+*/
 bool PetFera::remAnimal(int id)
 {
 	for(auto a = this->animais.begin(); a != this->animais.end(); ++a)
@@ -296,6 +332,9 @@ bool PetFera::remAnimal(int id)
 	return false;
 }
 
+/**
+ * @brief Interface de alteração dos dados cadastrais do Animal
+*/
 void PetFera::altAnimal()
 {
 	short idAlter;
@@ -362,6 +401,9 @@ void PetFera::altAnimal()
 	PAUSE;
 }
 
+/**
+ * @brief Lista os animais de determinada classe (AINDA NÃO IMPLEMENTADO)
+*/
 void PetFera::listClass()
 {
 	if (this->animais.size() == 0)
@@ -378,8 +420,12 @@ void PetFera::listClass()
 	PAUSE;
 }
 
+/**
+ * @brief Lista os animais sob responsabilidade de algum Funcionario
+*/
 void PetFera::listRespn()
 {
+	Funcionario* funcionario = nullptr;
 	short id;
 	do
 	{
@@ -395,10 +441,7 @@ void PetFera::listRespn()
 			break;
 		}
 	}while(1);
-	listRespn(buscaFunc(id));
-}
-void PetFera::listRespn(Funcionario* funcionario)
-{
+	funcionario = buscaFunc(id);
 	std::cout << "Listando animais sob responsabilidade de " << funcionario->getNome() << ": " << std::endl << std::endl;
 	for(auto a : animais)
 	{
@@ -410,6 +453,10 @@ void PetFera::listRespn(Funcionario* funcionario)
 	PAUSE;
 }
 
+/**
+ * @brief Menu de gerenciamento de cadastro
+ * @details Providencia um menu com todas as operações de funcionários da PetFera
+*/
 void PetFera::gerCad()
 {
 	std::string opt;
@@ -467,9 +514,9 @@ void PetFera::gerCad()
 }
 
 /**
-* @brief Busca o id do animal no vetor
-* @param int id referente ao animal
-* @return Retorna um ponteiro para o animal
+ * @brief Busca um Animal no catálogo
+ * @param id :: id referente ao animal
+ * @return Retorna um ponteiro para o animal ou nullptr caso não seja encontrado
 */
 Animal* PetFera::buscarAnim(int id)
 {
@@ -483,6 +530,10 @@ Animal* PetFera::buscarAnim(int id)
 	return nullptr;
 }
 
+/**
+ * @brief Interface de cadastro de um Veterinario
+ * @details Recolhe os dados necessários para realizar o cadastro de um veterinario
+*/
 void PetFera::cadVetr()
 {
 	std::string nome, CRMV;
@@ -509,6 +560,15 @@ void PetFera::cadVetr()
 
 	cadVetr(nome, Status::ativo, CRMV);
 }
+
+/**
+ * @brief Realiza o cadastro de um Veterinario
+ * @details Recebe os dados cadastrais de um veterinário e o torna funcionário da PetFera
+ * @param nome :: Informa o nome do veterinário
+ * @param status :: Informa o status do veterinário (ativo | inativo)
+ * @param CRMV :: Informa o CRMV do veterinário
+ * @return Retorna um apontador ao veterinário recém-cadastrado
+*/
 Veterinario* PetFera::cadVetr(std::string nome, Status status, std::string CRMV)
 {
 	Veterinario* vet = new Veterinario(nome, funcionarios.size() + 1, status, CRMV);
@@ -517,29 +577,36 @@ Veterinario* PetFera::cadVetr(std::string nome, Status status, std::string CRMV)
 	return vet;
 }
 
-bool PetFera::altVetr()
+/**
+ * @brief Altera os dados cadastrais de um Veterinario
+*/
+void PetFera::altVetr()
 {
 	short id;
 	std::string nome;
 	std::cout << "Informe o ID do funcionário a ser alterado:" << std::endl;
 	std::cin >> id;
-	RETURNIF(id, 0, false);
+	RETURNIF(id, 0, VOIDRETURN);
 
 	std::cout << "Insira o nome do veterinário: " << std::endl;
 	std::cin.ignore();
 	getline(std::cin, nome);
-	RETURNIF(nome, "0", false)
+	RETURNIF(nome, "0", VOIDRETURN)
 	for(auto v = funcionarios.begin(); v != funcionarios.end(); ++v)
 	{
 		if((*v)->getId() == id)
 		{
 			(*v)->setNome(nome);
-			return true;
+			return;
 		}
 	}
-
-	return true;
 }
+
+/**
+ * @brief Realiza a busca de um Veterinario pelo CRMV
+ * @param CRMV :: CRMV referente ao veterinário
+ * @return Retorna um iterador do vetor de funcionários referente ao veterinário
+*/
 std::vector<Funcionario*>::iterator PetFera::findCRMV(std::string CRMV)
 {
 	Veterinario* veterinario;
@@ -554,6 +621,10 @@ std::vector<Funcionario*>::iterator PetFera::findCRMV(std::string CRMV)
 	return funcionarios.end();
 }
 
+/**
+ * @brief Interface de cadastro de um Tratador
+ * @details Recolhe os dados necessários para realizar o cadastro de um tratador
+*/
 void PetFera::cadTrat()
 {
 	Seguranca seg;
@@ -592,6 +663,15 @@ void PetFera::cadTrat()
 
 	cadTrat(nome, Status::ativo, seg);
 }
+
+/**
+ * @brief Realiza o cadastro de um Tratador
+ * @details Recebe os dados cadastrais de um tratador e o torna funcionário da PetFera
+ * @param nome :: Informa o nome do tratador
+ * @param status :: Informa o status do tratador (ativo | inativo)
+ * @param seg :: Informa o nível de segurança indicando quais animais ele pode tratar
+ * @return Retorna um apontador ao tratador recém-cadastrado
+*/
 Tratador* PetFera::cadTrat(std::string nome, Status status, Seguranca seg)
 {
 	Tratador *tratador = new Tratador(nome, funcionarios.size() + 1, status, seg);
@@ -600,7 +680,10 @@ Tratador* PetFera::cadTrat(std::string nome, Status status, Seguranca seg)
 	return tratador;
 }
 
-bool PetFera::altTrat()
+/**
+ * @brief Altera os dados cadastrais de um Tratador
+*/
+void PetFera::altTrat()
 {
 	short id;
 	std::string nome;
@@ -608,58 +691,68 @@ bool PetFera::altTrat()
 	Seguranca seg;
 	std::cout << "Informe o ID do funcionário a ser alterado:" << std::endl;
 	std::cin >> id;
-	RETURNIF(id, 0, false);
+	RETURNIF(id, 0, VOIDRETURN);
 
-		std::cout << "Insira o nome do tratador: " << std::endl;
-		std::cin.ignore();
-		getline(std::cin, nome);
-		RETURNIF(nome, "0", false);
+	std::cout << "Insira o nome do tratador: " << std::endl;
+	std::cin.ignore();
+	getline(std::cin, nome);
+	RETURNIF(nome, "0", VOIDRETURN);
 
-			do
-			{
-				std::cout << "Informe o nível de segurança: (" << Color(fGREEN) << "VERDE" << Color(fRESET) << " | " << Color(fBLUE) << "AZUL" << Color(fRESET) << " | " << Color(fRED) << "VERMELHO" << Color(fRESET) << ")" << std::endl;
-				std::cin >> seguranca;
-				RETURNIF(seguranca, "0", false);
-				if(seguranca == "VERDE" || seguranca == "verde" || seguranca == "Verde" )
-				{
-					seg = verde;
-					break;
-				}
-				else if(seguranca == "AZUL" || seguranca == "azul" || seguranca == "Azul")
-				{
-					seg = azul;
-					break;
-				}
-				else if(seguranca == "VERMELHO" || seguranca == "Vermelho" || seguranca == "vermelho")
-				{
-					seg = vermelho;
-					break;
-				}
-				else
-				{
-					std::cout << "Informe um nível de segurança válido." << std::endl;
-				}
-			} while(1);
-
-		for(auto t = funcionarios.begin(); t != funcionarios.end(); ++t)
+	do
+	{
+		std::cout << "Informe o nível de segurança: (" << Color(fGREEN) << "VERDE" << Color(fRESET) << " | " << Color(fBLUE) << "AZUL" << Color(fRESET) << " | " << Color(fRED) << "VERMELHO" << Color(fRESET) << ")" << std::endl;
+		std::cin >> seguranca;
+		RETURNIF(seguranca, "0", VOIDRETURN);
+		if(seguranca == "VERDE" || seguranca == "verde" || seguranca == "Verde" )
 		{
-			if((*t)->getId() == id)
-			{
-				(*t)->setNome(nome);
-				static_cast<Tratador*>(*t)->setSeguranca(seg);
-				return true;
-			}
+			seg = verde;
+			break;
 		}
+		else if(seguranca == "AZUL" || seguranca == "azul" || seguranca == "Azul")
+		{
+			seg = azul;
+			break;
+		}
+		else if(seguranca == "VERMELHO" || seguranca == "Vermelho" || seguranca == "vermelho")
+		{
+			seg = vermelho;
+			break;
+		}
+		else
+		{
+			std::cout << "Informe um nível de segurança válido." << std::endl;
+		}
+	} while(1);
 
-	return false;
+	for(auto t = funcionarios.begin(); t != funcionarios.end(); ++t)
+	{
+		if((*t)->getId() == id)
+		{
+			(*t)->setNome(nome);
+			static_cast<Tratador*>(*t)->setSeguranca(seg);
+			return;
+		}
+	}
 }
 
-Funcionario* PetFera::cadFunc(Funcionario* vet)
+/**
+ * @brief Cadastra um Funcionario
+ * @details Realiza o cadastro de um funcionário preexistente
+ * @param funcionario :: Ponteiro para um funcionário
+ * @return Retorna um apontador para o funcionário recém-cadastrado
+*/
+Funcionario* PetFera::cadFunc(Funcionario* funcionario)
 {
-	funcionarios.push_back(vet);
+	funcionarios.push_back(funcionario);
 
-	return vet;
+	return funcionario;
 }
+
+/**
+ * @brief Busca um Funcionario na PetFera
+ * @param id :: id referente ao funcionário
+ * @return  Retorna um ponteiro para o funcionário ou nullptr caso não seja encontrado
+*/
 Funcionario* PetFera::buscaFunc(int id)
 {
 	for(auto f : funcionarios)
@@ -672,6 +765,11 @@ Funcionario* PetFera::buscaFunc(int id)
 	return nullptr;
 }
 
+/**
+ * @brief Remove um Funcionario da loja
+ * @details Recolhe os dados necessários para que o funcionário seja removido do catálogo
+ * @return Retorna um valor booleano referente ao sucesso da operação
+*/
 bool PetFera::remFunc()
 {
 	short id;
@@ -693,6 +791,9 @@ bool PetFera::remFunc()
 	return false;
 }
 
+/**
+ * @brief Lista todos os funcionários da PetFera
+*/
 void PetFera::listFunc()
 {
 	for(auto f : funcionarios)
@@ -705,6 +806,10 @@ void PetFera::listFunc()
 	PAUSE;
 }
 
+/**
+ * @brief Menu principal
+ * @details Providencia um menu com algumas das operações realizadas na PetFera
+*/
 void PetFera::run()
 {
 	std::string opt;

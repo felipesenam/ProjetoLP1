@@ -1,0 +1,5 @@
+<map id="Anfibio" name="Anfibio">
+<area shape="rect" id="node3" href="$classAnfibioExotico.html" title="AnfibioExotico" alt="" coords="5,155,112,181"/>
+<area shape="rect" id="node4" href="$classAnfibioNativo.html" title="AnfibioNativo" alt="" coords="136,155,235,181"/>
+<area shape="rect" id="node2" href="$classAnimal.html" title="Animal" alt="" coords="90,5,153,32"/>
+</map>

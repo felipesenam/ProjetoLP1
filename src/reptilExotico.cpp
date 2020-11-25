@@ -1,13 +1,31 @@
 
 #include "reptilExotico.hpp"
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 ReptilExotico::ReptilExotico(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
 Reptil(especie, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {}
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 ReptilExotico::~ReptilExotico()
 {}
 
+/**
+ * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
+ * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
+ * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
+ * @return RETORNO_DA_FUNÇÃO
+*/
 void ReptilExotico::print(std::ostream& o)
 {
 	//AQUI SERÃO APRESENTADOS DADOS RELEVANTES A RESPEITO DE RÉPTEIS (EXÓTICOS)

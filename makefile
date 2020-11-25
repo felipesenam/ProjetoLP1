@@ -50,7 +50,7 @@ LINKER_FLAGS-release=-static -static-libgcc -static-libstdc++
 
 MAINFILE-release=main
  SRCPATH-release=./src/
- INCPATH-release=./include/ ./include/exotico/ ./include/nativo/
+ INCPATH-release=./include/
  OBJPATH-release=./objects/Release/
 
 SOURCE_EXT-release=.cpp
@@ -64,7 +64,7 @@ LINKER_FLAGS-debug=
 
 MAINFILE-debug=main
  SRCPATH-debug=./src/
- INCPATH-debug=./include/ ./include/exotico/ ./include/nativo/
+ INCPATH-debug=./include/
  OBJPATH-debug=./objects/Debug/
 
 SOURCE_EXT-debug=.cpp
