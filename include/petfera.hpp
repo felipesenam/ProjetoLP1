@@ -46,7 +46,10 @@ public:
 	bool remAnimal(int);
 
 	void altAnimal();
+	void listAnimal();
+	void listAll();
 	void listClass();
+	void listId();
 	void listRespn();
 	
 	Animal* buscarAnim(int);

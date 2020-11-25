@@ -33,5 +33,6 @@ void ReptilNativo::print(std::ostream& o)
 		<< "CLASSIFICAÇÃO: Nativo" << std::endl
 		<< "AMEAÇADA DE EXTINÇÃO: " << this->ameacadaExtincao << std::endl
 		<< "PERIGOSO: " << this->perigoso << std::endl
-		<< "NOTA FISCAL: " << this->NF << std::endl;
+		<< "NOTA FISCAL: " << this->NF << std::endl
+		<< "LICENÇA: " << this->licenca << std::endl;
 }

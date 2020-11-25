@@ -401,23 +401,282 @@ void PetFera::altAnimal()
 	PAUSE;
 }
 
-/**
- * @brief Lista os animais de determinada classe (AINDA NÃO IMPLEMENTADO)
-*/
-void PetFera::listClass()
+void PetFera::listAnimal()
 {
+	std::string opt;
+	do
+	{
+		CLS;
+		printMenu("Pet Fera", "Imprimir Animais", fGREEN);
+
+		std::cout << "A. Imprimir todos os animais" << std::endl;
+		std::cout << "E. Imprimir um animal especifico" << std::endl;
+		std::cout << "C. Listar todos os animais de uma classe" << std::endl;
+
+		std::cout << std::endl << "X. Voltar" << std::endl;
+
+		std::cin >> opt;
+
+		if(opt == "A" || opt == "a")
+		{
+			printTitle("Imprimir todos os animais", fGREEN);
+			this->listAll();
+		}
+		else if(opt == "E" || opt == "e")
+		{
+			printTitle("Imprimir um animal especifico", fGREEN);
+			this->listId();
+		}
+		else if(opt == "C" || opt == "c")
+		{
+			printTitle("Listar todos os animais de uma classe", fGREEN);
+			this->listClass();
+		}
+		else if(opt == "X" || opt == "x")
+		{
+			break;
+		}
+	}while(1);
+}
+
+/**
+ * @brief Lista todos os animais cadastrados
+*/
+
+void PetFera::listAll()
+{
+
 	if (this->animais.size() == 0)
 	{
 		std::cout << "Não há animais cadastrados." << std::endl;
 	}
 	else
 	{
-		for (auto& animal : this->animais)
+		for (auto animal : this->animais)
 		{
 			std::cout << (*animal) << std::endl;
 		}
 	}
 	PAUSE;
+}
+
+/**
+ * @brief Lista um animal pelo numero do ID
+*/
+void PetFera::listId()
+{
+	short id;
+	std::cout << "Informe o id do animal a ser impresso: " << std::endl;
+	std::cin>>id;
+	if (buscarAnim(id)==nullptr)
+	{
+		WARN("Animal não encontrado" << std::endl);
+	}
+	else
+	{
+		for (auto a : this->animais)
+		{
+			if (a->getId()==id)
+				std::cout<< (*a) << std::endl;
+		}
+		PAUSE;
+	}
+
+}
+
+/**
+ * @brief Lista os animais de determinada classe (AINDA NÃO IMPLEMENTADO)
+*/
+void PetFera::listClass()
+{
+	std::string classe;
+	if (this->animais.size() == 0)
+	{
+		std::cout << "Não há animais cadastrados." << std::endl;
+	}
+	else
+	{
+
+		do
+		{
+			std::cout << "Informe a classe a ser impressa de acordo com as informadas a seguir: " << std::endl
+			<< "Anfibio" << std::endl
+			<< "Anfibio Exotico" << std::endl
+			<< "Anfibio Nativo" << std::endl
+			<< "Ave" << std::endl
+			<< "Ave Exotico" << std::endl
+			<< "Ave Nativa" << std::endl
+			<< "Mamifero" << std::endl
+			<< "Mamifero Exotico" << std::endl
+			<< "Mamifero Nativo" << std::endl
+			<< "Reptil" << std::endl
+			<< "Reptil Exotico" << std::endl
+			<< "Reptil Nativo" << std::endl;
+			std::cin.ignore();
+			getline(std::cin, classe);
+			RETURNIF(classe, "0", VOIDRETURN);
+			if (classe=="Anfibio")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				Anfibio* A = dynamic_cast<Anfibio*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+
+				PAUSE;
+			}
+			else if (classe=="Anfibio Exotico")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				AnfibioExotico* A = dynamic_cast<AnfibioExotico*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				break;
+				PAUSE;
+			}
+			else if (classe=="Anfibio Nativo")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				AnfibioNativo* A = dynamic_cast<AnfibioNativo*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				break;
+				PAUSE;
+			}
+			else if (classe=="Ave")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				Ave* A = dynamic_cast<Ave*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				break;
+				PAUSE;
+			}
+			else if (classe=="Ave Nativa")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				AveNativo* A = dynamic_cast<AveNativo*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				break;
+				PAUSE;
+			}
+			else if (classe=="Ave Exotica")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				AveExotico* A = dynamic_cast<AveExotico*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				break;
+			}
+			else if (classe=="Mamifero")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				Mamifero* A = dynamic_cast<Mamifero*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				PAUSE;
+				break;
+			}
+			else if (classe=="Mamifero Nativo")
+			{
+
+				for ( auto animal : this->animais)
+				{
+				
+				MamiferoNativo* A = dynamic_cast<MamiferoNativo*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				PAUSE;
+				break;
+			}
+			else if (classe=="Mamifero Exotico")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				MamiferoExotico* A = dynamic_cast<MamiferoExotico*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				PAUSE;
+				break;
+			}
+			else if (classe=="Reptil")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				Reptil* A = dynamic_cast<Reptil*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				PAUSE;
+				break;
+			}
+			else if (classe=="Reptil Nativo")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				ReptilNativo* A = dynamic_cast<ReptilNativo*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				PAUSE;
+				break;
+			}
+			else if (classe=="Reptil Exotico")
+			{
+
+				for (auto animal : this->animais)
+				{
+				
+				ReptilExotico* A = dynamic_cast<ReptilExotico*>(animal);
+				if(A != nullptr)
+	  				std::cout << (*animal) << std::endl;
+				}
+				PAUSE;
+				break;
+			}
+			else
+				WARN("Informe uma classe Válida" << std::endl);
+			PAUSE;
+		} while(1);
+		
+	}
+	
 }
 
 /**
@@ -452,6 +711,7 @@ void PetFera::listRespn()
 	}
 	PAUSE;
 }
+
 
 /**
  * @brief Menu de gerenciamento de cadastro
@@ -850,7 +1110,7 @@ void PetFera::run()
 		else if(opt == "L" || opt == "l")
 		{
 			printTitle("Listar animal ou classe", fGREEN);
-			this->listClass();
+			this->listAnimal();
 		}
 		else if(opt == "D" || opt == "d")
 		{

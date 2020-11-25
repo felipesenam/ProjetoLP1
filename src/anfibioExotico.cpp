@@ -33,5 +33,6 @@ void AnfibioExotico::print(std::ostream& o)
 		<< "CLASSIFICAÇÃO: Exótico" << std::endl
 		<< "AMEAÇADA DE EXTINÇÃO: " << this->ameacadaExtincao << std::endl
 		<< "PERIGOSO: " << this->perigoso << std::endl
-		<< "NOTA FISCAL: " << this->NF << std::endl;
+		<< "NOTA FISCAL: " << this->NF << std::endl
+		<< "TERRITORIO: " << this-> territorio << std:: endl;
 }
