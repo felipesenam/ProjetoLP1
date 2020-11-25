@@ -2,19 +2,19 @@
 #include "mamifero.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 Mamifero::~Mamifero()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Mamifero
+ * @details Construtor parametrizado do Mamifero
+ * @param especie :: Especifica a espécie do Mamifero
+ * @param id :: Especifica o id do Mamifero
+ * @param ameacadaExtincao :: Informa se o Mamifero está em risco de extinção
+ * @param perigoso :: Informa se o Mamifero é perigoso
+ * @param NF :: Nota fiscal do Mamifero
 */
 Mamifero::Mamifero(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF):
 Animal(especie, id, ameacadaExtincao, perigoso, NF)
@@ -23,19 +23,13 @@ Animal(especie, id, ameacadaExtincao, perigoso, NF)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor padrão
 */
 Mamifero::Mamifero()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Anfibio
 */
 void Mamifero::print(std::ostream& o)
 {

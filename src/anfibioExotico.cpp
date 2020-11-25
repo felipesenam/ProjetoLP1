@@ -2,29 +2,26 @@
 #include "anfibioExotico.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Anfibio Exotico
+ * @param especie :: Especifica a espécie do Anfibio Exotico
+ * @param id :: Especifica o id do Anfibio Exotico
+ * @param ameacadaExtincao :: Informa se o Anfibio Exotico está em risco de extinção
+ * @param perigoso :: Informa se o Anfibio Exotico é perigoso
+ * @param NF :: Nota fiscal do Anfibio Exotico
+ * @param territorio :: Especifica o territorio do qual o Anfibio Exotico pertence
 */
 AnfibioExotico::AnfibioExotico(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
 Anfibio(especie, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 AnfibioExotico::~AnfibioExotico()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Anfibio Exotico
 */
 void AnfibioExotico::print(std::ostream& o)
 {

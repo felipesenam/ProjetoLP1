@@ -2,29 +2,26 @@
 #include "reptilNativo.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Reptil Nativo
+ * @param especie :: Especifica a espécie do Reptil Nativo
+ * @param id :: Especifica o id do Reptil Nativo
+ * @param ameacadaExtincao :: Informa se o Reptil Nativo está em risco de extinção
+ * @param perigoso :: Informa se o Reptil Nativo é perigoso
+ * @param NF :: Nota fiscal do Reptil Nativo
+ * @param licenca ::  Especifica a licença emitida pelo IBAMA
 */
 ReptilNativo::ReptilNativo (std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
 Reptil(especie, id, ameacadaExtincao, perigoso, NF), Nativo (licenca)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 ReptilNativo::~ReptilNativo()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Reptil Nativo
 */
 void ReptilNativo::print(std::ostream& o)
 {

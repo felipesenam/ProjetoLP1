@@ -2,29 +2,22 @@
 #include "exotico.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado da classificação exotico
+ * @param territorio :: Especifica o territorio do qual o animal Exotico pertence
 */
 Exotico::Exotico(std::string territorio):
 territorio(territorio)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 Exotico::~Exotico()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Retorna o territorio do animal exotico
+ * @return territorio
 */
 std::string Exotico::getTerritorio()
 {

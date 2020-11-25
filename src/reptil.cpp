@@ -2,19 +2,19 @@
 #include "reptil.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 Reptil::~Reptil()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Reptil
+ * @details Construtor parametrizado do Reptil
+ * @param especie :: Especifica a espécie do Reptil
+ * @param id :: Especifica o id do Reptil
+ * @param ameacadaExtincao :: Informa se o Reptil está em risco de extinção
+ * @param perigoso :: Informa se o Reptil é perigoso
+ * @param NF :: Nota fiscal do Reptil
 */
 Reptil::Reptil(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF):
 Animal(especie, id, ameacadaExtincao, perigoso, NF)
@@ -23,19 +23,13 @@ Animal(especie, id, ameacadaExtincao, perigoso, NF)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor padrão
 */
 Reptil::Reptil()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Reptil
 */
 void Reptil::print(std::ostream& o)
 {

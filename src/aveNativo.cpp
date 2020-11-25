@@ -2,29 +2,26 @@
 #include "aveNativo.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado da Ave Nativa
+ * @param especie :: Especifica a espécie da Ave Nativa
+ * @param id :: Especifica o id da Ave Nativa
+ * @param ameacadaExtincao :: Informa se a Ave Nativa está em risco de extinção
+ * @param perigoso :: Informa se a Ave Nativa é perigosa
+ * @param NF :: Nota fiscal da Ave Nativa
+ * @param licenca :: Especifica a licença emitida pelo IBAMA
 */
 AveNativo::AveNativo (std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
 Ave(especie, id, ameacadaExtincao, perigoso, NF), Nativo(licenca)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 AveNativo::~AveNativo()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados da Ave Nativa
 */
 void AveNativo::print(std::ostream& o)
 {

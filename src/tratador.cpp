@@ -2,38 +2,31 @@
 #include "tratador.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor padrão
 */
 Tratador::Tratador()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Tratador
+ * @param nome :: Especifica a nome do Tratador
+ * @param id :: Especifica o id do Tratador
+ * @param status :: Informa se o Tratador está ativo ou suspenso na empresa
+ * @param seguranca :: nivel de segurança do tratador para manejo de animais
 */
 Tratador::Tratador(std::string nome, short id, Status status, Seguranca seguranca) :
 Funcionario(nome, id, status), seguranca(seguranca)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 Tratador::~Tratador()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Retorna o nivel de segurança do tratador
+ * @return seguranca
 */
 Seguranca Tratador::getSeguranca() const
 {
@@ -41,10 +34,8 @@ Seguranca Tratador::getSeguranca() const
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Seta o nivel de segurança do tratador
+ * @param segurança :: nivel de segurança do tratador
 */
 void Tratador::setSeguranca(Seguranca seguranca)
 {
@@ -52,10 +43,8 @@ void Tratador::setSeguranca(Seguranca seguranca)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief imprime os dados do Tratador
+ * @param o :: ostream
 */
 void Tratador::print(std::ostream& o)
 {

@@ -1,37 +1,29 @@
 #include "funcionario.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor padrão
 */
 Funcionario::Funcionario()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Funcionario
+ * @param nome :: Especifica a nome do Funcionario
+ * @param id :: Especifica o id do Funcionario
+ * @param status :: Informa se o Funcionario está ativo ou suspenso na empresa
 */
 Funcionario::Funcionario(std::string nome, short id, Status status):nome(nome), id(id), status(status)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 Funcionario::~Funcionario()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Retorna o nome do funcionario
+ * @return nome
 */
 std::string Funcionario:: getNome() const 
 {
@@ -39,10 +31,8 @@ std::string Funcionario:: getNome() const
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Retorna o id do funcionario
+ * @return id
 */
 short Funcionario::getId() const
 {
@@ -50,10 +40,8 @@ short Funcionario::getId() const
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Seta o nome do funcionario
+ * @param nome :: nome do funcionario
 */
 void Funcionario::setNome(std::string nome)
 {
@@ -61,10 +49,8 @@ void Funcionario::setNome(std::string nome)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Seta o status do funcionario
+ * @param status :: status do funcionario
 */
 void Funcionario::setStatus(Status status)
 {
@@ -72,10 +58,11 @@ void Funcionario::setStatus(Status status)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Sobrecarga do operador <<
+ * @details Sobrecarga do operador << para imprimir os dados do funcionario
+ * @param o :: ostream
+ * @param funcionario :: funcionario a ser impresso
+ * @return o
 */
 std::ostream& operator<<(std::ostream& o, Funcionario* funcionario)
 {

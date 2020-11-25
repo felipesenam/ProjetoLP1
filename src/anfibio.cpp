@@ -2,19 +2,19 @@
 #include "anfibio.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor padrão
 */
 Anfibio::Anfibio()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Anfibio
+ * @details Construtor parametrizado do Anfibio
+ * @param especie :: Especifica a espécie do Anfibio
+ * @param id :: Especifica o id do Anfibio
+ * @param ameacadaExtincao :: Informa se o Anfibio está em risco de extinção
+ * @param perigoso :: Informa se o Anfibio é perigoso
+ * @param NF :: Nota fiscal do Anfibio
 */
 Anfibio::Anfibio(std::string especie, short id, char ameacadaExtincao,char perigoso, std::string NF) :
 Animal(especie, id, ameacadaExtincao, perigoso, NF)
@@ -23,19 +23,13 @@ Animal(especie, id, ameacadaExtincao, perigoso, NF)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 Anfibio::~Anfibio()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Anfibio
 */
 void Anfibio::print(std::ostream& o)
 {

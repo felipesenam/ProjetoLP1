@@ -2,29 +2,26 @@
 #include "aveExotico.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado da Ave Exotica
+ * @param especie :: Especifica a espécie da Ave Exotica
+ * @param id :: Especifica o id da Ave Exotica
+ * @param ameacadaExtincao :: Informa se a Ave Exotica está em risco de extinção
+ * @param perigoso :: Informa se a Ave Exotica é perigosa
+ * @param NF :: Nota fiscal da Ave Exotica
+ * @param territorio :: Especifica o territorio do qual a Ave Exotica pertence
 */
 AveExotico::AveExotico(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
 Ave(especie, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 AveExotico::~AveExotico()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados da Ave Exotica
 */
 void AveExotico::print(std::ostream& o)
 {

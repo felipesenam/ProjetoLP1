@@ -2,29 +2,26 @@
 #include "reptilExotico.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Reptil Exotico
+ * @param especie :: Especifica a espécie do Reptil Exotico
+ * @param id :: Especifica o id do Reptil Exotico
+ * @param ameacadaExtincao :: Informa se o Reptil Exotico está em risco de extinção
+ * @param perigoso :: Informa se o Reptil Exotico é perigoso
+ * @param NF :: Nota fiscal do Reptil Exotico
+ * @param territorio :: Especifica o territorio do qual o Reptil Exotico pertence
 */
 ReptilExotico::ReptilExotico(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
 Reptil(especie, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 ReptilExotico::~ReptilExotico()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Reptil Exotico
 */
 void ReptilExotico::print(std::ostream& o)
 {

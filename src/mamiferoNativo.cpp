@@ -2,29 +2,26 @@
 #include "mamiferoNativo.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Mamifero Nativo
+ * @param especie :: Especifica a espécie do Mamifero Nativo
+ * @param id :: Especifica o id do Mamifero Nativo
+ * @param ameacadaExtincao :: Informa se o Mamifero Nativo está em risco de extinção
+ * @param perigoso :: Informa se o Mamifero Nativo é perigoso
+ * @param NF :: Nota fiscal do Mamifero Nativo
+ * @param licenca ::  Especifica a licença emitida pelo IBAMA
 */
 MamiferoNativo::MamiferoNativo (std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
 Mamifero(especie, id, ameacadaExtincao, perigoso, NF), Nativo(licenca)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 MamiferoNativo::~MamiferoNativo()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Anfibio Nativo
 */
 void MamiferoNativo::print(std::ostream& o)
 {

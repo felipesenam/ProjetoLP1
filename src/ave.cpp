@@ -2,19 +2,19 @@
 #include "ave.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 Ave::~Ave()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado da Ave
+ * @details Construtor parametrizado da Ave
+ * @param especie :: Especifica a espécie da Ave
+ * @param id :: Especifica o id da Ave
+ * @param ameacadaExtincao :: Informa se a Ave está em risco de extinção
+ * @param perigoso :: Informa se a Ave é perigosa
+ * @param NF :: Nota fiscal da Ave
 */
 Ave::Ave(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF):
 Animal(especie, id, ameacadaExtincao, perigoso, NF)
@@ -23,19 +23,13 @@ Animal(especie, id, ameacadaExtincao, perigoso, NF)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor padrão
 */
 Ave::Ave()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados da Ave
 */
 void Ave::print(std::ostream& o)
 {

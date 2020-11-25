@@ -2,29 +2,26 @@
 #include "mamiferoExotico.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Construtor parametrizado do Mamifero Exotico
+ * @param especie :: Especifica a espécie do Mamifero Exotico
+ * @param id :: Especifica o id do Mamifero Exotico
+ * @param ameacadaExtincao :: Informa se o Mamifero Exotico está em risco de extinção
+ * @param perigoso :: Informa se o Mamifero Exotico é perigoso
+ * @param NF :: Nota fiscal do Mamifero Exotico
+ * @param territorio :: Especifica o territorio do qual o Mamifero Exotico pertence
 */
 MamiferoExotico::MamiferoExotico(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
 Mamifero(especie, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Destrutor padrão
 */
 MamiferoExotico::~MamiferoExotico()
 {}
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime os dados do Mamífero Exotico
 */
 void MamiferoExotico::print(std::ostream& o)
 {
