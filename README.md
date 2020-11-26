@@ -18,20 +18,17 @@ Charles Vitor e Felipe Sena
 
 # Como compilar, rodar e testar o programa (versão final):
 
-> :.$ make
-
+> :.$ make\
 > :.$ ./Pet_Fera
 
 ou ainda:
 
-> :.$ make release
-
+> :.$ make release\
 > :.$ ./Pet_Fera
 
 # Como compilar, rodar e testar o programa (versão de depuração):
 
-> :.$ make debug
-
+> :.$ make debug\
 > :.$ ./prog
 
 Lembrando que **apenas** esta versão é compatível com o uso do _Valgrind_.
