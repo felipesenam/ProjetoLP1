@@ -105,6 +105,9 @@ Métodos Públicos</h2></td></tr>
 <tr class="memitem:a11d29bbd781c1bd8663868f5d05ef961"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTratador.html#a11d29bbd781c1bd8663868f5d05ef961">print</a> (std::ostream &amp;)</td></tr>
 <tr class="memdesc:a11d29bbd781c1bd8663868f5d05ef961"><td class="mdescLeft">&#160;</td><td class="mdescRight">imprime os dados do <a class="el" href="classTratador.html">Tratador</a>  <a href="#a11d29bbd781c1bd8663868f5d05ef961">Mais...</a><br /></td></tr>
 <tr class="separator:a11d29bbd781c1bd8663868f5d05ef961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7646829c67efe958a56a9168fd8d37f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTratador.html#a7646829c67efe958a56a9168fd8d37f4">aptto</a> (Classe, char)</td></tr>
+<tr class="memdesc:a7646829c67efe958a56a9168fd8d37f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica se um <a class="el" href="classTratador.html">Tratador</a> está apto a cuidar de um animal.  <a href="#a7646829c67efe958a56a9168fd8d37f4">Mais...</a><br /></td></tr>
+<tr class="separator:a7646829c67efe958a56a9168fd8d37f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classFuncionario"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classFuncionario')"><img src="closed.png" alt="-"/>&#160;Métodos Públicos herdados de <a class="el" href="classFuncionario.html">Funcionario</a></td></tr>
 <tr class="memitem:a7cd39b2c6cd2449162481a8c0e7a2429 inherit pub_methods_classFuncionario"><td class="memItemLeft" align="right" valign="top"><a id="a7cd39b2c6cd2449162481a8c0e7a2429"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFuncionario.html#a7cd39b2c6cd2449162481a8c0e7a2429">Funcionario</a> ()</td></tr>
@@ -196,6 +199,44 @@ Status&#160;</td><td class="memItemRight" valign="bottom"><b>status</b></td></tr
 </div>
 </div>
 <h2 class="groupheader">Métodos</h2>
+<a id="a7646829c67efe958a56a9168fd8d37f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7646829c67efe958a56a9168fd8d37f4">&#9670;&nbsp;</a></span>aptto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Tratador::aptto </td>
+          <td>(</td>
+          <td class="paramtype">Classe&#160;</td>
+          <td class="paramname"><em>classe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>perigoso</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Verifica se um <a class="el" href="classTratador.html">Tratador</a> está apto a cuidar de um animal. </p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">classe</td><td>:: Informa a classe do animal que será tratado </td></tr>
+    <tr><td class="paramname">perigoso</td><td>:: Informa se o animal que será tratado é perigoso </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>Retorna um valor booleano true caso o tratador seja apto a tratar do animal, false caso contrário </dd></dl>
+
+</div>
+</div>
 <a id="a5343cfed4610b98300de68fbb52e44d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5343cfed4610b98300de68fbb52e44d3">&#9670;&nbsp;</a></span>getSeguranca()</h2>
 
@@ -243,7 +284,7 @@ Status&#160;</td><td class="memItemRight" valign="bottom"><b>status</b></td></tr
 <p>imprime os dados do <a class="el" href="classTratador.html">Tratador</a> </p>
 <dl class="params"><dt>Parâmetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">o</td><td>:: ostream </td></tr>
+    <tr><td class="paramname">o</td><td>:: Stream de saída dos dados </td></tr>
   </table>
   </dd>
 </dl>
@@ -271,7 +312,7 @@ Status&#160;</td><td class="memItemRight" valign="bottom"><b>status</b></td></tr
 <p>Seta o nivel de segurança do tratador. </p>
 <dl class="params"><dt>Parâmetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">segurança</td><td>:: nivel de segurança do tratador </td></tr>
+    <tr><td class="paramname">seguranca</td><td>:: nivel de segurança do tratador </td></tr>
   </table>
   </dd>
 </dl>

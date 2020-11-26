@@ -9,9 +9,9 @@ Veterinario::Veterinario()
 
 /**
  * @brief Construtor parametrizado do Veterinario
- * @param nome :: Especifica a nome do V
- * @param id :: Especifica o id do V
- * @param status :: Informa se o V está ativo ou suspenso na empresa
+ * @param nome :: Especifica a nome do veterinário
+ * @param id :: Especifica o id do veterinário
+ * @param status :: Informa se o veterinário está ativo ou suspenso na empresa
  * @param CRMV :: CRMV do veterinario
 */
 Veterinario::Veterinario(std::string nome, short id , Status status, std::string CRMV) : Funcionario(nome, 
@@ -44,7 +44,7 @@ void Veterinario::setCRMV(std::string CRMV)
 
 /**
  * @brief imprime os dados do Veterinario
- * @param o :: ostream
+ * @param o :: Stream de saída dos dados
 */
 void Veterinario::print(std::ostream& o)
 {

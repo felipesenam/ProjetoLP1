@@ -22,6 +22,7 @@ AveExotico::~AveExotico()
 
 /**
  * @brief Imprime os dados da Ave Exotica
+ * @param o :: Stream de saída dos dados
 */
 void AveExotico::print(std::ostream& o)
 {

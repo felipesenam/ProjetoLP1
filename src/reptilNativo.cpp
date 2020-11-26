@@ -22,6 +22,7 @@ ReptilNativo::~ReptilNativo()
 
 /**
  * @brief Imprime os dados do Reptil Nativo
+ * @param o :: Stream de saída dos dados
 */
 void ReptilNativo::print(std::ostream& o)
 {

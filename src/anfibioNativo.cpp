@@ -22,6 +22,7 @@ AnfibioNativo::~AnfibioNativo()
 
 /**
  * @brief Imprime os dados do Anfibio Nativo
+ * @param o :: Stream de saída dos dados
 */
 void AnfibioNativo::print(std::ostream& o)
 {

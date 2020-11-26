@@ -30,6 +30,7 @@ Ave::Ave()
 
 /**
  * @brief Imprime os dados da Ave
+ * @param o :: Stream de saída dos dados
 */
 void Ave::print(std::ostream& o)
 {

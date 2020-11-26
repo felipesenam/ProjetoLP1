@@ -16,7 +16,7 @@ Anfibio::Anfibio()
  * @param perigoso :: Informa se o Anfibio é perigoso
  * @param NF :: Nota fiscal do Anfibio
 */
-Anfibio::Anfibio(std::string especie, short id, char ameacadaExtincao,char perigoso, std::string NF) :
+Anfibio::Anfibio(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF) :
 Animal(especie, id, ameacadaExtincao, perigoso, NF)
 {
 	Debug("Anfibio " << this->id << " [" << this << "] foi criado." << std::endl);

@@ -8,21 +8,6 @@
 #include "tratador.hpp"
 #include "lib.hpp"
 
-enum Classe
-{
-	anfibio,
-	reptil,
-	ave,
-	mamifero
-};
-
-enum Classificacao
-{
-	nativo,
-	exotico,
-	domestico
-};
-
 class Animal
 {
 private:

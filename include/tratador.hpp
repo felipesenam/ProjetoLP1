@@ -6,6 +6,21 @@
 #include "funcionario.hpp"
 #include "lib.hpp"
 
+enum Classe
+{
+	anfibio,
+	reptil,
+	ave,
+	mamifero
+};
+
+enum Classificacao
+{
+	nativo,
+	exotico,
+	domestico
+};
+
 enum Seguranca
 {
 	verde,
@@ -23,6 +38,8 @@ public:
 	void setSeguranca(Seguranca);
 
 	void print(std::ostream&);
+
+	bool aptto(Classe, char);
 
 private:
 	Seguranca seguranca;

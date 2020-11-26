@@ -22,6 +22,7 @@ ReptilExotico::~ReptilExotico()
 
 /**
  * @brief Imprime os dados do Reptil Exotico
+ * @param o :: Stream de saída dos dados
 */
 void ReptilExotico::print(std::ostream& o)
 {

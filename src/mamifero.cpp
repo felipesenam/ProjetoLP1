@@ -30,6 +30,7 @@ Mamifero::Mamifero()
 
 /**
  * @brief Imprime os dados do Anfibio
+ * @param o :: Stream de saída dos dados
 */
 void Mamifero::print(std::ostream& o)
 {

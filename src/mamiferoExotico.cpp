@@ -22,6 +22,7 @@ MamiferoExotico::~MamiferoExotico()
 
 /**
  * @brief Imprime os dados do Mamífero Exotico
+ * @param o :: Stream de saída dos dados
 */
 void MamiferoExotico::print(std::ostream& o)
 {

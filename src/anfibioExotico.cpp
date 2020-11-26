@@ -22,6 +22,7 @@ AnfibioExotico::~AnfibioExotico()
 
 /**
  * @brief Imprime os dados do Anfibio Exotico
+ * @param o :: Stream de saída dos dados
 */
 void AnfibioExotico::print(std::ostream& o)
 {

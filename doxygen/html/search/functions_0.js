@@ -7,6 +7,7 @@ var searchData=
   ['anfibioexotico',['AnfibioExotico',['../classAnfibioExotico.html#a13425953e703854349e1c0f9ced330e9',1,'AnfibioExotico']]],
   ['anfibionativo',['AnfibioNativo',['../classAnfibioNativo.html#af5dc59647ea725670fec8e4f8cd0da72',1,'AnfibioNativo']]],
   ['animal',['Animal',['../classAnimal.html#a1e726a49ec952443190ac62dad22353c',1,'Animal::Animal()'],['../classAnimal.html#a846678815c408de11dff5987fd111d3c',1,'Animal::Animal(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF)']]],
+  ['aptto',['aptto',['../classTratador.html#a7646829c67efe958a56a9168fd8d37f4',1,'Tratador']]],
   ['ave',['Ave',['../classAve.html#a31bc97c3258df566381300c8b9abc73a',1,'Ave::Ave()'],['../classAve.html#a4b924b8618f434cf685d170fef4a99a6',1,'Ave::Ave(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF)']]],
   ['aveexotico',['AveExotico',['../classAveExotico.html#a4a6817c8e2b9b7f7a0bd94b845d77c12',1,'AveExotico']]],
   ['avenativo',['AveNativo',['../classAveNativo.html#a7f3e45924136573a3e423e59ae8acc95',1,'AveNativo']]]

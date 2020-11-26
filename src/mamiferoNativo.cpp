@@ -22,6 +22,7 @@ MamiferoNativo::~MamiferoNativo()
 
 /**
  * @brief Imprime os dados do Anfibio Nativo
+ * @param o :: Stream de saída dos dados
 */
 void MamiferoNativo::print(std::ostream& o)
 {

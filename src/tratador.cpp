@@ -35,7 +35,7 @@ Seguranca Tratador::getSeguranca() const
 
 /**
  * @brief Seta o nivel de segurança do tratador
- * @param segurança :: nivel de segurança do tratador
+ * @param seguranca :: nivel de segurança do tratador
 */
 void Tratador::setSeguranca(Seguranca seguranca)
 {
@@ -44,7 +44,7 @@ void Tratador::setSeguranca(Seguranca seguranca)
 
 /**
  * @brief imprime os dados do Tratador
- * @param o :: ostream
+ * @param o :: Stream de saída dos dados
 */
 void Tratador::print(std::ostream& o)
 {
@@ -66,4 +66,33 @@ void Tratador::print(std::ostream& o)
 	}
 	o << Seguranca_ << std::endl;
 	Color(fRESET);
+}
+
+/**
+ * @brief Verifica se um Tratador está apto a cuidar de um animal
+ * @param classe :: Informa a classe do animal que será tratado
+ * @param perigoso :: Informa se o animal que será tratado é perigoso
+ * @return Retorna um valor booleano true caso o tratador seja apto a tratar do animal, false caso contrário
+*/
+bool Tratador::aptto(Classe classe, char perigoso)
+{
+	if(this->seguranca == verde)
+	{
+		if(classe == ave && isany(perigoso, "Nn"))
+		{
+			return true;
+		}
+	}
+	else if(this->seguranca == azul)
+	{
+		if((classe == ave || classe == mamifero || classe == reptil) && isany(perigoso, "Nn"))
+		{
+			return true;
+		}
+	}
+	else if(this->seguranca == vermelho)
+	{
+		return true;
+	}
+	return false;
 }

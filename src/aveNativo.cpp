@@ -22,6 +22,7 @@ AveNativo::~AveNativo()
 
 /**
  * @brief Imprime os dados da Ave Nativa
+ * @param o :: Stream de saída dos dados
 */
 void AveNativo::print(std::ostream& o)
 {

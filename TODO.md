@@ -8,13 +8,13 @@
 
  [X] - Remoção de um animal da lista de disponíveis após a sua comercialização;
 
- [ ] - Alteração dos dados cadastrais de um animal;
+ [x] - Alteração dos dados cadastrais de um animal;
 
- [ ] - Listagem dos dados cadastrais de um determinado animal ou de uma classe de animais;
+ [x] - Listagem dos dados cadastrais de um determinado animal ou de uma classe de animais;
 
  [x] - Listagem de animais sob a responsabilidade de um determinado Veterinário ou Tratador;
 
- [ ] - Todas as atividades relacionadas ao cadastro (Inserção, Alteração, Remoção e Consulta) de Veterinários e Tratadores.
+ [x] - Todas as atividades relacionadas ao cadastro (Inserção, Alteração, Remoção e Consulta) de Veterinários e Tratadores.
 
  [ ] - 
  
@@ -34,7 +34,7 @@
  
 # LEMBRAR DE
 
- [ ] - Compilar com as flags -Wall -Wextra -pedantic, e, -g para realizar a depuração
+ [x] - Compilar com as flags -Wall -Wextra -pedantic, e, -g para realizar a depuração
 
  [ ] - Verificar vazamentos de memória e erros de acesso de com o Valgrind
 

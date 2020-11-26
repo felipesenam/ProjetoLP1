@@ -83,10 +83,8 @@ void printMenu(std::string title, std::string subtitle, std::string cor)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Limpa o buffer de entrada
+ * @details A função coleta toda a informação armazenada no buffer de entrada até encontrar uma quebra de linha
 */
 void ffBuffer()
 {
@@ -95,10 +93,10 @@ void ffBuffer()
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Verifica a presença de algum caractere na palavra passada
+ * @param letter :: Caractere a ser localizado
+ * @param vect :: Vetor de caracteres a ser lido
+ * @return Retorna um valor booleano referente à existência do caractere na palavra
 */
 bool isany(const char letter, std::string vect)
 {

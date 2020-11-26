@@ -30,6 +30,7 @@ Reptil::Reptil()
 
 /**
  * @brief Imprime os dados do Reptil
+ * @param o :: Stream de saída dos dados
 */
 void Reptil::print(std::ostream& o)
 {
