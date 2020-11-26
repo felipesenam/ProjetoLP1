@@ -40,7 +40,7 @@ public:
 
 	/********* ANIMAIS ********/
 	void cadAnimal();
-	Animal* cadAnimal(std::string, Classe, Classificacao, char, char, std::string, Tratador*, Veterinario*, std::string);
+	Animal* cadAnimal(std::string, Classe, Classificacao, char, char, std::string, Tratador*, Veterinario*, std::string = "");
 
 	void remAnimal();
 	bool remAnimal(int);

@@ -489,194 +489,211 @@ void PetFera::listId()
 */
 void PetFera::listClass()
 {
-	std::string classe;
+	Classe classe;
+	Classificacao classificacao;
+	char cClassificacao, cClasse;
+	
 	if (this->animais.size() == 0)
 	{
 		std::cout << "Não há animais cadastrados." << std::endl;
+		return;
 	}
-	else
+	do
 	{
-
-		do
+		std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
+		std::cin >> cClasse; ffBuffer();
+		RETURNIF(cClasse, '0', VOIDRETURN);
+		if (isany(cClasse, "AaBbMmRr"))
 		{
-			std::cout << "Informe a classe a ser impressa de acordo com as informadas a seguir: " << std::endl
-			<< "Anfibio" << std::endl
-			<< "Anfibio Exotico" << std::endl
-			<< "Anfibio Nativo" << std::endl
-			<< "Ave" << std::endl
-			<< "Ave Exotico" << std::endl
-			<< "Ave Nativa" << std::endl
-			<< "Mamifero" << std::endl
-			<< "Mamifero Exotico" << std::endl
-			<< "Mamifero Nativo" << std::endl
-			<< "Reptil" << std::endl
-			<< "Reptil Exotico" << std::endl
-			<< "Reptil Nativo" << std::endl;
-			std::cin.ignore();
-			getline(std::cin, classe);
-			RETURNIF(classe, "0", VOIDRETURN);
-			if (classe=="Anfibio")
-			{
+			break;
+		}
+		else
+		{
+			WARN("Opção inválida" << std::endl);
+		}
+	} while (1);
 
-				for (auto animal : this->animais)
-				{
-				
-				Anfibio* A = dynamic_cast<Anfibio*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
+	do
+	{
+		std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
+		std::cin >> cClassificacao; ffBuffer();
+		RETURNIF(cClassificacao, '0', VOIDRETURN);
+		if (isany(cClassificacao, "NnEeDd"))
+		{
+			break;
+		}
+		else
+		{
+			WARN("Opção inválida" << std::endl);
+		}
+	} while (1);
 
-				PAUSE;
-			}
-			else if (classe=="Anfibio Exotico")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				AnfibioExotico* A = dynamic_cast<AnfibioExotico*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				break;
-				PAUSE;
-			}
-			else if (classe=="Anfibio Nativo")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				AnfibioNativo* A = dynamic_cast<AnfibioNativo*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				break;
-				PAUSE;
-			}
-			else if (classe=="Ave")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				Ave* A = dynamic_cast<Ave*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				break;
-				PAUSE;
-			}
-			else if (classe=="Ave Nativa")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				AveNativo* A = dynamic_cast<AveNativo*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				break;
-				PAUSE;
-			}
-			else if (classe=="Ave Exotica")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				AveExotico* A = dynamic_cast<AveExotico*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				break;
-			}
-			else if (classe=="Mamifero")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				Mamifero* A = dynamic_cast<Mamifero*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				PAUSE;
-				break;
-			}
-			else if (classe=="Mamifero Nativo")
-			{
-
-				for ( auto animal : this->animais)
-				{
-				
-				MamiferoNativo* A = dynamic_cast<MamiferoNativo*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				PAUSE;
-				break;
-			}
-			else if (classe=="Mamifero Exotico")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				MamiferoExotico* A = dynamic_cast<MamiferoExotico*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				PAUSE;
-				break;
-			}
-			else if (classe=="Reptil")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				Reptil* A = dynamic_cast<Reptil*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				PAUSE;
-				break;
-			}
-			else if (classe=="Reptil Nativo")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				ReptilNativo* A = dynamic_cast<ReptilNativo*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				PAUSE;
-				break;
-			}
-			else if (classe=="Reptil Exotico")
-			{
-
-				for (auto animal : this->animais)
-				{
-				
-				ReptilExotico* A = dynamic_cast<ReptilExotico*>(animal);
-				if(A != nullptr)
-	  				std::cout << (*animal) << std::endl;
-				}
-				PAUSE;
-				break;
-			}
-			else
-				WARN("Informe uma classe Válida" << std::endl);
-			PAUSE;
-		} while(1);
-		
+	classificacao = nativo;
+	if (cClassificacao == 'E' || cClassificacao == 'e')
+	{
+		classificacao = exotico;
 	}
-	
+	else if (cClassificacao == 'D' || cClassificacao == 'd')
+	{
+		classificacao = domestico;
+	} 
+
+	classe = anfibio;
+	if (cClasse == 'B' || cClasse == 'b')
+	{
+		classe = ave;
+	}
+	else if (cClasse == 'R' || cClasse == 'r')
+	{
+		classe = reptil;
+	}
+	else if (cClasse == 'M' || cClasse == 'm')
+	{
+		classe = mamifero;
+	}
+
+	if(classificacao == domestico)
+	{
+		if(classe == anfibio)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<Anfibio*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == ave)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<Ave*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == mamifero)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<Mamifero*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == reptil)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<Reptil*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+	}
+	else if(classificacao == exotico)
+	{
+		if(classe == anfibio)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<AnfibioExotico*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == ave)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<AveExotico*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == mamifero)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<MamiferoExotico*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == reptil)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<ReptilExotico*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+	}
+	else if(classificacao == nativo)
+	{
+		if(classe == anfibio)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<AnfibioNativo*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == ave)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<AveNativo*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == mamifero)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<MamiferoNativo*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+		else if (classe == reptil)
+		{
+			for(auto a : animais)
+			{
+				Animal* animal = dynamic_cast<ReptilNativo*>(a);
+				if(animal)
+				{
+					std::cout << (*animal) << std::endl;
+				}
+			}
+		}
+	}
+	PAUSE;
 }
 
 /**
