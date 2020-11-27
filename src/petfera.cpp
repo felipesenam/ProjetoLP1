@@ -149,7 +149,7 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "O animal possui algum grau de extinção? S (Sim) | N (Não)" << std::endl;
 		USERENTRY(collect<char>(cAmeacadaExtincao));
-		RETURNIF(cAmeacadaExtincao, 0, VOIDRETURN);
+		RETURNIF(cAmeacadaExtincao, '0', VOIDRETURN);
 		if (isany(cAmeacadaExtincao, "SsNn"))
 		{
 			break;
@@ -189,7 +189,7 @@ void PetFera::cadAnimal()
 				char opt;
 				std::cout << "Associar " << tratador->getNome() << " como tratador deste animal? S - Sim | N - Não" << std::endl;
 				USERENTRY(collect<char>(opt));
-				RETURNIF(opt, 0, VOIDRETURN);
+				RETURNIF(opt, '0', VOIDRETURN);
 				if(opt == 'S' || opt == 's')
 				{
 					break;	
@@ -216,7 +216,7 @@ void PetFera::cadAnimal()
 			char opt;
 			std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
 			USERENTRY(collect<char>(opt));
-			RETURNIF(opt, 0, VOIDRETURN);
+			RETURNIF(opt, '0', VOIDRETURN);
 			if(opt == 'S' || opt == 's')
 			{
 				break;	
@@ -339,7 +339,7 @@ void PetFera::remAnimal()
 			char opt;
 			std::cout << "Remover " << animal->getEspecie() << "? S (Sim) | N (Não)" << std::endl;
 			USERENTRY(collect<char>(opt));
-			RETURNIF(opt, 0, VOIDRETURN);
+			RETURNIF(opt, '0', VOIDRETURN);
 			if(opt == 'S' || opt == 's')
 			{
 				break;	
