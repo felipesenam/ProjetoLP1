@@ -32,8 +32,8 @@ void ReptilExotico::print(std::ostream& o)
 		<< "ID: " << this->id << std::endl
 		<< "CLASSE: Réptil" << std::endl
 		<< "CLASSIFICAÇÃO: Exótico" << std::endl
-		<< "AMEAÇADA DE EXTINÇÃO: " << this->ameacadaExtincao << std::endl
-		<< "PERIGOSO: " << this->perigoso << std::endl
+		<< "AMEAÇADA DE EXTINÇÃO: " << (this->ameacadaExtincao ? "sim" : "não") << std::endl
+		<< "PERIGOSO: " << (this->perigoso ? "sim" : "não") << std::endl
 		<< "NOTA FISCAL: " << this->NF << std::endl
 		<< "TERRITORIO: " << this-> territorio << std:: endl;
 }

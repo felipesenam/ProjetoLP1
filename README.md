@@ -16,6 +16,11 @@ Charles Vitor e Felipe Sena
 
  - 
 
+### Vídeo da apresentação:
+
+[YouTube](https://youtu.be/BA3wZYmvHMM)
+
+
 ### Como compilar, rodar e testar o programa (versão final):
 
 > :.$ make\

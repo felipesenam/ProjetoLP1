@@ -40,13 +40,12 @@ public:
 
 	/********* ANIMAIS ********/
 	void cadAnimal();
-	Animal* cadAnimal(std::string, Classe, Classificacao, char, char, std::string, Tratador*, Veterinario*, std::string = "");
+	Animal* cadAnimal(std::string, Classe, Classificacao, bool, bool, std::string, Tratador*, Veterinario*, std::string = "");
 
 	void remAnimal();
 	bool remAnimal(int);
 
 	void altAnimal();
-	void listAnimal();
 	void listAll();
 	void listClass();
 	void listId();
@@ -74,4 +73,5 @@ public:
 	/********** MENUS *********/
 	void run();
 	void gerCad();
+	void listAnimal();
 };

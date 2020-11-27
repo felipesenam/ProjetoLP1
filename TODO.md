@@ -1,8 +1,7 @@
-# AFAZERES
 
- [ ] - 
+### AFAZERES
 
- [ ] - !! Separar interfaces públicas (recebimento de dados) de interfaces internas (tratamento dos dados)
+ [x] - !! Separar interfaces públicas (recebimento de dados) de interfaces internas (tratamento dos dados)
 
  [X] - Cadastro de um novo animal a ser comercializado;
 
@@ -16,31 +15,18 @@
 
  [x] - Todas as atividades relacionadas ao cadastro (Inserção, Alteração, Remoção e Consulta) de Veterinários e Tratadores.
 
- [ ] - 
- 
- [ ] - 
-
- [ ] - Preparar o vídeo da apresentação da implementação e disponibilizá-lo no YouTube
+ [x] - Preparar o vídeo da apresentação da implementação e disponibilizá-lo no YouTube
 
 
-# EVITAR
+### EVITAR
 
- [ ] - Fazer o uso de recursos da linguagem C
-
- [ ] - 
- 
- [ ] - 
+ [x] - Fazer o uso de recursos da linguagem C
 
  
-# LEMBRAR DE
+### LEMBRAR DE
 
  [x] - Compilar com as flags -Wall -Wextra -pedantic, e, -g para realizar a depuração
 
- [ ] - Verificar vazamentos de memória e erros de acesso de com o Valgrind
+ [x] - Verificar vazamentos de memória e erros de acesso de com o Valgrind
 
  [x] - Verificar o acesso do professor (username: imdcode) ao repositório do GitHub
- 
- [ ] - 
- 
- [ ] - 
-

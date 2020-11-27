@@ -4,6 +4,21 @@
 #include <cstdlib>
 #include <sstream>
 #include <iomanip>
+#include <limits>
+
+#define WARN(x) std::cout << Color(fYELLOW) << x << Color(fRESET);
+#define USERENTRY(x) std::cout << "$ " << Color(fLIGHT_BLUE); x; Color(fRESET);
+#define RETURNIF(x, y, z) if(x == y){ WARN("Operação cancelada pelo usuário." << std::endl); PAUSE; return z;}
+#define VOIDRETURN
+#define NEWLINE std::cout << std::endl
+
+#define BOXWIDTH 60
+
+#ifdef DEBUG
+#define Debug(x) std::cout << x
+#else
+#define Debug(x)
+#endif
 
 std::string Color(std::string color);
 
@@ -13,17 +28,15 @@ void printMenu(std::string title, std::string subtitle, std::string cor);
 void ffBuffer();
 bool isany(const char, std::string);
 
-#define RETURNIF(x, y, z) if(x == y){ std::cout << "Operação cancelada pelo usuário." << std::endl; PAUSE; return z;}
-#define VOIDRETURN
-#define WARN(x) std::cout << Color(fYELLOW) << x << Color(fRESET);
-
-#define BOXWIDTH 60
-
-#ifdef DEBUG
-#define Debug(x) std::cout << x
-#else
-#define Debug(x)
-#endif
+template<typename T>
+void collect(T& data)
+{
+	std::string line;
+	getline(std::cin, line);
+	std::istringstream sst(line);
+	sst >> data;
+	Debug(Color(fRESET) << "collected: " << data << std::endl);
+}
 
 #ifdef WIN32
 
@@ -117,7 +130,7 @@ bool isany(const char, std::string);
 #define bWHITE         "\x1b[107m"
 
 #define OSENVPART
-#define PAUSE ffBuffer(); std::cout << "Pressione qualquer tecla para continuar. . ." << std::endl; getchar();
+#define PAUSE std::cin.clear(); std::cout << "Pressione qualquer tecla para continuar. . ." << std::endl; std::cin.get();
 
 #ifndef NOCLS
 #define CLS system("clear")

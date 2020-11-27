@@ -6,7 +6,7 @@ class Exotico
 {
 public:
 	Exotico(std::string);
-	~Exotico();
+	virtual ~Exotico();
 	std::string getTerritorio();
 protected:
 	std::string territorio;

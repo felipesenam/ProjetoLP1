@@ -39,7 +39,7 @@ public:
 
 	void print(std::ostream&);
 
-	bool aptto(Classe, char);
+	bool aptto(Classe, bool);
 
 private:
 	Seguranca seguranca;

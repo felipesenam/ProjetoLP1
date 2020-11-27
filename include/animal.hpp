@@ -38,7 +38,7 @@ public:
 protected:
 	std::string especie;
 	short id;
-	char ameacadaExtincao; // indica se a especie corre risco de extincao
-	char perigoso;         // indica se o animal é perigoso/venenoso
+	bool ameacadaExtincao; // indica se a especie corre risco de extincao
+	bool perigoso;         // indica se o animal é perigoso/venenoso
 	std::string NF;        // Nota Fical
 };

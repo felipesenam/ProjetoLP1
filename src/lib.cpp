@@ -2,10 +2,10 @@
 #include "lib.hpp"
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Colore a saída padrão
+ * @details Altera a cor da letra ou do fundo da letra
+ * @param color :: String referente à cor desejada, definida em lib.hpp
+ * @return Retorna um string vazio
 */
 std::string Color(std::string color)
 {
@@ -35,51 +35,56 @@ std::string Color(std::string color)
 }
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime o cabeçalho de um menu sme subtítulo
+ * @details Limpa a tela e imprime no topo da tela, um cabeçalho de menu
+ * @param title :: Título do menu
+ * @param cor :: Cor do título do menu
 */
 void printTitle(std::string title, std::string cor)
 {
 	CLS;
-	int spaceOnLeft = (BOXWIDTH-title.length())/2;
-	int spaceExtra = title.length()%2;
-	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << ""<< std::endl;
-	std::cout << "**" 
+	int spaceExtra = title.length() % 2;
+	int spaceOnLeft = (BOXWIDTH - title.length() - spaceExtra) / 2;
+	
+	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
+	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
 		<< Color(cor) << title << Color(fRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
-		<< "**" << std::endl;
-	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << "" << std::endl;
-}
+		<< Color(bLIGHT_YELLOW) << "  " << Color(bRESET) << std::endl;
+	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
+	NEWLINE;
+}	
 
 /**
- * @brief DESCRIÇÃO_BREVE_DA_FUNÇÃO
- * @details DESCRIÇÃO_DETALHADA_DA_FUNÇÃO
- * @param PARÂMETROS_PASSADOS_PARA_A_FUNÇÃO
- * @return RETORNO_DA_FUNÇÃO
+ * @brief Imprime o cabeçalho de um menu
+ * @details Limpa a tela e imprime no topo da tela, um cabeçalho de menu com subtitulo
+ * @param title :: Título do menu
+ * @param subtitle :: Subtítulo do menu
+ * @param cor :: Cor do título do menu
 */
 void printMenu(std::string title, std::string subtitle, std::string cor)
 {
 	CLS;
-	int spaceOnLeft = (BOXWIDTH - title.length()) / 2;
-	int spaceExtra = title.length()%2;
-	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << ""<< std::endl;
-	std::cout << "**" 
+	int spaceExtra = title.length() % 2;
+	int spaceOnLeft = (BOXWIDTH - title.length() - spaceExtra) / 2;
+	
+	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
+	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
 		<< Color(cor) << title << Color(fRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
-		<< "**" << std::endl;
+		<< Color(bLIGHT_YELLOW) << "  " << Color(bRESET) << std::endl;
 
 	spaceOnLeft = (BOXWIDTH - subtitle.length()) / 2;
 	spaceExtra = subtitle.length()%2;
-	std::cout << "**" 
+	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
 		<< subtitle 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
-		<< "**" << std::endl;
-	std::cout << std::setfill('*') << std::setw(BOXWIDTH) << "" << std::endl;
+		<< Color(bLIGHT_YELLOW) << "  " << Color(bRESET) << std::endl;
+	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
+	NEWLINE;
 }
 
 /**
@@ -89,7 +94,7 @@ void printMenu(std::string title, std::string subtitle, std::string cor)
 void ffBuffer()
 {
 	int input;
-	while ((input = getchar()) != EOF && input != '\n');
+	while ((input = std::cin.get()) != EOF && input != '\n');
 }
 
 /**

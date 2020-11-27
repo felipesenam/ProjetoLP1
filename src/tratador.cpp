@@ -51,20 +51,20 @@ void Tratador::print(std::ostream& o)
 	o << "ID:" << this->getId() << std::endl;
 	o << "NOME: " << this->getNome() << std::endl;
 	o << "NIVEL DE SEGURANÇA: ";
-	std::string Seguranca_;
+	std::string seg;
 	if (this->getSeguranca() == verde){
 		Color(fGREEN);
-		Seguranca_="Aves";
+		seg = "Aves";
 	}
 	else if (this->getSeguranca() == azul){
 		Color(fBLUE);
-		Seguranca_="Aves, Mamíferos e Répteis";
+		seg = "Aves, mamíferos e répteis";
 	}
 	else if (this->getSeguranca() == vermelho){
 		Color(fRED);
-		Seguranca_="Animais venenosos ou perigosos";
+		seg = "Animais venenosos ou perigosos";
 	}
-	o << Seguranca_ << std::endl;
+	o << seg << std::endl;
 	Color(fRESET);
 }
 
@@ -74,18 +74,18 @@ void Tratador::print(std::ostream& o)
  * @param perigoso :: Informa se o animal que será tratado é perigoso
  * @return Retorna um valor booleano true caso o tratador seja apto a tratar do animal, false caso contrário
 */
-bool Tratador::aptto(Classe classe, char perigoso)
+bool Tratador::aptto(Classe classe, bool perigoso)
 {
 	if(this->seguranca == verde)
 	{
-		if(classe == ave && isany(perigoso, "Nn"))
+		if(classe == ave && !perigoso)
 		{
 			return true;
 		}
 	}
 	else if(this->seguranca == azul)
 	{
-		if((classe == ave || classe == mamifero || classe == reptil) && isany(perigoso, "Nn"))
+		if((classe == ave || classe == mamifero || classe == reptil) && !perigoso)
 		{
 			return true;
 		}

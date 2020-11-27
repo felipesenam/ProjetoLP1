@@ -39,7 +39,7 @@ void Anfibio::print(std::ostream& o)
 		<< "ID: " << this->id << std::endl
 		<< "CLASSE: Anfíbio" << std::endl
 		<< "CLASSIFICAÇÃO: Doméstico" << std::endl
-		<< "AMEAÇADA DE EXTINÇÃO: " << this->ameacadaExtincao << std::endl
-		<< "PERIGOSO: " << this->perigoso << std::endl
+		<< "AMEAÇADA DE EXTINÇÃO: " << (this->ameacadaExtincao ? "sim" : "não") << std::endl
+		<< "PERIGOSO: " << (this->perigoso ? "sim" : "não") << std::endl
 		<< "NOTA FISCAL: " << this->NF << std::endl;
 }
