@@ -3,22 +3,21 @@
 
 Charles Vitor e Felipe Sena
 
+
 ### O que foi implementado:
- - 
 
- - 
+ - A remoção e o cadastro de um animal levando em conta a sua classe, classificação e outros dados específicos, sendo possível a alteração do mesmo;
 
- - 
+ - A remoção e o cadastro de veterinários e tratadores e suas particularidades, sendo possível a alteração do mesmo;
 
- - 
+ - A listagem de animais por classe e classificação e também por responsável (veterinário ou tratador);
 
- - 
+ - A listagem de funcionários e seus dados;
 
- - 
 
 ### Vídeo da apresentação:
 
-[YouTube](https://youtu.be/BA3wZYmvHMM)
+[YouTube]()
 
 
 ### Como compilar, rodar e testar o programa (versão final):
@@ -31,12 +30,14 @@ ou ainda:
 > :.$ make release\
 > :.$ ./Pet_Fera
 
+
 ### Como compilar, rodar e testar o programa (versão de depuração):
 
 > :.$ make debug\
 > :.$ ./prog
 
 Lembrando que **apenas** esta versão é compatível com o uso do _Valgrind_.
+
 
 ### Repositório git:
 

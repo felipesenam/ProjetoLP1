@@ -1,7 +1,7 @@
 
 ### AFAZERES
 
- [x] - !! Separar interfaces públicas (recebimento de dados) de interfaces internas (tratamento dos dados)
+ [ ] - !! Separar interfaces públicas (recebimento de dados) de interfaces internas (tratamento dos dados)
 
  [X] - Cadastro de um novo animal a ser comercializado;
 
@@ -15,7 +15,7 @@
 
  [x] - Todas as atividades relacionadas ao cadastro (Inserção, Alteração, Remoção e Consulta) de Veterinários e Tratadores.
 
- [x] - Preparar o vídeo da apresentação da implementação e disponibilizá-lo no YouTube
+ [ ] - Preparar o vídeo da apresentação da implementação e disponibilizá-lo no YouTube
 
 
 ### EVITAR
