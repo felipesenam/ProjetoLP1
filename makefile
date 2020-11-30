@@ -40,7 +40,7 @@
 ##################################################
 
 ##################### TARGETS ####################
-TARGET_LIST=release debug
+TARGET_LIST=release release_windows debug
 #================================================#
 FILE-release=Pet_Fera
 
@@ -51,10 +51,24 @@ LINKER_FLAGS-release=-static -static-libgcc -static-libstdc++
 MAINFILE-release=main
  SRCPATH-release=./src/
  INCPATH-release=./include/
- OBJPATH-release=./objects/Release/
+ OBJPATH-release=./objects/Unix/Release/
 
 SOURCE_EXT-release=.cpp
 HEADER_EXT-release=.hpp
+#================================================#
+FILE-release_windows=Pet_Fera.exe
+
+COMPILER-release_windows=x86_64-w64-mingw32-c++
+COMPILATION_FLAGS-release_windows=-O3 -Wall -Wextra -pedantic -Wno-unused-result -std=c++11
+LINKER_FLAGS-release_windows=-static -static-libgcc -static-libstdc++
+
+MAINFILE-release_windows=main
+ SRCPATH-release_windows=./src/
+ INCPATH-release_windows=./include/
+ OBJPATH-release_windows=./objects/Windows/Release/
+
+SOURCE_EXT-release_windows=.cpp
+HEADER_EXT-release_windows=.hpp
 #================================================#
 FILE-debug=prog
 
@@ -65,7 +79,7 @@ LINKER_FLAGS-debug=
 MAINFILE-debug=main
  SRCPATH-debug=./src/
  INCPATH-debug=./include/
- OBJPATH-debug=./objects/Debug/
+ OBJPATH-debug=./objects/Unix/Debug/
 
 SOURCE_EXT-debug=.cpp
 HEADER_EXT-debug=.hpp

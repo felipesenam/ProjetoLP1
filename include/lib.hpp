@@ -20,31 +20,13 @@
 #define Debug(x)
 #endif
 
-std::string Color(std::string color);
-
-void printTitle(std::string title, std::string cor);
-void printMenu(std::string title, std::string subtitle, std::string cor);
-
-void ffBuffer();
-bool isany(const char, std::string);
-
-template<typename T>
-void collect(T& data)
-{
-	std::string line;
-	getline(std::cin, line);
-	std::istringstream sst(line);
-	sst >> data;
-	Debug(Color(fRESET) << "collected: " << data << std::endl);
-}
-
-#ifdef WIN32
+#ifdef _WIN32
 
 #include <windows.h>
 #include <direct.h>
 
-#define bRESET         "00"
 #define fRESET         "07"
+#define bRESET         "16"
 
 #define fBLACK         "00"
 #define fBLUE          "01"
@@ -139,3 +121,21 @@ void collect(T& data)
 #endif
 
 #endif
+
+std::string Color(std::string color);
+
+void printTitle(std::string title, std::string cor);
+void printMenu(std::string title, std::string subtitle, std::string cor);
+
+void ffBuffer();
+bool isany(const char, std::string);
+
+template<typename T>
+void collect(T& data)
+{
+	std::string line;
+	getline(std::cin, line);
+	std::istringstream sst(line);
+	sst >> data;
+	Debug(Color(fRESET) << "collected: " << data << std::endl);
+}
