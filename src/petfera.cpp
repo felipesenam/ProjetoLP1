@@ -255,62 +255,67 @@ void PetFera::cadAnimal()
 Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao classificacao, bool ameacadaExtincao, bool perigoso, std::string NF, Tratador* tratador, Veterinario* veterinario, std::string extra)
 {
 	Animal* animal = nullptr;
+	short cid = 1;
+	if(animais.size() > 0)
+	{
+		cid = (*--animais.end())->getId() + 1;
+	}
 
 	if(classificacao == domestico)
 	{
 		if(classe == anfibio)
 		{
-			animal = new Anfibio(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+			animal = new Anfibio(especie, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == ave)
 		{
-			animal = new Ave(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+			animal = new Ave(especie, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == mamifero)
 		{
-			animal = new Mamifero(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+			animal = new Mamifero(especie, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == reptil)
 		{
-			animal = new Reptil(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF);
+			animal = new Reptil(especie, cid, ameacadaExtincao, perigoso, NF);
 		}
 	}
 	else if(classificacao == exotico)
 	{
 		if(classe == anfibio)
 		{
-			animal = new AnfibioExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AnfibioExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == ave)
 		{
-			animal = new AveExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AveExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == mamifero)
 		{
-			animal = new MamiferoExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new MamiferoExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == reptil)
 		{
-			animal = new ReptilExotico(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new ReptilExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 	}
 	else if(classificacao == nativo)
 	{
 		if(classe == anfibio)
 		{
-			animal = new AnfibioNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AnfibioNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == ave)
 		{
-			animal = new AveNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AveNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == mamifero)
 		{
-			animal = new MamiferoNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new MamiferoNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == reptil)
 		{
-			animal = new ReptilNativo(especie, animais.size() + 1, ameacadaExtincao, perigoso, NF, extra);
+			animal = new ReptilNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 	}
 
