@@ -1,5 +1,0 @@
-<map id="ReptilNativo" name="ReptilNativo">
-<area shape="rect" id="node2" href="$classReptil.html" title="Reptil" alt="" coords="9,80,64,107"/>
-<area shape="rect" id="node3" href="$classAnimal.html" title="Animal" alt="" coords="5,5,68,32"/>
-<area shape="rect" id="node4" href="$classNativo.html" title="Nativo" alt="" coords="89,80,147,107"/>
-</map>

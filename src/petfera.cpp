@@ -1,5 +1,6 @@
 
 #include "petfera.hpp"
+#include <cstring>
 
 /**
  * @brief Construtor padrão
@@ -893,23 +894,29 @@ void PetFera::cadVetr()
 		std::cout << "Insira o CRMV do veterinário: " << std::endl;
 		USERENTRY( getline(std::cin, CRMV) );
 		RETURNIF(CRMV, "0", VOIDRETURN);
-		if (CRMV != "")
-		{
-			break;
+
+		std::string validChars = "0123456789"; // Digitos permitidos no CRMV
+		int res = strspn(CRMV.c_str(), validChars.c_str());
+
+		if (res == 0 || CRMV.length() < 4 || CRMV.length() > 6) { // Verifica se se o CRMV é válido
+			WARN("CRMV inválido!" << std::endl);	
 		}
 		else
 		{
-			WARN("Este campo não pode ser deixado em branco" << std::endl);
+			
+			if(findCRMV(CRMV) == funcionarios.end())
+			{
+				break;
+			}
+			else
+			{
+				WARN("Já existe um veterinário com este número de CRMV cadastrado." << std::endl);
+				std::cout<<res<<std::endl;
+			}
+			
 		}
-		if(findCRMV(CRMV) == funcionarios.end())
-		{
-			break;
-		}
-		else
-		{
-			WARN("Já existe um veterinário com este número de CRMV cadastrado." << std::endl);
-		}
-	} while (1);
+				
+		} while (1);		
 
 	cadVetr(nome, Status::ativo, CRMV);
 }
