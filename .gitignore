@@ -1,5 +1,8 @@
 objects/
 *.sublime-workspace
+*.sublime-project
 prog
 Pet_Fera
 Pet_Fera.exe
+*.zip
+*.pdf
