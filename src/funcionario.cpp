@@ -40,6 +40,15 @@ short Funcionario::getId() const
 }
 
 /**
+ * @brief Retorna o status do funcionario
+ * @return status
+*/
+Status Funcionario::getStatus() const
+{
+	return this->status;
+}
+
+/**
  * @brief Seta o nome do funcionario
  * @param nome :: nome do funcionario
 */

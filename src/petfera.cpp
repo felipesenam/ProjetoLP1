@@ -514,7 +514,8 @@ void PetFera::listId()
 {
 	short id;
 	std::cout << "Informe o id do animal a ser impresso: " << std::endl;
-	USERENTRY(std::cin >> id);
+	USERENTRY(collect<short>(id));
+	RETURNIF(id, 0, VOIDRETURN);
 	if (buscarAnim(id)==nullptr)
 	{
 		WARN("Animal não encontrado" << std::endl);
@@ -524,10 +525,10 @@ void PetFera::listId()
 		for (auto a : this->animais)
 		{
 			if (a->getId()==id)
-				std::cout<< (*a) << std::endl;
+				std::cout << (*a) << std::endl;
 		}
-		PAUSE;
 	}
+	PAUSE;
 
 }
 
@@ -1124,7 +1125,7 @@ Funcionario* PetFera::buscaFunc(int id)
 {
 	for(auto f : funcionarios)
 	{
-		if(f->getId() == id)
+		if(f->getId() == id && f->getStatus()==ativo)
 		{
 			return f;
 		}
@@ -1148,8 +1149,9 @@ bool PetFera::remFunc()
 		if((*t)->getId() == id)
 		{
 			std::cout << "O funcionário " << (*t)->getNome() << " foi desvinculado da loja." << std::endl;
-			delete (*t);
-			funcionarios.erase(t);
+			//delete (*t);
+			//funcionarios.erase(t);
+			(*t)->setStatus(inativo);
 			PAUSE;
 			return true;
 		}

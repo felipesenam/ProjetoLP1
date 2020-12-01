@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "lib.hpp"
 
 enum Status
 {
@@ -16,6 +17,7 @@ public:
 	virtual ~Funcionario();
 	std::string getNome() const;
 	short getId() const;
+	Status getStatus() const;
 	void setNome(std::string nome);
 	void setStatus(Status status); 
 

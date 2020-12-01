@@ -48,7 +48,19 @@ void Veterinario::setCRMV(std::string CRMV)
 */
 void Veterinario::print(std::ostream& o)
 {
+	std::string Sstatus;
 	o << "ID: " << this->getId() << std::endl;
 	o << "NOME: " << this->getNome() << std::endl;
 	o << "CRMV: " << this->getCRMV() << std::endl;
+	o << "Status: "; 
+	if (this->getStatus()==inativo){
+		Color(fRED);
+		Sstatus="Inativo";
+	}
+	else
+		Sstatus="Ativo";
+
+	o << Sstatus << std::endl;
+
+	
 }
