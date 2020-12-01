@@ -1,17 +1,17 @@
 <map id="Gráfico de Hierarquia de Classes" name="Gráfico de Hierarquia de Classes">
-<area shape="rect" id="node1" href="$classAnimal.html" title=" " alt="" coords="5,183,68,209"/>
-<area shape="rect" id="node2" href="$classAnfibio.html" title=" " alt="" coords="123,259,185,285"/>
-<area shape="rect" id="node5" href="$classAve.html" title=" " alt="" coords="131,309,177,336"/>
-<area shape="rect" id="node8" href="$classMamifero.html" title=" " alt="" coords="116,56,192,83"/>
-<area shape="rect" id="node11" href="$classReptil.html" title=" " alt="" coords="126,107,182,133"/>
-<area shape="rect" id="node3" href="$classAnfibioExotico.html" title=" " alt="" coords="247,208,353,235"/>
-<area shape="rect" id="node4" href="$classAnfibioNativo.html" title=" " alt="" coords="250,309,350,336"/>
-<area shape="rect" id="node6" href="$classAveExotico.html" title=" " alt="" coords="255,259,345,285"/>
-<area shape="rect" id="node7" href="$classAveNativo.html" title=" " alt="" coords="259,360,341,387"/>
-<area shape="rect" id="node9" href="$classMamiferoExotico.html" title=" " alt="" coords="240,5,360,32"/>
-<area shape="rect" id="node10" href="$classMamiferoNativo.html" title=" " alt="" coords="243,56,357,83"/>
-<area shape="rect" id="node12" href="$classReptilExotico.html" title=" " alt="" coords="250,107,350,133"/>
-<area shape="rect" id="node13" href="$classReptilNativo.html" title=" " alt="" coords="253,157,347,184"/>
-<area shape="rect" id="node14" href="$classExotico.html" title=" " alt="" coords="121,157,187,184"/>
-<area shape="rect" id="node15" href="$classNativo.html" title=" " alt="" coords="124,208,184,235"/>
+<area shape="rect" id="node1" href="$classAnimal.html" title="Animal" alt="" coords="5,183,68,209"/>
+<area shape="rect" id="node2" href="$classAnfibio.html" title="Anfibio" alt="" coords="123,259,185,285"/>
+<area shape="rect" id="node5" href="$classAve.html" title="Ave" alt="" coords="131,309,177,336"/>
+<area shape="rect" id="node8" href="$classMamifero.html" title="Mamifero" alt="" coords="116,56,192,83"/>
+<area shape="rect" id="node11" href="$classReptil.html" title="Reptil" alt="" coords="127,107,181,133"/>
+<area shape="rect" id="node3" href="$classAnfibioExotico.html" title="AnfibioExotico" alt="" coords="247,208,353,235"/>
+<area shape="rect" id="node4" href="$classAnfibioNativo.html" title="AnfibioNativo" alt="" coords="251,309,349,336"/>
+<area shape="rect" id="node6" href="$classAveExotico.html" title="AveExotico" alt="" coords="255,259,345,285"/>
+<area shape="rect" id="node7" href="$classAveNativo.html" title="AveNativo" alt="" coords="259,360,341,387"/>
+<area shape="rect" id="node9" href="$classMamiferoExotico.html" title="MamiferoExotico" alt="" coords="240,5,360,32"/>
+<area shape="rect" id="node10" href="$classMamiferoNativo.html" title="MamiferoNativo" alt="" coords="243,56,357,83"/>
+<area shape="rect" id="node12" href="$classReptilExotico.html" title="ReptilExotico" alt="" coords="251,107,349,133"/>
+<area shape="rect" id="node13" href="$classReptilNativo.html" title="ReptilNativo" alt="" coords="254,157,346,184"/>
+<area shape="rect" id="node14" href="$classExotico.html" title="Exotico" alt="" coords="121,157,187,184"/>
+<area shape="rect" id="node15" href="$classNativo.html" title="Nativo" alt="" coords="125,208,183,235"/>
 </map>

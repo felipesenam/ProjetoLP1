@@ -1,6 +1,5 @@
 <map id="MamiferoExotico" name="MamiferoExotico">
-<area shape="rect" id="node1" title=" " alt="" coords="31,155,151,181"/>
-<area shape="rect" id="node2" href="$classMamifero.html" title=" " alt="" coords="5,80,81,107"/>
-<area shape="rect" id="node3" href="$classAnimal.html" title=" " alt="" coords="12,5,75,32"/>
-<area shape="rect" id="node4" href="$classExotico.html" title=" " alt="" coords="106,80,173,107"/>
+<area shape="rect" id="node2" href="$classMamifero.html" title="Mamifero" alt="" coords="5,80,81,107"/>
+<area shape="rect" id="node3" href="$classAnimal.html" title="Animal" alt="" coords="12,5,75,32"/>
+<area shape="rect" id="node4" href="$classExotico.html" title="Exotico" alt="" coords="106,80,173,107"/>
 </map>

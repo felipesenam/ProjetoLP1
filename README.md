@@ -17,7 +17,7 @@ Charles Vitor e Felipe Sena
 
 ### Vídeo da apresentação:
 
-[YouTube]()
+[YouTube](https://youtu.be/LB74aCdCHhw)
 
 
 ### Como compilar, rodar e testar o programa (versão final):

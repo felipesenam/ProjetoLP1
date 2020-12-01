@@ -1,6 +1,5 @@
 <map id="Ave" name="Ave">
-<area shape="rect" id="node1" title=" " alt="" coords="82,80,127,107"/>
-<area shape="rect" id="node3" href="$classAveExotico.html" title=" " alt="" coords="5,155,95,181"/>
-<area shape="rect" id="node4" href="$classAveNativo.html" title=" " alt="" coords="119,155,202,181"/>
-<area shape="rect" id="node2" href="$classAnimal.html" title=" " alt="" coords="73,5,136,32"/>
+<area shape="rect" id="node3" href="$classAveExotico.html" title="AveExotico" alt="" coords="5,155,95,181"/>
+<area shape="rect" id="node4" href="$classAveNativo.html" title="AveNativo" alt="" coords="119,155,202,181"/>
+<area shape="rect" id="node2" href="$classAnimal.html" title="Animal" alt="" coords="73,5,136,32"/>
 </map>
