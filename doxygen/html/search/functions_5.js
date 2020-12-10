@@ -9,6 +9,6 @@ var searchData=
   ['getseguranca',['getSeguranca',['../classTratador.html#a5343cfed4610b98300de68fbb52e44d3',1,'Tratador']]],
   ['getstatus',['getStatus',['../classFuncionario.html#aaad326d053994c9f268843bafe41feb8',1,'Funcionario']]],
   ['getterritorio',['getTerritorio',['../classExotico.html#aa1dc16573d5e0b5b5bc487e9a33ad816',1,'Exotico']]],
-  ['gettratador',['getTratador',['../classAnimal.html#a386807706a0ba203fe84b68cd10c38aa',1,'Animal']]],
-  ['getveterinario',['getVeterinario',['../classAnimal.html#a2c8aacd4e6709ae559c4b17d6856a3df',1,'Animal']]]
+  ['gettratador',['getTratador',['../classAnimal.html#a3e79335eac6fa21cb49220a9f22a49d0',1,'Animal']]],
+  ['getveterinario',['getVeterinario',['../classAnimal.html#a6cf8db8b318c0c867ebeea9b663f9202',1,'Animal']]]
 ];

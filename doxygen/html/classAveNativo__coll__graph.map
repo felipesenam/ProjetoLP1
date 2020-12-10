@@ -1,5 +1,8 @@
 <map id="AveNativo" name="AveNativo">
-<area shape="rect" id="node2" href="$classAve.html" title="Ave" alt="" coords="14,80,59,107"/>
-<area shape="rect" id="node3" href="$classAnimal.html" title="Animal" alt="" coords="5,5,68,32"/>
-<area shape="rect" id="node4" href="$classNativo.html" title="Nativo" alt="" coords="83,80,142,107"/>
+<area shape="rect" id="node2" href="$classAve.html" title="Ave" alt="" coords="69,247,114,273"/>
+<area shape="rect" id="node3" href="$classAnimal.html" title="Animal" alt="" coords="60,171,123,197"/>
+<area shape="rect" id="node4" href="$classTratador.html" title="Tratador" alt="" coords="5,81,76,108"/>
+<area shape="rect" id="node5" href="$classFuncionario.html" title="Funcionario" alt="" coords="45,5,135,32"/>
+<area shape="rect" id="node6" href="$classVeterinario.html" title="Veterinario" alt="" coords="100,81,184,108"/>
+<area shape="rect" id="node7" href="$classNativo.html" title="Nativo" alt="" coords="138,247,197,273"/>
 </map>
