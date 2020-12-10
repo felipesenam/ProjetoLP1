@@ -10,8 +10,8 @@
  * @param NF :: Nota fiscal da Ave Nativa
  * @param licenca :: Especifica a licença emitida pelo IBAMA
 */
-AveNativo::AveNativo (std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
-Ave(especie, id, ameacadaExtincao, perigoso, NF), Nativo(licenca)
+AveNativo::AveNativo (std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
+Ave(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Nativo(licenca)
 {}
 
 /**
@@ -28,12 +28,29 @@ void AveNativo::print(std::ostream& o)
 {
 	//AQUI SERÃO APRESENTADOS DADOS RELEVANTES A RESPEITO DE AVES (NATIVAS)
 	o
-		<< "ESPECIE: " << this->especie << std::endl
-		<< "ID: " << this->id << std::endl
-		<< "CLASSE: Ave" << std::endl
-		<< "CLASSIFICAÇÃO: Nativa" << std::endl
-		<< "AMEAÇADA DE EXTINÇÃO: " << (this->ameacadaExtincao ? "sim" : "não") << std::endl
-		<< "PERIGOSO: " << (this->perigoso ? "sim" : "não") << std::endl
-		<< "NOTA FISCAL: " << this->NF << std::endl
-		<< "LICENÇA: " << this->licenca << std::endl;
+	 << "ESPECIE: " << this->especie << std::endl
+	 << "ID: " << this->id << std::endl
+	 << "CLASSE: Ave" << std::endl
+	 << "CLASSIFICAÇÃO: Nativa" << std::endl
+	 << "AMEAÇADA DE EXTINÇÃO: " << (this->ameacadaExtincao ? "sim" : "não") << std::endl
+	 << "PERIGOSO: " << (this->perigoso ? "sim" : "não") << std::endl
+	 << "NOTA FISCAL: " << this->NF << std::endl
+	 << "LICENÇA: " << this->licenca << std::endl
+	 << "VETERINÁRIO RESPONSÁVEL: " << this->getVeterinario()->getNome() << std::endl
+	 << "TRATADOR RESPONSÁVEL: " << this->getTratador()->getNome() << std::endl;
+}
+
+void AveNativo::save(std::ofstream& file)
+{
+	file
+	 << this->id                   << ";"
+	 << this->especie              << ";"
+	 << this->classe               << ";"
+	 << this->classificacao        << ";"
+	 << this->ameacadaExtincao     << ";"
+	 << this->perigoso             << ";"
+	 << this->NF                   << ";"
+	 << this->tratador->getId()    << ";"
+	 << this->veterinario->getId() << ";"
+	 << this->licenca;
 }

@@ -22,7 +22,12 @@ public:
 	void setStatus(Status status); 
 
 	virtual void print(std::ostream&) = 0;
-	friend std::ostream& operator<<(std::ostream& o, Funcionario* funcionario);
+	friend std::ostream& operator<<(std::ostream& o, Funcionario& funcionario);
+
+	virtual void save(std::ofstream& o) = 0;
+	friend std::ofstream& operator<<(std::ofstream& o, Funcionario& funcionario);
+
+	void forceId(int id);
 
 protected:
 	std::string nome;

@@ -2,7 +2,11 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
+#include <unordered_map>
 #include <limits>
+#include <fstream>
+#include <cstring>
 
 #include "funcionario.hpp"
 #include "veterinario.hpp"
@@ -30,13 +34,15 @@
 class PetFera
 {
 private:
-	std::vector<Funcionario*> funcionarios;
+	std::map<int, Funcionario*> funcionarios;
 	std::vector<Animal*> animais;
 
 public:
 	PetFera();
 	~PetFera();
 
+	void load();
+	void save();
 
 	/********* ANIMAIS ********/
 	void cadAnimal();
@@ -45,6 +51,7 @@ public:
 	void remAnimal();
 	bool remAnimal(int);
 
+	void redoAnimal(Animal*&, std::string);
 	void altAnimal();
 	void listAll();
 	void listClass();
@@ -55,13 +62,13 @@ public:
 
 	/****** VETERINARIOS ******/
 	void cadVetr();
-	Veterinario* cadVetr(std::string, Status, std::string);
+	Veterinario* cadVetr(std::string, Status, std::string, int);
 	void altVetr();
-	std::vector<Funcionario*>::iterator findCRMV(std::string CRMV);
+	std::map<int, Funcionario*>::iterator findCRMV(std::string CRMV);
 
 	/******* TRATADORES *******/
 	void cadTrat();
-	Tratador* cadTrat(std::string, Status, Seguranca);
+	Tratador* cadTrat(std::string, Status, Seguranca, int);
 	void altTrat();
 
 	/****** FUNCIONARIOS ******/

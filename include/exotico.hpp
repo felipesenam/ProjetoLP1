@@ -10,6 +10,5 @@ public:
 	std::string getTerritorio();
 protected:
 	std::string territorio;
-	
 };
 

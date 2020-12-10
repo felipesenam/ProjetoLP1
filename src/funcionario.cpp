@@ -73,8 +73,19 @@ void Funcionario::setStatus(Status status)
  * @param funcionario :: funcionario a ser impresso
  * @return o
 */
-std::ostream& operator<<(std::ostream& o, Funcionario* funcionario)
+std::ostream& operator<<(std::ostream& o, Funcionario& funcionario)
 {
-	funcionario->print(o);
+	funcionario.print(o);
 	return o;
+}
+
+std::ofstream& operator<<(std::ofstream& o, Funcionario& funcionario)
+{
+	funcionario.save(o);
+	return o;
+}
+
+void Funcionario::forceId(int id)
+{
+	this->id = id;
 }

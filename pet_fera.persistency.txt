@@ -1,0 +1,16 @@
+1;Charles Bulcão;0;239487083
+
+2;Felipe Sena;0;2
+
+1;Sapo-cururu;0;2;0;0;2900784;2;1;-
+2;Salamandra;0;0;0;0;2900783;2;1;8324793-BR
+3;Rã-venenosa-granulada;0;1;0;1;2900782;2;1;Austrália
+4;Papagaio;2;2;0;0;2800784;2;1;-
+5;Arara Azul;2;0;1;0;2800783;2;1;8324793-BR
+6;Falcão-peregrino;2;1;0;0;2800782;2;1;EUA
+7;Cachorro;3;2;0;0;2700784;2;1;-
+8;Lobo Guará;3;0;1;1;2700783;2;1;1452898-BR
+9;Lobo Cinza;3;1;0;1;2700782;2;1;Alaska
+10;Iguana;1;2;0;0;2600784;2;1;-
+11;Sucuri;1;0;0;1;2600783;2;1;93847923-BR
+12;Crocodilo;1;1;0;1;2600782;2;1;Africa

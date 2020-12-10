@@ -4,7 +4,7 @@
 /**
  * @brief Destrutor padrão
 */
-Animal::~Animal()
+Animal::Animal()
 {}
 
 /**
@@ -16,8 +16,8 @@ Animal::~Animal()
  * @param perigoso :: Informa se o Animal é perigoso
  * @param NF :: Nota fiscal do Animal
 */
-Animal::Animal(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF):
-especie(especie), id(id), ameacadaExtincao(ameacadaExtincao), perigoso(perigoso), NF(NF)
+Animal::Animal(std::string especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, std::string NF):
+especie(especie), classe(classe), classificacao(classificacao), id(id), ameacadaExtincao(ameacadaExtincao), perigoso(perigoso), NF(NF)
 {
 	Debug("Animal " << this->id << " [" << this << "] foi criado." << std::endl);
 }
@@ -25,7 +25,7 @@ especie(especie), id(id), ameacadaExtincao(ameacadaExtincao), perigoso(perigoso)
 /**
  * @brief Destrutor padrão
 */
-Animal::Animal()
+Animal::~Animal()
 {}
 
 /**
@@ -46,6 +46,31 @@ void Animal::setEspecie(std::string especie)
 	this->especie = especie;
 }
 
+Classe Animal::getClasse() const
+{
+	return this->classe;
+}
+void Animal::setClasse(Classe classe)
+{
+	if(this->getTratador()->aptto(classe, this->perigoso))
+	{
+		this->classe = classe;
+	}
+	else
+	{
+		WARN("O tratador deste animal não está apto a tratar desta classe." << std::endl);
+	}
+}
+
+Classificacao Animal::getClassificacao() const
+{
+	return this->classificacao;
+}
+void Animal::setClassificacao(Classificacao classificacao)
+{
+	this->classificacao = classificacao;
+}
+
 /**
  * @brief Retorna o id do Animal
 */
@@ -54,22 +79,42 @@ short Animal::getId() const
 	return this->id;
 }
 
+bool Animal::getAmeacadaExtincao() const
+{
+	return this->ameacadaExtincao;
+}
 /**
  * @brief Informa se o animal sofre alguma ameaça de extinção
  * @param ameacadaExtincao :: Informa se o animal sofre alguma ameaça de extinção
 */
-void Animal::setAmeacadaExtincao(char ameacadaExtincao)
+void Animal::setAmeacadaExtincao(bool ameacadaExtincao)
 {
 	this->ameacadaExtincao = ameacadaExtincao;
 }
 
+bool Animal::getPerigoso() const
+{
+	return this->perigoso;
+}
 /**
  * @brief Informa se o animal é perigoso ou venenoso
  * @param perigoso :: Informa se o animal é perigoso ou venenoso
 */
-void Animal::setPerigoso(char perigoso)
+void Animal::setPerigoso(bool perigoso)
 {
-	this->perigoso = perigoso;
+	if(this->getTratador()->aptto(this->classe, perigoso))
+	{
+		this->perigoso = perigoso;
+	}
+	else
+	{
+		WARN("O tratador deste animal não está apto a tratar de animais perigosos." << std::endl);
+	}
+}
+
+std::string Animal::getNF() const
+{
+	return this->NF;
 }
 
 /**
@@ -85,7 +130,7 @@ void Animal::setNF(std::string NF)
  * @brief Retorna o tratador do qual o animal foi vinculado
  * @return tratador
 */
-Tratador* Animal::getTratador()
+Tratador* Animal::getTratador() const
 {
 	return this->tratador;
 }
@@ -94,7 +139,7 @@ Tratador* Animal::getTratador()
  * @brief Retorna o veterinario do qual o animal foi vinculado
  * @return veterinario
 */
-Veterinario* Animal::getVeterinario()
+Veterinario* Animal::getVeterinario() const
 {
 	return this->veterinario;
 }
@@ -124,8 +169,19 @@ void Animal::setVeterinario(Veterinario* veterinario)
  * @param animal :: animal a ser impresso
  * @return o
 */
-std::ostream& operator<< (std::ostream& o, Animal& animal)
+std::ostream& operator<<(std::ostream& o, Animal& animal)
 {
 	animal.print(o);
 	return o;
+}
+
+std::ofstream& operator<<(std::ofstream& o, Animal& animal)
+{
+	animal.save(o);
+	return o;
+}
+
+void Animal::forceId(int id)
+{
+	this->id = id;
 }

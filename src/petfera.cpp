@@ -1,6 +1,5 @@
 
 #include "petfera.hpp"
-#include <cstring>
 
 /**
  * @brief Construtor padrão
@@ -14,13 +13,112 @@ PetFera::PetFera()
 */
 PetFera::~PetFera()
 {
-	for(auto f : this->funcionarios)
+	for(auto& f : this->funcionarios)
 	{
-		delete f;
+		delete f.second;
 	}
-	for(auto a : this->animais)
+	for(auto& a : this->animais)
 	{
 		delete a;
+	}
+}
+
+void PetFera::load()
+{
+	std::ifstream file("pet_fera.persistency.txt");
+	std::string line, data;
+
+	
+	while(!getline(file, line).eof() && line != "")
+	{
+		std::istringstream oss(line);
+		int id;
+		std::string nome, CRMV;
+		Status status;
+
+		getline(oss, data, ';');
+		id = atoi(data.c_str());
+		getline(oss, nome, ';');
+		getline(oss, data, ';');
+		status = static_cast<Status>(atoi(data.c_str()));
+		getline(oss, CRMV, ';');
+
+		cadVetr(nome, status, CRMV, id);
+	}
+
+	while(!getline(file, line).eof() && line != "")
+	{
+		std::istringstream oss(line);
+		int id;
+		std::string nome;
+		Status status;
+		Seguranca seg;
+
+		getline(oss, data, ';');
+		id = atoi(data.c_str());
+		getline(oss, nome, ';');
+		getline(oss, data, ';');
+		status = static_cast<Status>(atoi(data.c_str()));
+		getline(oss, data, ';');
+		seg = static_cast<Seguranca>(atoi(data.c_str()));
+
+		cadTrat(nome, status, seg, id);
+	}
+
+	while(!getline(file, line).eof() && line != "")
+	{
+		std::istringstream oss(line);
+		int id;
+		Classificacao classificacao;
+		bool ameacadaExtincao = false, perigoso = false;
+		std::string NF, especie, extra;
+		Classe classe;
+		Tratador* tratador = nullptr;
+		Veterinario* veterinario = nullptr;
+
+		getline(oss, data, ';');
+		id = atoi(data.c_str());
+		getline(oss, especie, ';');
+		getline(oss, data, ';');
+		classe = static_cast<Classe>(atoi(data.c_str()));
+		getline(oss, data, ';');
+		classificacao = static_cast<Classificacao>(atoi(data.c_str()));
+		getline(oss, data, ';');
+		ameacadaExtincao = atoi(data.c_str());
+		getline(oss, data, ';');
+		perigoso = atoi(data.c_str());
+		getline(oss, NF, ';');
+		getline(oss, data, ';');
+		tratador = dynamic_cast<Tratador*>(buscaFunc(atoi(data.c_str())));
+		getline(oss, data, ';');
+		veterinario = dynamic_cast<Veterinario*>(buscaFunc(atoi(data.c_str())));
+		getline(oss, extra, ';');
+
+		cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra)->forceId(id);
+	}
+}
+
+void PetFera::save()
+{
+	std::ofstream file("pet_fera.persistency.txt");
+
+	for(const auto& veterinario : this->funcionarios)
+	{
+		if(dynamic_cast<Veterinario*>(veterinario.second) != nullptr)
+			file << *veterinario.second << std::endl;
+	}
+	file << std::endl;
+	
+	for(const auto& tratador : this->funcionarios)
+	{
+		if(dynamic_cast<Tratador*>(tratador.second) != nullptr)
+			file << *tratador.second << std::endl;
+	}
+	file << std::endl;
+	
+	for(const auto& animal : this->animais)
+	{
+		file << *animal << std::endl;
 	}
 }
 
@@ -234,7 +332,9 @@ void PetFera::cadAnimal()
 	RETURNIF(NF, "0", VOIDRETURN);
 
 	cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
+	this->save();
 
+	FINALLY("Animal adicionado com sucesso" << std::endl);
 	PAUSE;
 }
 
@@ -265,57 +365,57 @@ Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao cla
 	{
 		if(classe == anfibio)
 		{
-			animal = new Anfibio(especie, cid, ameacadaExtincao, perigoso, NF);
+			animal = new Anfibio(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == ave)
 		{
-			animal = new Ave(especie, cid, ameacadaExtincao, perigoso, NF);
+			animal = new Ave(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == mamifero)
 		{
-			animal = new Mamifero(especie, cid, ameacadaExtincao, perigoso, NF);
+			animal = new Mamifero(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == reptil)
 		{
-			animal = new Reptil(especie, cid, ameacadaExtincao, perigoso, NF);
+			animal = new Reptil(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 	}
 	else if(classificacao == exotico)
 	{
 		if(classe == anfibio)
 		{
-			animal = new AnfibioExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AnfibioExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == ave)
 		{
-			animal = new AveExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AveExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == mamifero)
 		{
-			animal = new MamiferoExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new MamiferoExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == reptil)
 		{
-			animal = new ReptilExotico(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new ReptilExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 	}
 	else if(classificacao == nativo)
 	{
 		if(classe == anfibio)
 		{
-			animal = new AnfibioNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AnfibioNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == ave)
 		{
-			animal = new AveNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AveNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == mamifero)
 		{
-			animal = new MamiferoNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new MamiferoNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == reptil)
 		{
-			animal = new ReptilNativo(especie, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new ReptilNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 	}
 
@@ -358,7 +458,9 @@ void PetFera::remAnimal()
 	} while (1);
 
 	remAnimal(idRem);
-	
+	this->save();
+
+	FINALLY("Animal removido com sucesso" << std::endl);
 	PAUSE;
 }
 
@@ -370,16 +472,35 @@ void PetFera::remAnimal()
 */
 bool PetFera::remAnimal(int id)
 {
-	for(auto a = this->animais.begin(); a != this->animais.end(); ++a)
+	Animal* animal;
+	for(auto it = this->animais.begin(); it != this->animais.end(); ++it)
 	{
-		if ((*a)->getId() == id)
+		animal = *it;
+		if (animal->getId() == id)
 		{
-			delete (*a);
-			this->animais.erase(a);
+			animais.erase(it);
+			delete animal;
 			return true;
 		}
 	}
 	return false;
+}
+
+void PetFera::redoAnimal(Animal*& animal, std::string extra)
+{
+	std::string especie         = animal->getEspecie();
+	Classe classe               = animal->getClasse();
+	Classificacao classificacao = animal->getClassificacao();
+	short id                    = animal->getId();
+	bool ameacadaExtincao       = animal->getAmeacadaExtincao();
+	bool perigoso               = animal->getPerigoso();
+	std::string NF              = animal->getNF();
+	Tratador* tratador          = animal->getTratador();
+	Veterinario* veterinario    = animal->getVeterinario();
+
+	remAnimal(id);
+	animal = cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
+	animal->forceId(id);
 }
 
 /**
@@ -387,15 +508,16 @@ bool PetFera::remAnimal(int id)
 */
 void PetFera::altAnimal()
 {
+	Animal* animal = nullptr;
 	short idAlter;
 	do
 	{
-		std::cout << "Insira o id do animal a ser alterado: ";
+		std::cout << "Insira o id do animal a ser alterado: " << std::endl;
 		USERENTRY(collect<short>(idAlter));
-		RETURNIF(idAlter, '0', VOIDRETURN);
-		if (this->buscarAnim(idAlter) == nullptr)
+		RETURNIF(idAlter, 0, VOIDRETURN);
+		if ((animal = this->buscarAnim(idAlter)) == nullptr)
 		{
-			std::cout << "Erro! ID não encontrado" << std::endl;
+			WARN("Animal não encontrado." << std::endl);
 		}
 		else
 		{
@@ -403,51 +525,273 @@ void PetFera::altAnimal()
 		}
 	}while(1);
 
-	std::string strClassificacao_;
-	char ameacadaExtincao, perigoso;
-	std::string NF;
-
+	std::string opt;
 	do
 	{
-		std::cout << "O animal possui algum grau de extinção? S (sim) / N (não)" << std::endl;
-		USERENTRY(collect<char>(ameacadaExtincao));
-		RETURNIF(ameacadaExtincao, '0', VOIDRETURN);
-		if (ameacadaExtincao != 's' && ameacadaExtincao != 'S'
-			&& ameacadaExtincao != 'n' && ameacadaExtincao != 'N')
-			std::cout << "Opção inválida" << std::endl;
-	} while (ameacadaExtincao != 's' && ameacadaExtincao != 'S'
-			&& ameacadaExtincao != 'n' && ameacadaExtincao != 'N' );
-	std::cin.clear();
+		printTitle(animal->getEspecie(), fGREEN);
+		std::cout << *animal << std::endl;
+		NEWLINE;
 
-	do
-	{
-		std::cout << "O animal é considerado perigoso ou venenoso? S (sim) / N (não) " << std::endl;
-		USERENTRY(collect<char>(perigoso));
-		RETURNIF(perigoso, '0', VOIDRETURN);
-		if (perigoso != 's' && perigoso != 'S'
-		&& perigoso != 'n' && perigoso != 'N')
-			std::cout << "Opção inválida" << std::endl;
-	} while (perigoso != 's' && perigoso != 'S'
-		&& perigoso != 'n' && perigoso != 'N' );
-	std::cin.clear();
+		std::cout << "E. Alterar espécie" << std::endl;
+		std::cout << "C. Alterar classe" << std::endl;
+		std::cout << "S. Alterar classificacao" << std::endl;
+		std::cout << "A. Alterar status de ameaçado de extinção" << std::endl;
+		std::cout << "P. Alterar status de perigoso" << std::endl;
+		std::cout << "F. Alterar nota fiscal" << std::endl;
+		std::cout << "V. Alterar veterinário responsável" << std::endl;
+		std::cout << "T. Alterar tratador responsável" << std::endl;
+		NEWLINE;
+		std::cout << "X. Voltar" << std::endl;
+		NEWLINE;
+		
+		USERENTRY( getline(std::cin, opt) );
 
-	std::cout << "Insira a Nota Fiscal, se houver: " << std::endl;
-	USERENTRY( getline(std::cin, NF) );
-	RETURNIF(NF, "0", VOIDRETURN);
-	std::cin.clear();
-
-	for(auto a = animais.begin(); a != animais.end(); ++a)
-	{
-		if((*a)->getId() == idAlter)
+		if(opt == "E" || opt == "e")
 		{
-			(*a)->setAmeacadaExtincao(ameacadaExtincao);
-			(*a)->setPerigoso(perigoso);
-			(*a)->setNF(NF);
+			std::string especie;
+			do
+			{
+				std::cout << "Informe a espécie do animal: " << std::endl;
+				USERENTRY( getline(std::cin, especie) );
+				BREAKIF(especie, "0");
+				if (especie != "")
+				{
+					break;
+				}
+				else
+				{
+					WARN("Este campo não pode ser deixado em branco" << std::endl);
+				}
+			}while(1);
+			animal->setEspecie(especie);
 		}
-	}
-	std::cout << "Dados alterados com sucesso!" << std::endl;
+		else if(opt == "C" || opt == "c")
+		{
+			char cClasse;
+			do
+			{
+				std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
+				USERENTRY(collect<char>(cClasse));
+				BREAKIF(cClasse, '0');
+				if (isany(cClasse, "AaBbMmRr"))
+				{
+					break;
+				}
+				else
+				{
+					WARN("Opção inválida" << std::endl);
+				}
+			} while (1);
 
-	PAUSE;
+			animal->setClasse(anfibio);
+			if (cClasse == 'B' || cClasse == 'b')
+			{
+				animal->setClasse(ave);
+			}
+			else if (cClasse == 'R' || cClasse == 'r')
+			{
+				animal->setClasse(reptil);
+			}
+			else if (cClasse == 'M' || cClasse == 'm')
+			{
+				animal->setClasse(mamifero);
+			}
+
+			if(animal->getClassificacao() == domestico)
+			{
+				redoAnimal(animal, "");
+			}
+			else if(animal->getClassificacao() == exotico)
+			{
+				redoAnimal(animal, dynamic_cast<Exotico*>(animal)->getTerritorio());
+			}
+			else if(animal->getClassificacao() == nativo)
+			{
+				redoAnimal(animal, dynamic_cast<Nativo*>(animal)->getLicenca());
+			}
+		}
+		else if(opt == "S" || opt == "s")
+		{
+			std::string extra;
+			char cClassificacao;
+			do
+			{
+				std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
+				USERENTRY(collect<char>(cClassificacao));
+				BREAKIF(cClassificacao, '0');
+				if (isany(cClassificacao, "Dd"))
+				{
+					break;
+				}
+				else if (isany(cClassificacao, "NnEe"))
+				{
+					if(cClassificacao == 'N' || cClassificacao == 'n')
+					{
+						do
+						{
+							std::cout << "Informe a licença de transporte:" << std::endl;
+							USERENTRY( getline(std::cin, extra) );
+							BREAKIF(extra, "0");
+							if (extra != "")
+							{
+								break;
+							}
+							else
+							{
+								WARN("Este campo não pode ser deixado em branco" << std::endl);
+							}
+						} while (1);
+					}
+					else
+					{
+						do
+						{
+							std::cout << "Informe o território de origem do animal:" << std::endl;
+							USERENTRY( getline(std::cin, extra) );
+							BREAKIF(extra, "0");
+							if (extra != "")
+							{
+								break;
+							}
+							else
+							{
+								WARN("Este campo não pode ser deixado em branco" << std::endl);
+							}
+						} while (1);
+					}
+					break;
+				}
+				else
+				{
+					WARN("Opção inválida" << std::endl);
+				}
+			} while (1);
+			CONTINUEIF(extra, "0");
+
+			animal->setClassificacao(domestico);
+			if (cClassificacao == 'E' || cClassificacao == 'e')
+			{
+				animal->setClassificacao(exotico);
+			}
+			else if (cClassificacao == 'N' || cClassificacao == 'n')
+			{
+				animal->setClassificacao(nativo);
+			} 
+
+			redoAnimal(animal, extra);
+		}
+		else if(opt == "A" || opt == "a")
+		{
+			char cAmeacadaExtincao;
+			do
+			{
+				std::cout << "O animal possui algum grau de extinção? S (Sim) | N (Não)" << std::endl;
+				USERENTRY(collect<char>(cAmeacadaExtincao));
+				BREAKIF(cAmeacadaExtincao, '0');
+				if (isany(cAmeacadaExtincao, "SsNn"))
+				{
+					break;
+				}
+				else
+				{
+					WARN("Opção inválida" << std::endl);
+				}
+			} while (1);
+			animal->setAmeacadaExtincao(isany(cAmeacadaExtincao, "Ss"));
+		}
+		else if(opt == "P" || opt == "p")
+		{
+			char cPerigoso;
+			do
+			{
+				std::cout << "O animal é considerado perigoso ou venenoso? S (Sim) | N (Não)" << std::endl;
+				USERENTRY(collect<char>(cPerigoso));
+				BREAKIF(cPerigoso, '0');
+				if (isany(cPerigoso, "SsNn"))
+				{
+					break;
+				}
+				else
+				{
+					WARN("Opção inválida" << std::endl);
+				}
+			} while (1);
+			animal->setPerigoso(isany(cPerigoso, "Ss"));
+		}
+		else if(opt == "F" || opt == "f")
+		{
+			std::string NF;
+			USERENTRY( getline(std::cin, NF) );
+			CONTINUEIF(NF, "0");
+			animal->setNF(NF);
+		}
+		else if(opt == "V" || opt == "v")
+		{
+			Veterinario* veterinario;
+			int idv;
+			do
+			{
+				std::cout << "Insira o ID do veterinário do animal" << std::endl;
+				USERENTRY(collect<int>(idv));
+				BREAKIF(idv, 0);
+				if ((veterinario = dynamic_cast<Veterinario*>(buscaFunc(idv))) != nullptr)
+				{
+					char opt;
+					std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
+					USERENTRY(collect<char>(opt));
+					BREAKIF(opt, '0');
+					if(opt == 'S' || opt == 's')
+					{
+						animal->setVeterinario(veterinario);
+						break;	
+					}
+				}
+				else
+				{
+					WARN("Funcionário não encontrado ou não se encaixa na posição de veterinário" << std::endl);
+				}
+			} while (1);
+		}
+		else if(opt == "T" || opt == "t")
+		{
+			Tratador* tratador;
+			int idt;
+			do
+			{
+				std::cout << "Insira o ID do tratador do animal" << std::endl;
+				USERENTRY(collect<int>(idt));
+				BREAKIF(idt, 0);
+				if ((tratador = dynamic_cast<Tratador*>(buscaFunc(idt))) != nullptr)
+				{
+					if(tratador->aptto(animal->getClasse(), animal->getPerigoso()))
+					{
+						char opt;
+						std::cout << "Associar " << tratador->getNome() << " como tratador deste animal? S - Sim | N - Não" << std::endl;
+						USERENTRY(collect<char>(opt));
+						BREAKIF(opt, '0');
+						if(opt == 'S' || opt == 's')
+						{
+							animal->setTratador(tratador);
+							break;	
+						}
+					}
+					else
+					{
+						WARN("Este tratador não está apto a tratar deste animal" << std::endl);
+					}
+				}
+				else
+				{
+					WARN("Funcionário não encontrado ou não se encaixa na posição de tratador" << std::endl);
+				}
+			} while (1);
+		}
+		else if(opt == "X" || opt == "x")
+		{
+			break;
+		}
+		this->save();
+	}while(1);
 }
 
 /**
@@ -924,7 +1268,11 @@ void PetFera::cadVetr()
 				
 		} while (1);		
 
-	cadVetr(nome, Status::ativo, CRMV);
+	cadVetr(nome, Status::ativo, CRMV, funcionarios.size() + 1);
+	this->save();
+
+	FINALLY("Veterinário vinculado à loja com sucesso." << std::endl);
+	PAUSE;
 }
 
 /**
@@ -935,10 +1283,10 @@ void PetFera::cadVetr()
  * @param CRMV :: Informa o CRMV do veterinário
  * @return Retorna um apontador ao veterinário recém-cadastrado
 */
-Veterinario* PetFera::cadVetr(std::string nome, Status status, std::string CRMV)
+Veterinario* PetFera::cadVetr(std::string nome, Status status, std::string CRMV, int id)
 {
-	Veterinario* vet = new Veterinario(nome, funcionarios.size() + 1, status, CRMV);
-	funcionarios.push_back(vet);
+	Veterinario* vet = new Veterinario(nome, id, status, CRMV);
+	funcionarios[id] = vet;
 
 	return vet;
 }
@@ -957,14 +1305,18 @@ void PetFera::altVetr()
 	std::cout << "Insira o nome do veterinário: " << std::endl;
 	USERENTRY( getline(std::cin, nome) );
 	RETURNIF(nome, "0", VOIDRETURN)
-	for(auto v = funcionarios.begin(); v != funcionarios.end(); ++v)
+	for(auto v : funcionarios)
 	{
-		if((*v)->getId() == id)
+		if(v.second->getId() == id)
 		{
-			(*v)->setNome(nome);
+			v.second->setNome(nome);
 			return;
 		}
 	}
+	this->save();
+
+	FINALLY("Cadastro alterado com sucesso." << std::endl);
+	PAUSE;
 }
 
 /**
@@ -972,15 +1324,15 @@ void PetFera::altVetr()
  * @param CRMV :: CRMV referente ao veterinário
  * @return Retorna um iterador do vetor de funcionários referente ao veterinário
 */
-std::vector<Funcionario*>::iterator PetFera::findCRMV(std::string CRMV)
+std::map<int, Funcionario*>::iterator PetFera::findCRMV(std::string CRMV)
 {
 	Veterinario* veterinario;
-	for(auto i = funcionarios.begin(); i != funcionarios.end(); ++i)
+	for(auto it = funcionarios.begin(); it != funcionarios.end(); ++it)
 	{
-		veterinario = dynamic_cast<Veterinario*>(*i);
+		veterinario = dynamic_cast<Veterinario*>(it->second);
 		if(veterinario != nullptr && veterinario->getCRMV() == CRMV)
 		{
-			return i;
+			return it;
 		}
 	}
 	return funcionarios.end();
@@ -1035,7 +1387,11 @@ void PetFera::cadTrat()
 		}
 	} while(1);
 
-	cadTrat(nome, Status::ativo, seg);
+	cadTrat(nome, Status::ativo, seg, funcionarios.size() + 1);
+	this->save();
+
+	FINALLY("Tratador vinculado à loja com sucesso." << std::endl);
+	PAUSE;
 }
 
 /**
@@ -1046,10 +1402,10 @@ void PetFera::cadTrat()
  * @param seg :: Informa o nível de segurança indicando quais animais ele pode tratar
  * @return Retorna um apontador ao tratador recém-cadastrado
 */
-Tratador* PetFera::cadTrat(std::string nome, Status status, Seguranca seg)
+Tratador* PetFera::cadTrat(std::string nome, Status status, Seguranca seg, int id)
 {
-	Tratador *tratador = new Tratador(nome, funcionarios.size() + 1, status, seg);
-	funcionarios.push_back(tratador);
+	Tratador *tratador = new Tratador(nome, id, status, seg);
+	funcionarios[id] = tratador;
 
 	return tratador;
 }
@@ -1099,13 +1455,17 @@ void PetFera::altTrat()
 
 	for(auto t = funcionarios.begin(); t != funcionarios.end(); ++t)
 	{
-		if((*t)->getId() == id)
+		if(t->second->getId() == id)
 		{
-			(*t)->setNome(nome);
-			static_cast<Tratador*>(*t)->setSeguranca(seg);
+			t->second->setNome(nome);
+			static_cast<Tratador*>(t->second)->setSeguranca(seg);
 			return;
 		}
 	}
+	this->save();
+
+	FINALLY("Cadastro alterado com sucesso." << std::endl);
+	PAUSE;
 }
 
 /**
@@ -1116,7 +1476,7 @@ void PetFera::altTrat()
 */
 Funcionario* PetFera::cadFunc(Funcionario* funcionario)
 {
-	funcionarios.push_back(funcionario);
+	funcionarios[funcionario->getId()] = funcionario;
 
 	return funcionario;
 }
@@ -1128,14 +1488,15 @@ Funcionario* PetFera::cadFunc(Funcionario* funcionario)
 */
 Funcionario* PetFera::buscaFunc(int id)
 {
-	for(auto f : funcionarios)
+	auto find = funcionarios.find(id);
+	if(find != funcionarios.end() && find->second->getStatus() == ativo)
 	{
-		if(f->getId() == id && f->getStatus()==ativo)
-		{
-			return f;
-		}
+		return find->second;
 	}
-	return nullptr;
+	else
+	{
+		return nullptr;
+	}
 }
 
 /**
@@ -1149,19 +1510,18 @@ bool PetFera::remFunc()
 	std::cout << "Informe o ID do funcionário:" << std::endl;
 	USERENTRY(collect<short>(id));
 	RETURNIF(id, 0, false);
-	for(auto t = funcionarios.begin(); t != funcionarios.end(); ++t)
+	for(auto& t : funcionarios)
 	{
-		if((*t)->getId() == id)
+		if(t.second->getId() == id)
 		{
-			std::cout << "O funcionário " << (*t)->getNome() << " foi desvinculado da loja." << std::endl;
-			//delete (*t);
-			//funcionarios.erase(t);
-			(*t)->setStatus(inativo);
+			t.second->setStatus(inativo);
+			this->save();
+
+			FINALLY(t.second->getNome() << " foi desvinculado da loja." << std::endl);
 			PAUSE;
 			return true;
 		}
 	}
-
 	return false;
 }
 
@@ -1173,22 +1533,21 @@ void PetFera::listFunc()
 	std::cout << Color(fCYAN) << "Veterinários:" << Color(fRESET) << std::endl;
 	for(auto f : funcionarios)
 	{
-		if(dynamic_cast<Veterinario*>(f))
+		if(dynamic_cast<Veterinario*>(f.second))
 		{
-			std::cout << f << std::endl;
+			std::cout << *f.second << std::endl;
 		}
 	}
 	NEWLINE;
 	std::cout << Color(fCYAN) << "Tratadores:" << Color(fRESET) << std::endl;
 	for(auto f : funcionarios)
 	{
-		if(dynamic_cast<Tratador*>(f))
+		if(dynamic_cast<Tratador*>(f.second))
 		{
-			std::cout << f << std::endl;
+			std::cout << *f.second << std::endl;
 		}
 	}
 	NEWLINE;
-
 
 	PAUSE;
 }
@@ -1255,7 +1614,5 @@ void PetFera::run()
 		{
 			break;
 		}
-
-
 	}while(1);
 }

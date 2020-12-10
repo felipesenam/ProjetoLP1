@@ -7,8 +7,11 @@
 #include <limits>
 
 #define WARN(x) std::cout << Color(fYELLOW) << x << Color(fRESET);
+#define FINALLY(x) std::cout << Color(fCYAN) << x << Color(fRESET);
 #define USERENTRY(x) std::cout << "$ " << Color(fLIGHT_BLUE); x; Color(fRESET);
 #define RETURNIF(x, y, z) if(x == y){ WARN("Operação cancelada pelo usuário." << std::endl); PAUSE; return z;}
+#define BREAKIF(x, y) if(x == y){ break; }
+#define CONTINUEIF(x, y) if(x == y){ break; }
 #define VOIDRETURN
 #define NEWLINE std::cout << std::endl
 

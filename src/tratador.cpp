@@ -48,34 +48,41 @@ void Tratador::setSeguranca(Seguranca seguranca)
 */
 void Tratador::print(std::ostream& o)
 {
-	std::string Sstatus;
-	o << "ID:" << this->getId() << std::endl;
+	o << "ID: " << this->getId() << std::endl;
 	o << "NOME: " << this->getNome() << std::endl;
+
 	o << "NIVEL DE SEGURANÇA: ";
-	std::string seg;
-	if (this->getSeguranca() == verde){
-		Color(fGREEN);
-		seg = "Aves";
+	if (this->getSeguranca() == verde)
+	{
+		o << Color(fGREEN) << "Aves" << Color(fRESET) << std::endl;
 	}
-	else if (this->getSeguranca() == azul){
-		Color(fBLUE);
-		seg = "Aves, mamíferos e répteis";
+	else if (this->getSeguranca() == azul)
+	{
+		o << Color(fBLUE) << "Aves, mamíferos e répteis" << Color(fRESET) << std::endl;
 	}
-	else if (this->getSeguranca() == vermelho){
-		Color(fRED);
-		seg = "Animais venenosos ou perigosos";
+	else if (this->getSeguranca() == vermelho)
+	{
+		o << Color(fRED) << "Animais venenosos ou perigosos" << Color(fRESET) << std::endl;
 	}
-	o << seg << std::endl;
-	Color(fRESET);
-	o << "Status: "; 
-	if (this->getStatus()==inativo){
-		Color(fRED);
-		Sstatus="Inativo";
+
+	o << "STATUS: ";
+	if (this->status == inativo)
+	{
+		o << Color(fRED) << "inativo" << Color(fRESET) << std::endl;
 	}
 	else
-		Sstatus="Ativo";
+	{
+		o << Color(fGREEN) << "ativo" << Color(fRESET) << std::endl;
+	}
+}
 
-	o << Sstatus << std::endl;
+void Tratador::save(std::ofstream& file)
+{
+	file
+	 << this->id     << ";"
+	 << this->nome   << ";"
+	 << this->status << ";"
+	 << this->seguranca;
 }
 
 /**

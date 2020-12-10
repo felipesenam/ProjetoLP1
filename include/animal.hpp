@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <ostream>
+#include <fstream>
 #include <iostream>
 
 #include "veterinario.hpp"
@@ -10,33 +10,52 @@
 
 class Animal
 {
-private:
-	Tratador* tratador = nullptr;
-	Veterinario* veterinario = nullptr;
-
 public:
 	Animal();
-	Animal(std::string especie, short id, char ameacadaExtincao, char perigoso, std::string NF);
+	Animal(std::string especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, std::string NF);
 	virtual ~Animal();
 
 	std::string getEspecie() const;
 	void setEspecie(std::string);
 
-	short getId() const;
-	void setAmeacadaExtincao(char ameacadaExtincao);
-	void setPerigoso(char perigoso);
-	void setNF(std::string NF);
+	Classe getClasse() const;
+	void setClasse(Classe);
 
-	Tratador* getTratador();
-	Veterinario* getVeterinario();
+	Classificacao getClassificacao() const;
+	void setClassificacao(Classificacao);
+
+	bool getAmeacadaExtincao() const;
+	void setAmeacadaExtincao(bool ameacadaExtincao);
+
+	bool getPerigoso() const;
+	void setPerigoso(bool perigoso);
+
+	short getId() const;
+	
+	std::string getNF() const;
+	void setNF(std::string NF);
+	
+	Tratador* getTratador() const;
 	void setTratador(Tratador*);
+	
+	Veterinario* getVeterinario() const;
 	void setVeterinario(Veterinario*);
 
 	virtual void print(std::ostream& o) = 0;
-	friend std::ostream& operator<< (std::ostream& o, Animal& animal);
+	friend std::ostream& operator<<(std::ostream& o, Animal& animal);
+
+	virtual void save(std::ofstream& o) = 0;
+	friend std::ofstream& operator<<(std::ofstream& o, Animal& animal);
+
+	void forceId(int id);
 
 protected:
+	Tratador* tratador = nullptr;
+	Veterinario* veterinario = nullptr;
+
 	std::string especie;
+	Classe classe;
+	Classificacao classificacao;
 	short id;
 	bool ameacadaExtincao; // indica se a especie corre risco de extincao
 	bool perigoso;         // indica se o animal é perigoso/venenoso
