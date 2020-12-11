@@ -4,14 +4,22 @@
 #include <cstdlib>
 #include <sstream>
 #include <iomanip>
+#include <cstring>
 #include <limits>
 
 #define WARN(x) std::cout << Color(fYELLOW) << x << Color(fRESET);
 #define FINALLY(x) std::cout << Color(fCYAN) << x << Color(fRESET);
 #define USERENTRY(x) std::cout << "$ " << Color(fLIGHT_BLUE); x; Color(fRESET);
-#define RETURNIF(x, y, z) if(x == y){ WARN("Operação cancelada pelo usuário." << std::endl); PAUSE; return z;}
-#define BREAKIF(x, y) if(x == y){ break; }
-#define CONTINUEIF(x, y) if(x == y){ break; }
+
+#define IFEQ_RETURN(x, y, w) if(x == y){ return w; }
+#define IFEQ_BREAK(x, y) if(x == y){ break; }
+#define IFEQ_CONTINUE(x, y) if(x == y){ continue; }
+
+#define IFEQ_PAUSERETURN(x, y, z) if(x == y){ PAUSE; return z;}
+#define IFEQ_WPAUSERETURN(x, y, z, w) if(x == y){ WARN(w << std::endl); PAUSE; return z;}
+
+#define IFFOUND_CONTINUE(x, y, z) if(isany(x, y)){ WARN(z << std::endl); continue; }
+
 #define VOIDRETURN
 #define NEWLINE std::cout << std::endl
 
@@ -131,7 +139,9 @@ void printTitle(std::string title, std::string cor);
 void printMenu(std::string title, std::string subtitle, std::string cor);
 
 void ffBuffer();
-bool isany(const char, std::string);
+
+bool isany(const char letter, const std::string& vect);
+bool isany(const std::string& word, const std::string& vect);
 
 template<typename T>
 void collect(T& data)
@@ -142,3 +152,5 @@ void collect(T& data)
 	sst >> data;
 	Debug(Color(fRESET) << "collected: " << data << std::endl);
 }
+
+size_t chartcount(const std::string& string);

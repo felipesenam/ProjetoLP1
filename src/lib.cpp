@@ -43,8 +43,8 @@ std::string Color(std::string color)
 void printTitle(std::string title, std::string cor)
 {
 	CLS;
-	int spaceExtra = title.length() % 2;
-	int spaceOnLeft = (BOXWIDTH - title.length() - spaceExtra) / 2;
+	int spaceExtra = chartcount(title) % 2;
+	int spaceOnLeft = (BOXWIDTH - chartcount(title) - spaceExtra) / 2;
 	
 	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
 	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
@@ -66,8 +66,8 @@ void printTitle(std::string title, std::string cor)
 void printMenu(std::string title, std::string subtitle, std::string cor)
 {
 	CLS;
-	int spaceExtra = title.length() % 2;
-	int spaceOnLeft = (BOXWIDTH - title.length() - spaceExtra) / 2;
+	int spaceExtra = chartcount(title) % 2;
+	int spaceOnLeft = (BOXWIDTH - chartcount(title) - spaceExtra) / 2;
 	
 	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
 	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
@@ -76,8 +76,8 @@ void printMenu(std::string title, std::string subtitle, std::string cor)
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
 		<< Color(bLIGHT_YELLOW) << "  " << Color(bRESET) << std::endl;
 
-	spaceOnLeft = (BOXWIDTH - subtitle.length()) / 2;
-	spaceExtra = subtitle.length()%2;
+	spaceOnLeft = (BOXWIDTH - chartcount(subtitle)) / 2;
+	spaceExtra = chartcount(subtitle) % 2;
 	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
 		<< subtitle 
@@ -103,7 +103,7 @@ void ffBuffer()
  * @param vect :: Vetor de caracteres a ser lido
  * @return Retorna um valor booleano referente à existência do caractere na palavra
 */
-bool isany(const char letter, std::string vect)
+bool isany(const char letter, const std::string& vect)
 {
 	for(auto l : vect)
 	{
@@ -113,4 +113,32 @@ bool isany(const char letter, std::string vect)
 		}
 	}
 	return false;
+}
+
+bool isany(const std::string& word, const std::string& vect)
+{
+	for(const auto& wl : word)
+	{
+		for(const auto& vl : vect)
+		{
+			if(wl == vl)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+size_t chartcount(const std::string& string)
+{
+	size_t count = string.length();
+	for(unsigned char cc : string)
+	{
+		if(cc == 195 || cc == 194)
+		{
+			count -= 1;
+		}
+	}
+	return count;
 }

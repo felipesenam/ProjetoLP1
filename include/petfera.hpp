@@ -44,38 +44,47 @@ public:
 	void load();
 	void save();
 
-	/********* ANIMAIS ********/
+	/*** INTERFACES PÚBLICAS **/
 	void cadAnimal();
-	Animal* cadAnimal(std::string, Classe, Classificacao, bool, bool, std::string, Tratador*, Veterinario*, std::string = "");
-
 	void remAnimal();
-	bool remAnimal(int);
-
-	void redoAnimal(Animal*&, std::string);
 	void altAnimal();
+
 	void listAll();
-	void listClass();
 	void listId();
+	void listClass();
 	void listRespn();
-	
+
+	void cadVetr();
+	void altVetr();
+
+	void cadTrat();
+	void altTrat();
+
+	void remFunc();
+	void listFunc();
+
+	/********* ANIMAIS ********/
+	Animal* cadAnimal(std::string, Classe, Classificacao, bool, bool, std::string, Tratador*, Veterinario*, std::string = "");
+	bool remAnimal(int);
+	void redoAnimal(Animal*&, std::string);
+
+	int listClass(Classe classe, Classificacao classificacao);
+	int listRespn(Funcionario* funcionario);
+
 	Animal* buscarAnim(int);
 
 	/****** VETERINARIOS ******/
-	void cadVetr();
 	Veterinario* cadVetr(std::string, Status, std::string, int);
-	void altVetr();
 	std::map<int, Funcionario*>::iterator findCRMV(std::string CRMV);
 
 	/******* TRATADORES *******/
-	void cadTrat();
 	Tratador* cadTrat(std::string, Status, Seguranca, int);
-	void altTrat();
-
+	
 	/****** FUNCIONARIOS ******/
 	Funcionario* cadFunc(Funcionario*);
 	Funcionario* buscaFunc(int);
-	bool remFunc();
-	void listFunc();
+	bool remFunc(int id);
+	
 
 	/********** MENUS *********/
 	void run();

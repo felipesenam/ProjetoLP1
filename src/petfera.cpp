@@ -141,7 +141,9 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "Informe a espécie do animal: " << std::endl;
 		USERENTRY( getline(std::cin, especie) );
-		RETURNIF(especie, "0", VOIDRETURN);
+		IFEQ_WPAUSERETURN(especie, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+		IFFOUND_CONTINUE(especie, ";", "O dado informado possui caracteres não permitidos.");
+
 		if (especie != "")
 		{
 			break;
@@ -156,7 +158,7 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
 		USERENTRY(collect<char>(cClasse));
-		RETURNIF(cClasse, '0', VOIDRETURN);
+		IFEQ_WPAUSERETURN(cClasse, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 		if (isany(cClasse, "AaBbMmRr"))
 		{
 			break;
@@ -171,7 +173,7 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
 		USERENTRY(collect<char>(cClassificacao));
-		RETURNIF(cClassificacao, '0', VOIDRETURN);
+		IFEQ_WPAUSERETURN(cClassificacao, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 		if (isany(cClassificacao, "Dd"))
 		{
 			break;
@@ -184,7 +186,8 @@ void PetFera::cadAnimal()
 				{
 					std::cout << "Informe a licença de transporte:" << std::endl;
 					USERENTRY( getline(std::cin, extra) );
-					RETURNIF(extra, "0", VOIDRETURN);
+					IFEQ_WPAUSERETURN(extra, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+					IFFOUND_CONTINUE(extra, ";", "O dado informado possui caracteres não permitidos.");
 					if (extra != "")
 					{
 						break;
@@ -201,7 +204,8 @@ void PetFera::cadAnimal()
 				{
 					std::cout << "Informe o território de origem do animal:" << std::endl;
 					USERENTRY( getline(std::cin, extra) );
-					RETURNIF(extra, "0", VOIDRETURN);
+					IFEQ_WPAUSERETURN(extra, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+					IFFOUND_CONTINUE(extra, ";", "O dado informado possui caracteres não permitidos.");
 					if (extra != "")
 					{
 						break;
@@ -248,7 +252,7 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "O animal possui algum grau de extinção? S (Sim) | N (Não)" << std::endl;
 		USERENTRY(collect<char>(cAmeacadaExtincao));
-		RETURNIF(cAmeacadaExtincao, '0', VOIDRETURN);
+		IFEQ_WPAUSERETURN(cAmeacadaExtincao, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 		if (isany(cAmeacadaExtincao, "SsNn"))
 		{
 			break;
@@ -264,7 +268,7 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "O animal é considerado perigoso ou venenoso? S (Sim) | N (Não)" << std::endl;
 		USERENTRY(collect<char>(cPerigoso));
-		RETURNIF(cPerigoso, '0', VOIDRETURN);
+		IFEQ_WPAUSERETURN(cPerigoso, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 		if (isany(cPerigoso, "SsNn"))
 		{
 			break;
@@ -280,7 +284,7 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "Insira o ID do tratador do animal" << std::endl;
 		USERENTRY(collect<int>(idt));
-		RETURNIF(idt, 0, VOIDRETURN);
+		IFEQ_WPAUSERETURN(idt, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
 		if ((tratador = dynamic_cast<Tratador*>(buscaFunc(idt))) != nullptr)
 		{
 			if(tratador->aptto(classe, perigoso))
@@ -288,7 +292,7 @@ void PetFera::cadAnimal()
 				char opt;
 				std::cout << "Associar " << tratador->getNome() << " como tratador deste animal? S - Sim | N - Não" << std::endl;
 				USERENTRY(collect<char>(opt));
-				RETURNIF(opt, '0', VOIDRETURN);
+				IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 				if(opt == 'S' || opt == 's')
 				{
 					break;	
@@ -309,13 +313,13 @@ void PetFera::cadAnimal()
 	{
 		std::cout << "Insira o ID do veterinário do animal" << std::endl;
 		USERENTRY(collect<int>(idv));
-		RETURNIF(idv, 0, VOIDRETURN);
+		IFEQ_WPAUSERETURN(idv, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
 		if ((veterinario = dynamic_cast<Veterinario*>(buscaFunc(idv))) != nullptr)
 		{
 			char opt;
 			std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
 			USERENTRY(collect<char>(opt));
-			RETURNIF(opt, '0', VOIDRETURN);
+			IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 			if(opt == 'S' || opt == 's')
 			{
 				break;	
@@ -327,9 +331,14 @@ void PetFera::cadAnimal()
 		}
 	} while (1);
 
-	std::cout << "Insira a Nota Fiscal, se houver: " << std::endl;
-	USERENTRY( getline(std::cin, NF) );
-	RETURNIF(NF, "0", VOIDRETURN);
+	do
+	{
+		std::cout << "Insira a Nota Fiscal, se houver: " << std::endl;
+		USERENTRY( getline(std::cin, NF) );
+		IFEQ_WPAUSERETURN(NF, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+		IFFOUND_CONTINUE(NF, ";", "O dado informado possui caracteres não permitidos.");
+		break;
+	} while(1);
 
 	cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
 	this->save();
@@ -434,18 +443,18 @@ Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao cla
 void PetFera::remAnimal()
 {
 	Animal* animal = nullptr;
-	int idRem;
+	int id;
 	do
 	{
-		std::cout << "Insira o ID do animal a ser removido." << std::endl;
-		USERENTRY(collect<int>(idRem));
-		RETURNIF(idRem, 0, VOIDRETURN);
-		if((animal = buscarAnim(idRem)) != nullptr)
+		std::cout << "Insira o ID do animal a ser removido: " << std::endl;
+		USERENTRY(collect<int>(id));
+		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
+		if((animal = buscarAnim(id)) != nullptr)
 		{
 			char opt;
 			std::cout << "Remover " << animal->getEspecie() << "? S (Sim) | N (Não)" << std::endl;
 			USERENTRY(collect<char>(opt));
-			RETURNIF(opt, '0', VOIDRETURN);
+			IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 			if(opt == 'S' || opt == 's')
 			{
 				break;	
@@ -457,10 +466,16 @@ void PetFera::remAnimal()
 		}
 	} while (1);
 
-	remAnimal(idRem);
-	this->save();
+	if(remAnimal(id))
+	{
+		FINALLY("Animal removido com sucesso" << std::endl);
+		this->save();
+	}
+	else
+	{
+		WARN("Houve um problema ao tentar remover este animal." << std::endl);
+	}
 
-	FINALLY("Animal removido com sucesso" << std::endl);
 	PAUSE;
 }
 
@@ -514,7 +529,7 @@ void PetFera::altAnimal()
 	{
 		std::cout << "Insira o id do animal a ser alterado: " << std::endl;
 		USERENTRY(collect<short>(idAlter));
-		RETURNIF(idAlter, 0, VOIDRETURN);
+		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
 		if ((animal = this->buscarAnim(idAlter)) == nullptr)
 		{
 			WARN("Animal não encontrado." << std::endl);
@@ -553,7 +568,8 @@ void PetFera::altAnimal()
 			{
 				std::cout << "Informe a espécie do animal: " << std::endl;
 				USERENTRY( getline(std::cin, especie) );
-				BREAKIF(especie, "0");
+				IFEQ_BREAK(especie, "0");
+				IFFOUND_CONTINUE(especie, ";", "O dado informado possui caracteres não permitidos.");
 				if (especie != "")
 				{
 					break;
@@ -572,7 +588,7 @@ void PetFera::altAnimal()
 			{
 				std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
 				USERENTRY(collect<char>(cClasse));
-				BREAKIF(cClasse, '0');
+				IFEQ_BREAK(cClasse, '0');
 				if (isany(cClasse, "AaBbMmRr"))
 				{
 					break;
@@ -618,7 +634,7 @@ void PetFera::altAnimal()
 			{
 				std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
 				USERENTRY(collect<char>(cClassificacao));
-				BREAKIF(cClassificacao, '0');
+				IFEQ_BREAK(cClassificacao, '0');
 				if (isany(cClassificacao, "Dd"))
 				{
 					break;
@@ -631,7 +647,8 @@ void PetFera::altAnimal()
 						{
 							std::cout << "Informe a licença de transporte:" << std::endl;
 							USERENTRY( getline(std::cin, extra) );
-							BREAKIF(extra, "0");
+							IFEQ_BREAK(extra, "0");
+							IFFOUND_CONTINUE(extra, ";", "O dado informado possui caracteres não permitidos.");
 							if (extra != "")
 							{
 								break;
@@ -648,7 +665,8 @@ void PetFera::altAnimal()
 						{
 							std::cout << "Informe o território de origem do animal:" << std::endl;
 							USERENTRY( getline(std::cin, extra) );
-							BREAKIF(extra, "0");
+							IFEQ_BREAK(extra, "0");
+							IFFOUND_CONTINUE(extra, ";", "O dado informado possui caracteres não permitidos.");
 							if (extra != "")
 							{
 								break;
@@ -666,7 +684,7 @@ void PetFera::altAnimal()
 					WARN("Opção inválida" << std::endl);
 				}
 			} while (1);
-			CONTINUEIF(extra, "0");
+			IFEQ_CONTINUE(extra, "0");
 
 			animal->setClassificacao(domestico);
 			if (cClassificacao == 'E' || cClassificacao == 'e')
@@ -687,7 +705,7 @@ void PetFera::altAnimal()
 			{
 				std::cout << "O animal possui algum grau de extinção? S (Sim) | N (Não)" << std::endl;
 				USERENTRY(collect<char>(cAmeacadaExtincao));
-				BREAKIF(cAmeacadaExtincao, '0');
+				IFEQ_BREAK(cAmeacadaExtincao, '0');
 				if (isany(cAmeacadaExtincao, "SsNn"))
 				{
 					break;
@@ -706,7 +724,7 @@ void PetFera::altAnimal()
 			{
 				std::cout << "O animal é considerado perigoso ou venenoso? S (Sim) | N (Não)" << std::endl;
 				USERENTRY(collect<char>(cPerigoso));
-				BREAKIF(cPerigoso, '0');
+				IFEQ_BREAK(cPerigoso, '0');
 				if (isany(cPerigoso, "SsNn"))
 				{
 					break;
@@ -722,7 +740,8 @@ void PetFera::altAnimal()
 		{
 			std::string NF;
 			USERENTRY( getline(std::cin, NF) );
-			CONTINUEIF(NF, "0");
+			IFEQ_CONTINUE(NF, "0");
+			IFFOUND_CONTINUE(NF, ";", "O dado informado possui caracteres não permitidos.");
 			animal->setNF(NF);
 		}
 		else if(opt == "V" || opt == "v")
@@ -733,13 +752,13 @@ void PetFera::altAnimal()
 			{
 				std::cout << "Insira o ID do veterinário do animal" << std::endl;
 				USERENTRY(collect<int>(idv));
-				BREAKIF(idv, 0);
+				IFEQ_BREAK(idv, 0);
 				if ((veterinario = dynamic_cast<Veterinario*>(buscaFunc(idv))) != nullptr)
 				{
 					char opt;
 					std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
 					USERENTRY(collect<char>(opt));
-					BREAKIF(opt, '0');
+					IFEQ_BREAK(opt, '0');
 					if(opt == 'S' || opt == 's')
 					{
 						animal->setVeterinario(veterinario);
@@ -760,7 +779,7 @@ void PetFera::altAnimal()
 			{
 				std::cout << "Insira o ID do tratador do animal" << std::endl;
 				USERENTRY(collect<int>(idt));
-				BREAKIF(idt, 0);
+				IFEQ_BREAK(idt, 0);
 				if ((tratador = dynamic_cast<Tratador*>(buscaFunc(idt))) != nullptr)
 				{
 					if(tratador->aptto(animal->getClasse(), animal->getPerigoso()))
@@ -768,7 +787,7 @@ void PetFera::altAnimal()
 						char opt;
 						std::cout << "Associar " << tratador->getNome() << " como tratador deste animal? S - Sim | N - Não" << std::endl;
 						USERENTRY(collect<char>(opt));
-						BREAKIF(opt, '0');
+						IFEQ_BREAK(opt, '0');
 						if(opt == 'S' || opt == 's')
 						{
 							animal->setTratador(tratador);
@@ -841,18 +860,12 @@ void PetFera::listAnimal()
 
 void PetFera::listAll()
 {
+	for (auto animal : this->animais)
+	{
+		std::cout << (*animal) << std::endl;
+	}
 
-	if (this->animais.size() == 0)
-	{
-		std::cout << "Não há animais cadastrados." << std::endl;
-	}
-	else
-	{
-		for (auto animal : this->animais)
-		{
-			std::cout << (*animal) << std::endl;
-		}
-	}
+	FINALLY("Foram listados " << animais.size() << " animais." << std::endl);
 	PAUSE;
 }
 
@@ -861,24 +874,20 @@ void PetFera::listAll()
 */
 void PetFera::listId()
 {
+	Animal* animal = nullptr;
 	short id;
 	std::cout << "Informe o id do animal a ser impresso: " << std::endl;
 	USERENTRY(collect<short>(id));
-	RETURNIF(id, 0, VOIDRETURN);
-	if (buscarAnim(id)==nullptr)
+	IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
+	if ((animal = buscarAnim(id)) == nullptr)
 	{
 		WARN("Animal não encontrado" << std::endl);
 	}
 	else
 	{
-		for (auto a : this->animais)
-		{
-			if (a->getId()==id)
-				std::cout << (*a) << std::endl;
-		}
+		std::cout << *animal << std::endl;
 	}
 	PAUSE;
-
 }
 
 /**
@@ -899,7 +908,7 @@ void PetFera::listClass()
 	{
 		std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
 		USERENTRY(collect<char>(cClasse));
-		RETURNIF(cClasse, '0', VOIDRETURN);
+		IFEQ_WPAUSERETURN(cClasse, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 		if (isany(cClasse, "AaBbMmRr"))
 		{
 			break;
@@ -914,7 +923,7 @@ void PetFera::listClass()
 	{
 		std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
 		USERENTRY(collect<char>(cClassificacao));
-		RETURNIF(cClassificacao, '0', VOIDRETURN);
+		IFEQ_WPAUSERETURN(cClassificacao, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 		if (isany(cClassificacao, "NnEeDd"))
 		{
 			break;
@@ -949,6 +958,14 @@ void PetFera::listClass()
 		classe = mamifero;
 	}
 
+	int count = listClass(classe, classificacao);
+	FINALLY("Foram listados " << count << " animais." << std::endl);
+	PAUSE;
+}
+
+int PetFera::listClass(Classe classe, Classificacao classificacao)
+{
+	int count = 0;
 	if(classificacao == domestico)
 	{
 		if(classe == anfibio)
@@ -960,6 +977,7 @@ void PetFera::listClass()
 				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -972,6 +990,7 @@ void PetFera::listClass()
 				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -984,6 +1003,7 @@ void PetFera::listClass()
 				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -996,6 +1016,7 @@ void PetFera::listClass()
 				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1011,6 +1032,7 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1023,6 +1045,7 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1035,6 +1058,7 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1047,6 +1071,7 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1062,6 +1087,7 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1074,6 +1100,7 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1086,6 +1113,7 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
@@ -1098,12 +1126,12 @@ void PetFera::listClass()
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
+					++count;
 				}
 			}
 		}
 	}
-	WARN("- Fim -" << std::endl);
-	PAUSE;
+	return count;
 }
 
 /**
@@ -1117,8 +1145,8 @@ void PetFera::listRespn()
 	{
 		std::cout << "Informe o ID do funcionário" << std::endl;
 		USERENTRY(collect<short>(id));
-		RETURNIF(id, 0, VOIDRETURN);
-		if(buscaFunc(id) == nullptr)
+		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
+		if((funcionario = buscaFunc(id)) == nullptr)
 		{
 			WARN("Funcionário não encontrado." << std::endl);
 		}
@@ -1127,19 +1155,28 @@ void PetFera::listRespn()
 			break;
 		}
 	}while(1);
-	funcionario = buscaFunc(id);
+
 	std::cout << "Listando animais sob responsabilidade de " << funcionario->getNome() << ": " << std::endl;
-	NEWLINE;
+
+	int count = listRespn(funcionario);
+	FINALLY("Foram listados " << count << " animais." << std::endl);
+
+	PAUSE;
+}
+
+int PetFera::listRespn(Funcionario* funcionario)
+{
+	int count = 0;
 	for(auto a : animais)
 	{
 		if(a->getTratador() == funcionario || a->getVeterinario() == funcionario)
 		{
 			std::cout << (*a) << std::endl;
+			++count;
 		}
 	}
-	PAUSE;
+	return count;
 }
-
 
 /**
  * @brief Menu de gerenciamento de cadastro
@@ -1152,11 +1189,11 @@ void PetFera::gerCad()
 	{
 		CLS;
 		printMenu("Pet Fera", "Gerenciar cadastros", fLIGHT_GREEN);
-		std::cout << "V. Cadastrar veterinário." << std::endl;
-		std::cout << "A. Alterar dados de um veterinário." << std::endl;
-		std::cout << "T. Cadastrar tratador." << std::endl;
-		std::cout << "U. Alterar dados de um tratador." << std::endl;
-		std::cout << "R. Remover funcinário." << std::endl;
+		std::cout << "V. Cadastrar veterinário" << std::endl;
+		std::cout << "A. Alterar dados de um veterinário" << std::endl;
+		std::cout << "T. Cadastrar tratador" << std::endl;
+		std::cout << "U. Alterar dados de um tratador" << std::endl;
+		std::cout << "R. Remover funcinário" << std::endl;
 		std::cout << "F. Listar funcionários" << std::endl;
 		NEWLINE;
 		std::cout << "X. Voltar" << std::endl;
@@ -1175,7 +1212,7 @@ void PetFera::gerCad()
 		}
 		else if(opt == "A" || opt == "a")
 		{
-			printTitle("Alterar dados de um veterinário.", fLIGHT_GREEN);
+			printTitle("Alterar dados de um veterinário", fLIGHT_GREEN);
 			this->altVetr();
 		}
 		else if(opt == "T" || opt == "t")
@@ -1185,7 +1222,7 @@ void PetFera::gerCad()
 		}
 		else if(opt == "U" || opt == "u")
 		{
-			printTitle("Alterar dados de um tratador.", fLIGHT_GREEN);
+			printTitle("Alterar dados de um tratador", fLIGHT_GREEN);
 			this->altTrat();
 		}
 		else if(opt == "F" || opt == "f")
@@ -1229,7 +1266,8 @@ void PetFera::cadVetr()
 	{
 		std::cout << "Insira o nome do veterinário: " << std::endl;
 		USERENTRY( getline(std::cin, nome) );
-		RETURNIF(nome, "0", VOIDRETURN);
+		IFEQ_WPAUSERETURN(nome, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+		IFFOUND_CONTINUE(nome, ";", "O dado informado possui caracteres não permitidos.");
 		if (nome != "")
 		{
 			break;
@@ -1239,16 +1277,15 @@ void PetFera::cadVetr()
 			WARN("Este campo não pode ser deixado em branco" << std::endl);
 		}
 	} while(1);
+
 	do
 	{
 		std::cout << "Insira o CRMV do veterinário: " << std::endl;
 		USERENTRY( getline(std::cin, CRMV) );
-		RETURNIF(CRMV, "0", VOIDRETURN);
+		IFEQ_WPAUSERETURN(CRMV, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+		IFFOUND_CONTINUE(CRMV, ";", "O dado informado possui caracteres não permitidos.");
 
-		std::string validChars = "0123456789"; // Digitos permitidos no CRMV
-		int res = strspn(CRMV.c_str(), validChars.c_str());
-
-		if (res == 0 || CRMV.length() < 4 || CRMV.length() > 6) { // Verifica se se o CRMV é válido
+		if (strspn(CRMV.c_str(), "0123456789") == 0 || CRMV.length() < 4 || CRMV.length() > 6) { // Verifica se se o CRMV é válido
 			WARN("CRMV inválido!" << std::endl);	
 		}
 		else
@@ -1261,12 +1298,9 @@ void PetFera::cadVetr()
 			else
 			{
 				WARN("Já existe um veterinário com este número de CRMV cadastrado." << std::endl);
-				std::cout<<res<<std::endl;
-			}
-			
-		}
-				
-		} while (1);		
+			}	
+		}	
+	} while (1);		
 
 	cadVetr(nome, Status::ativo, CRMV, funcionarios.size() + 1);
 	this->save();
@@ -1296,27 +1330,104 @@ Veterinario* PetFera::cadVetr(std::string nome, Status status, std::string CRMV,
 */
 void PetFera::altVetr()
 {
-	short id;
-	std::string nome;
-	std::cout << "Informe o ID do funcionário a ser alterado:" << std::endl;
-	USERENTRY(collect<short>(id));
-	RETURNIF(id, 0, VOIDRETURN);
-
-	std::cout << "Insira o nome do veterinário: " << std::endl;
-	USERENTRY( getline(std::cin, nome) );
-	RETURNIF(nome, "0", VOIDRETURN)
-	for(auto v : funcionarios)
+	Veterinario* veterinario = nullptr;
+	short idAlter;
+	do
 	{
-		if(v.second->getId() == id)
+		std::cout << "Insira o ID do veterinário a ser alterado: " << std::endl;
+		USERENTRY(collect<short>(idAlter));
+		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
+		if ((veterinario = dynamic_cast<Veterinario*>(this->buscaFunc(idAlter))) == nullptr)
 		{
-			v.second->setNome(nome);
-			return;
+			WARN("Funcionário não encontrado." << std::endl);
 		}
-	}
-	this->save();
+		else
+		{
+			break;
+		}
+	}while(1);
 
-	FINALLY("Cadastro alterado com sucesso." << std::endl);
-	PAUSE;
+	std::string opt;
+	do
+	{
+		printTitle(veterinario->getNome(), fGREEN);
+		std::cout << *veterinario << std::endl;
+		NEWLINE;
+
+		std::cout << "N. Alterar nome" << std::endl;
+		std::cout << "C. Alterar CRMV" << std::endl;
+		std::cout << "S. Alterar status" << std::endl;
+		NEWLINE;
+		std::cout << "X. Voltar" << std::endl;
+		NEWLINE;
+		
+		USERENTRY( getline(std::cin, opt) );
+
+		if(opt == "N" || opt == "n")
+		{
+			std::string nome;
+			do
+			{
+				std::cout << "Informe o nome do veterinário: " << std::endl;
+				USERENTRY( getline(std::cin, nome) );
+				IFEQ_BREAK(nome, "0");
+				IFFOUND_CONTINUE(nome, ";", "O dado informado possui caracteres não permitidos.");
+				if (nome != "")
+				{
+					veterinario->setNome(nome);
+					break;
+				}
+				else
+				{
+					WARN("Este campo não pode ser deixado em branco." << std::endl);
+				}
+			}while(1);
+		}
+		if(opt == "C" || opt == "c")
+		{
+			std::string CRMV;
+			do
+			{
+				std::cout << "Insira o CRMV do veterinário: " << std::endl;
+				USERENTRY( getline(std::cin, CRMV) );
+				IFEQ_BREAK(CRMV, "0");
+				IFFOUND_CONTINUE(CRMV, ";", "O dado informado possui caracteres não permitidos.");
+
+				if (strspn(CRMV.c_str(), "0123456789") == 0 || CRMV.length() < 4 || CRMV.length() > 6)
+				{
+					WARN("CRMV inválido!" << std::endl);	
+				}
+				else
+				{
+					if(findCRMV(CRMV) == funcionarios.end())
+					{
+						veterinario->setCRMV(CRMV);
+						break;
+					}
+					else
+					{
+						WARN("Já existe um veterinário com este número de CRMV cadastrado." << std::endl);
+					}	
+				}	
+			} while (1);	
+		}
+		else if(opt == "S" || opt == "s")
+		{
+			if(veterinario->getStatus() == ativo)
+			{
+				veterinario->setStatus(inativo);
+			}
+			else if(veterinario->getStatus() == inativo)
+			{
+				veterinario->setStatus(ativo);
+			}
+		}
+		else if(opt == "X" || opt == "x")
+		{
+			break;
+		}
+		this->save();
+	}while(1);
 }
 
 /**
@@ -1350,7 +1461,8 @@ void PetFera::cadTrat()
 	{
 		std::cout << "Insira o nome do tratador: " << std::endl;
 		USERENTRY( getline(std::cin, nome) );
-		RETURNIF(nome, "0", VOIDRETURN);
+		IFEQ_WPAUSERETURN(nome, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+		IFFOUND_CONTINUE(nome, ";", "O dado informado possui caracteres não permitidos.");
 		if (nome != "")
 		{
 			break;
@@ -1365,7 +1477,7 @@ void PetFera::cadTrat()
 	{
 		std::cout << "Informe o nível de segurança: (" << Color(fGREEN) << "VERDE" << Color(fRESET) << " | " << Color(fBLUE) << "AZUL" << Color(fRESET) << " | " << Color(fRED) << "VERMELHO" << Color(fRESET) << ")" << std::endl;
 		USERENTRY( getline(std::cin, seguranca) );
-		RETURNIF(seguranca, "0", VOIDRETURN);
+		IFEQ_WPAUSERETURN(seguranca, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 		if(seguranca == "VERDE" || seguranca == "verde" || seguranca == "Verde" )
 		{
 			seg = verde;
@@ -1415,57 +1527,105 @@ Tratador* PetFera::cadTrat(std::string nome, Status status, Seguranca seg, int i
 */
 void PetFera::altTrat()
 {
-	short id;
-	std::string nome;
-	std::string seguranca;
-	Seguranca seg;
-	std::cout << "Informe o ID do funcionário a ser alterado:" << std::endl;
-	USERENTRY(collect<short>(id));
-	RETURNIF(id, 0, VOIDRETURN);
-
-	std::cout << "Insira o nome do tratador: " << std::endl;
-	USERENTRY( getline(std::cin, nome) );
-	RETURNIF(nome, "0", VOIDRETURN);
-
+	Tratador* tratador = nullptr;
+	short idAlter;
 	do
 	{
-		std::cout << "Informe o nível de segurança: (" << Color(fGREEN) << "VERDE" << Color(fRESET) << " | " << Color(fBLUE) << "AZUL" << Color(fRESET) << " | " << Color(fRED) << "VERMELHO" << Color(fRESET) << ")" << std::endl;
-		USERENTRY( getline(std::cin, seguranca) );
-		RETURNIF(seguranca, "0", VOIDRETURN);
-		if(seguranca == "VERDE" || seguranca == "verde" || seguranca == "Verde" )
+		std::cout << "Insira o ID do tratador a ser alterado: " << std::endl;
+		USERENTRY(collect<short>(idAlter));
+		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
+		if ((tratador = dynamic_cast<Tratador*>(this->buscaFunc(idAlter))) == nullptr)
 		{
-			seg = verde;
-			break;
-		}
-		else if(seguranca == "AZUL" || seguranca == "azul" || seguranca == "Azul")
-		{
-			seg = azul;
-			break;
-		}
-		else if(seguranca == "VERMELHO" || seguranca == "Vermelho" || seguranca == "vermelho")
-		{
-			seg = vermelho;
-			break;
+			WARN("Funcionário não encontrado." << std::endl);
 		}
 		else
 		{
-			std::cout << "Informe um nível de segurança válido." << std::endl;
+			break;
 		}
-	} while(1);
+	}while(1);
 
-	for(auto t = funcionarios.begin(); t != funcionarios.end(); ++t)
+	std::string opt;
+	do
 	{
-		if(t->second->getId() == id)
-		{
-			t->second->setNome(nome);
-			static_cast<Tratador*>(t->second)->setSeguranca(seg);
-			return;
-		}
-	}
-	this->save();
+		printTitle(tratador->getNome(), fGREEN);
+		std::cout << *tratador << std::endl;
+		NEWLINE;
 
-	FINALLY("Cadastro alterado com sucesso." << std::endl);
-	PAUSE;
+		std::cout << "N. Alterar nome" << std::endl;
+		std::cout << "C. Alterar nível de segurança" << std::endl;
+		std::cout << "S. Alterar status" << std::endl;
+		NEWLINE;
+		std::cout << "X. Voltar" << std::endl;
+		NEWLINE;
+		
+		USERENTRY( getline(std::cin, opt) );
+
+		if(opt == "N" || opt == "n")
+		{
+			std::string nome;
+			do
+			{
+				std::cout << "Informe o nome do tratador: " << std::endl;
+				USERENTRY( getline(std::cin, nome) );
+				IFEQ_BREAK(nome, "0");
+				IFFOUND_CONTINUE(nome, ";", "O dado informado possui caracteres não permitidos.");
+				if (nome != "")
+				{
+					tratador->setNome(nome);
+					break;
+				}
+				else
+				{
+					WARN("Este campo não pode ser deixado em branco" << std::endl);
+				}
+			}while(1);
+		}
+		if(opt == "C" || opt == "c")
+		{
+			std::string seguranca;
+			do
+			{
+				std::cout << "Informe o nível de segurança: (" << Color(fGREEN) << "VERDE" << Color(fRESET) << " | " << Color(fBLUE) << "AZUL" << Color(fRESET) << " | " << Color(fRED) << "VERMELHO" << Color(fRESET) << ")" << std::endl;
+				USERENTRY( getline(std::cin, seguranca) );
+				IFEQ_WPAUSERETURN(seguranca, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+				if(seguranca == "VERDE" || seguranca == "verde" || seguranca == "Verde" )
+				{
+					tratador->setSeguranca(verde);
+					break;
+				}
+				else if(seguranca == "AZUL" || seguranca == "azul" || seguranca == "Azul")
+				{
+					tratador->setSeguranca(azul);
+					break;
+				}
+				else if(seguranca == "VERMELHO" || seguranca == "Vermelho" || seguranca == "vermelho")
+				{
+					tratador->setSeguranca(vermelho);
+					break;
+				}
+				else
+				{
+					std::cout << "Informe um nível de segurança válido." << std::endl;
+				}
+			} while(1);
+		}
+		else if(opt == "S" || opt == "s")
+		{
+			if(tratador->getStatus() == ativo)
+			{
+				tratador->setStatus(inativo);
+			}
+			else if(tratador->getStatus() == inativo)
+			{
+				tratador->setStatus(ativo);
+			}
+		}
+		else if(opt == "X" || opt == "x")
+		{
+			break;
+		}
+		this->save();
+	}while(1);
 }
 
 /**
@@ -1504,27 +1664,60 @@ Funcionario* PetFera::buscaFunc(int id)
  * @details Recolhe os dados necessários para que o funcionário seja removido do catálogo
  * @return Retorna um valor booleano referente ao sucesso da operação
 */
-bool PetFera::remFunc()
+void PetFera::remFunc()
 {
+	Funcionario* funcionario = nullptr;
 	short id;
-	std::cout << "Informe o ID do funcionário:" << std::endl;
-	USERENTRY(collect<short>(id));
-	RETURNIF(id, 0, false);
-	for(auto& t : funcionarios)
+	do
 	{
-		if(t.second->getId() == id)
+		std::cout << "Insira o ID do funcionário a ser removido: " << std::endl;
+		USERENTRY(collect<short>(id));
+		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
+		if((funcionario = buscaFunc(id)) != nullptr)
 		{
-			t.second->setStatus(inativo);
-			this->save();
+			char opt;
+			std::cout << "Remover " << funcionario->getNome() << "? S (Sim) | N (Não)" << std::endl;
+			USERENTRY(collect<char>(opt));
+			IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
+			if(opt == 'S' || opt == 's')
+			{
+				break;	
+			}
+		}
+		else
+		{
+			WARN("Funcionário não encontrado." << std::endl);
+		}
+	} while (1);
 
-			FINALLY(t.second->getNome() << " foi desvinculado da loja." << std::endl);
-			PAUSE;
+	if(remFunc(id))
+	{
+		FINALLY("Funcionário removido com sucesso" << std::endl);
+		this->save();
+	}
+	else
+	{
+		WARN("Houve um problema ao tentar remover este funcionário." << std::endl);
+	}
+
+	PAUSE;
+}
+
+bool PetFera::remFunc(int id)
+{
+	Funcionario* funcionario = nullptr;
+	for(auto it = funcionarios.begin(); it != funcionarios.end(); ++it)
+	{
+		funcionario = it->second;
+		if(funcionario->getId() == id)
+		{
+			funcionarios.erase(it);
+			delete funcionario;
 			return true;
 		}
 	}
 	return false;
 }
-
 /**
  * @brief Lista todos os funcionários da PetFera
 */
@@ -1563,7 +1756,7 @@ void PetFera::run()
 	{
 		CLS;
 		printMenu("Pet Fera", "Menu Principal", fLIGHT_GREEN);
-		std::cout << "C. Cadastrar novo animal." << std::endl;
+		std::cout << "C. Cadastrar novo animal" << std::endl;
 		std::cout << "R. Remover um animal" << std::endl;
 		std::cout << "A. Alterar dados de um animal" << std::endl;
 		std::cout << "L. Listar animal ou classe" << std::endl;
