@@ -1,4 +1,4 @@
-#Makefile for multiples projects *Linux version
+#Makefile for multiples projects *Generic version
 #By Felipe Sena - Last updated in 11/11/2020 at 00:59
 
 #################### SUBTITLE ####################
@@ -98,7 +98,6 @@ HEADERS=$(wildcard $(INCPATH-$(FILE))*$(HEADER_EXT-$(FILE)))
 OBJECTS=$(subst $(SOURCE_EXT-$(FILE)),.o, $(subst $(SRCPATH-$(FILE)),$(OBJPATH-$(FILE)),$(FILE_SOURCE)))
 
 OBJCOUNT=$$(($(words $(OBJECTS))+1))
-CURCOUNT=1
 ##################################################
 
 
@@ -114,24 +113,19 @@ all: objdir
 
 %:
 	@ $(eval FILE=$@)
-	@ if [ "$(findstring $(FILE),$(TARGET_LIST))" = "$(FILE)" ]; then ($(MAKE) --silent --stop FILE=$(FILE) objdir $(FILE-$(FILE));printf "[100%%] Built target %s\n" $(FILE);); else (echo "make: There is no recipe for target '$(FILE)'"; exit); fi
+	@ if [ "$(findstring $(FILE),$(TARGET_LIST))" = "$(FILE)" ]; then ($(MAKE) --silent --stop FILE=$(FILE) objdir $(FILE-$(FILE));echo "[100%] Built target $(FILE)";); else (echo "make: There is no recipe for target '$(FILE)'"; exit); fi
 
 $(FILE-$(FILE)): $(OBJECTS)
-	@ printf "[%3i%%]" $$(($(CURCOUNT)*100/$(OBJCOUNT)))
-	@ echo " \e[92mLinking executable $(FILE-$(FILE))\e[0m"
+	@ echo " Linking executable $(FILE-$(FILE))"
 	@ $(COMPILER-$(FILE)) $^ $(COMPILATION_FLAGS-$(FILE)) $(LINKER_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $(FILE-$(FILE))
 
 $(OBJPATH-$(FILE))%.o: $(SRCPATH-$(FILE))%$(SOURCE_EXT-$(FILE)) $(HEADERS)
-	@ printf "[%3i%%]" $$(($(CURCOUNT)*100/$(OBJCOUNT)))
-	@ echo " \e[32mBuilding $(COMPILER-$(FILE)) object $@\e[0m"
+	@ echo " Building $(COMPILER-$(FILE)) object $@"
 	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $@
-	@ $(eval CURCOUNT=$(shell echo $$(($(CURCOUNT)+1))))
 
 $(OBJPATH-$(FILE))$(MAINFILE-$(FILE)).o: $(SRCPATH-$(FILE))$(MAINFILE-$(FILE))$(SOURCE_EXT-$(FILE)) $(HEADERS)
-	@ printf "[%3i%%]" $$(($(CURCOUNT)*100/$(OBJCOUNT)))
-	@ echo " \e[32mBuilding $(COMPILER-$(FILE)) object $@\e[0m"
+	@ echo " Building $(COMPILER-$(FILE)) object $@"
 	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $@
-	@ $(eval CURCOUNT=$(shell echo $$(($(CURCOUNT)+1))))
 
 objdir:
 	@ $(foreach F,$(TARGET_LIST), $(shell mkdir -p $(OBJPATH-$(F))))
