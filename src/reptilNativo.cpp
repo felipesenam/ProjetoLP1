@@ -12,7 +12,9 @@
 */
 ReptilNativo::ReptilNativo (std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
 Reptil(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Nativo (licenca)
-{}
+{
+	Debug("ReptilNativo " << this->id << " [" << this << "] foi criado." << std::endl);
+}
 
 /**
  * @brief Destrutor padrão

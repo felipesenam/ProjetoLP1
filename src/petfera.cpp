@@ -374,19 +374,19 @@ Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao cla
 	{
 		if(classe == anfibio)
 		{
-			animal = new Anfibio(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = new AnfibioDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == ave)
 		{
-			animal = new Ave(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = new AveDomestica(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == mamifero)
 		{
-			animal = new Mamifero(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = new MamiferoDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 		else if (classe == reptil)
 		{
-			animal = new Reptil(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = new ReptilDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
 		}
 	}
 	else if(classificacao == exotico)
@@ -397,7 +397,7 @@ Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao cla
 		}
 		else if (classe == ave)
 		{
-			animal = new AveExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AveExotica(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == mamifero)
 		{
@@ -416,7 +416,7 @@ Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao cla
 		}
 		else if (classe == ave)
 		{
-			animal = new AveNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = new AveNativa(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
 		}
 		else if (classe == mamifero)
 		{
@@ -973,8 +973,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de anfíbios domésticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<Anfibio*>(a);
-				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
+				Animal* animal = dynamic_cast<AnfibioDomestico*>(a);
+				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
 					++count;
@@ -986,8 +986,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de aves domésticas", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<Ave*>(a);
-				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
+				Animal* animal = dynamic_cast<AveDomestica*>(a);
+				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
 					++count;
@@ -999,8 +999,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de mamíferos domésticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<Mamifero*>(a);
-				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
+				Animal* animal = dynamic_cast<MamiferoDomestico*>(a);
+				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
 					++count;
@@ -1012,8 +1012,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de répteis domésticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<Reptil*>(a);
-				if(animal && !dynamic_cast<Nativo*>(a) && !dynamic_cast<Exotico*>(a))
+				Animal* animal = dynamic_cast<ReptilDomestico*>(a);
+				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
 					++count;
@@ -1041,7 +1041,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de aves exóticas", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AveExotico*>(a);
+				Animal* animal = dynamic_cast<AveExotica*>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1096,7 +1096,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de aves nativas", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AveNativo*>(a);
+				Animal* animal = dynamic_cast<AveNativa*>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;

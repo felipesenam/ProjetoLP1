@@ -19,7 +19,7 @@ Exotico::~Exotico()
  * @brief Retorna o territorio do animal exotico
  * @return territorio
 */
-std::string Exotico::getTerritorio()
+std::string Exotico::getTerritorio() const
 {
 	return this->territorio;
 }

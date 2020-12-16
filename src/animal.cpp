@@ -18,9 +18,7 @@ Animal::Animal()
 */
 Animal::Animal(std::string especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, std::string NF):
 especie(especie), classe(classe), classificacao(classificacao), id(id), ameacadaExtincao(ameacadaExtincao), perigoso(perigoso), NF(NF)
-{
-	Debug("Animal " << this->id << " [" << this << "] foi criado." << std::endl);
-}
+{}
 
 /**
  * @brief Destrutor padrão

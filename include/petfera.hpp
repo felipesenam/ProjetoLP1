@@ -11,25 +11,27 @@
 #include "funcionario.hpp"
 #include "veterinario.hpp"
 #include "tratador.hpp"
+
 #include "animal.hpp"
-
-#include "nativo.hpp"
+#include "domestico.hpp"
 #include "exotico.hpp"
-
+#include "nativo.hpp"
 #include "anfibio.hpp"
-#include "ave.hpp"
-#include "mamifero.hpp"
-#include "reptil.hpp"
-
-#include "anfibioNativo.hpp"
-#include "aveNativo.hpp"
-#include "mamiferoNativo.hpp"
-#include "reptilNativo.hpp"
-
+#include "anfibioDomestico.hpp"
 #include "anfibioExotico.hpp"
-#include "aveExotico.hpp"
+#include "anfibioNativo.hpp"
+#include "ave.hpp"
+#include "aveDomestica.hpp"
+#include "aveExotica.hpp"
+#include "aveNativa.hpp"
+#include "mamifero.hpp"
+#include "mamiferoDomestico.hpp"
 #include "mamiferoExotico.hpp"
+#include "mamiferoNativo.hpp"
+#include "reptil.hpp"
+#include "reptilDomestico.hpp"
 #include "reptilExotico.hpp"
+#include "reptilNativo.hpp"
 
 class PetFera
 {

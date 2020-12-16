@@ -10,6 +10,18 @@
 
 class Animal
 {
+protected:
+	Tratador* tratador = nullptr;
+	Veterinario* veterinario = nullptr;
+
+	std::string especie;
+	Classe classe;
+	Classificacao classificacao;
+	short id;
+	bool ameacadaExtincao; // indica se a especie corre risco de extincao
+	bool perigoso;         // indica se o animal é perigoso/venenoso
+	std::string NF;        // Nota Fical
+
 public:
 	Animal();
 	Animal(std::string especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, std::string NF);
@@ -48,16 +60,4 @@ public:
 	friend std::ofstream& operator<<(std::ofstream& o, Animal& animal);
 
 	void forceId(int id);
-
-protected:
-	Tratador* tratador = nullptr;
-	Veterinario* veterinario = nullptr;
-
-	std::string especie;
-	Classe classe;
-	Classificacao classificacao;
-	short id;
-	bool ameacadaExtincao; // indica se a especie corre risco de extincao
-	bool perigoso;         // indica se o animal é perigoso/venenoso
-	std::string NF;        // Nota Fical
 };

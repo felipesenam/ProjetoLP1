@@ -12,7 +12,9 @@
 */
 AnfibioExotico::AnfibioExotico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
 Anfibio(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
-{}
+{
+	Debug("AnfibioExotico " << this->id << " [" << this << "] foi criado." << std::endl);
+}
 
 /**
  * @brief Destrutor padrão
