@@ -10,7 +10,7 @@
  * @param NF :: Nota fiscal do Reptil Nativo
  * @param licenca ::  Especifica a licença emitida pelo IBAMA
 */
-ReptilNativo::ReptilNativo (std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
+ReptilNativo::ReptilNativo (const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF, const std::string& licenca):
 Reptil(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Nativo (licenca)
 {
 	Debug("ReptilNativo " << this->id << " [" << this << "] foi criado." << std::endl);

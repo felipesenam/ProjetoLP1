@@ -5,6 +5,6 @@
 class Ave: public Animal
 {
 public:
-	Ave(std::string, Classe, Classificacao, short, char, char, std::string);
+	Ave(const std::string&, Classe, Classificacao, short, char, char, const std::string&);
 	virtual ~Ave();
 };

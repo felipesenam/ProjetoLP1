@@ -10,7 +10,7 @@
  * @param NF :: Nota fiscal do Mamifero Nativo
  * @param licenca ::  Especifica a licença emitida pelo IBAMA
 */
-MamiferoNativo::MamiferoNativo (std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
+MamiferoNativo::MamiferoNativo (const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF, const std::string& licenca):
 Mamifero(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Nativo(licenca)
 {
 	Debug("MamiferoNativo " << this->id << " [" << this << "] foi criado." << std::endl);

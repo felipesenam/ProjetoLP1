@@ -10,7 +10,7 @@
  * @param perigoso :: Informa se o MamiferoDomestico é perigoso
  * @param NF :: Nota fiscal do MamiferoDomestico
 */
-MamiferoDomestico::MamiferoDomestico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF):
+MamiferoDomestico::MamiferoDomestico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF):
 Mamifero(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF)
 {
 	Debug("MamiferoDomestico " << this->id << " [" << this << "] foi criado." << std::endl);

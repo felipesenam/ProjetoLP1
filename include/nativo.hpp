@@ -5,7 +5,7 @@
 class Nativo
 {
 public:
-	Nativo(std::string);
+	Nativo(const std::string&);
 	virtual ~Nativo();
 
 	std::string getLicenca() const;

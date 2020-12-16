@@ -66,9 +66,9 @@ public:
 	void listFunc();
 
 	/********* ANIMAIS ********/
-	Animal* cadAnimal(std::string, Classe, Classificacao, bool, bool, std::string, Tratador*, Veterinario*, std::string = "");
+	Animal* cadAnimal(const std::string&, Classe, Classificacao, bool, bool, const std::string&, Tratador*, Veterinario*, const std::string& = "");
 	bool remAnimal(int);
-	void redoAnimal(Animal*&, std::string);
+	void redoAnimal(Animal*&, const std::string&);
 
 	int listClass(Classe classe, Classificacao classificacao);
 	int listRespn(Funcionario* funcionario);
@@ -76,11 +76,11 @@ public:
 	Animal* buscarAnim(int);
 
 	/****** VETERINARIOS ******/
-	Veterinario* cadVetr(std::string, Status, std::string, int);
-	std::map<int, Funcionario*>::iterator findCRMV(std::string CRMV);
+	Veterinario* cadVetr(const std::string&, Status, const std::string&, int);
+	std::map<int, Funcionario*>::iterator findCRMV(const std::string& CRMV);
 
 	/******* TRATADORES *******/
-	Tratador* cadTrat(std::string, Status, Seguranca, int);
+	Tratador* cadTrat(const std::string&, Status, Seguranca, int);
 	
 	/****** FUNCIONARIOS ******/
 	Funcionario* cadFunc(Funcionario*);

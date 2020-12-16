@@ -5,6 +5,6 @@
 class Mamifero: public Animal
 {
 public:
-	Mamifero(std::string, Classe, Classificacao, short, char, char, std::string);
+	Mamifero(const std::string&, Classe, Classificacao, short, char, char, const std::string&);
 	virtual ~Mamifero();
 };

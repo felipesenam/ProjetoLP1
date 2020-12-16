@@ -12,7 +12,7 @@ Funcionario::Funcionario()
  * @param id :: Especifica o id do Funcionario
  * @param status :: Informa se o Funcionario está ativo ou suspenso na empresa
 */
-Funcionario::Funcionario(std::string nome, short id, Status status):nome(nome), id(id), status(status)
+Funcionario::Funcionario(const std::string& nome, short id, Status status):nome(nome), id(id), status(status)
 {}
 
 /**
@@ -25,7 +25,7 @@ Funcionario::~Funcionario()
  * @brief Retorna o nome do funcionario
  * @return nome
 */
-std::string Funcionario:: getNome() const 
+std::string Funcionario::getNome() const 
 {
 	return this->nome;
 }
@@ -52,7 +52,7 @@ Status Funcionario::getStatus() const
  * @brief Seta o nome do funcionario
  * @param nome :: nome do funcionario
 */
-void Funcionario::setNome(std::string nome)
+void Funcionario::setNome(const std::string& nome)
 {
 	this->nome=nome;
 }

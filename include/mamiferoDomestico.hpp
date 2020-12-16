@@ -6,7 +6,7 @@
 class MamiferoDomestico: public Mamifero, public Domestico
 {
 public:
-	MamiferoDomestico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF);
+	MamiferoDomestico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF);
 	~MamiferoDomestico();
 	
 	void print(std::ostream&);

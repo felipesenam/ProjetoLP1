@@ -10,7 +10,7 @@
  * @param perigoso :: Informa se o AnfibioDomestico é perigoso
  * @param NF :: Nota fiscal do AnfibioDomestico
 */
-AnfibioDomestico::AnfibioDomestico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF) :
+AnfibioDomestico::AnfibioDomestico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF) :
 Anfibio(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF)
 {
 	Debug("AnfibioDomestico " << this->id << " [" << this << "] foi criado." << std::endl);

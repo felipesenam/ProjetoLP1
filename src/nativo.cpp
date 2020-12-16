@@ -5,7 +5,7 @@
  * @brief Construtor parametrizado da classificação Nativo
  * @param licenca :: Especifica a licença emitida pelo IBAMA
 */
-Nativo::Nativo(std::string licenca):
+Nativo::Nativo(const std::string& licenca):
 licenca(licenca)
 {}
 

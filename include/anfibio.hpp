@@ -5,6 +5,6 @@
 class Anfibio: public Animal
 {
 public:
-	Anfibio(std::string, Classe, Classificacao, short, char, char, std::string);
+	Anfibio(const std::string&, Classe, Classificacao, short, char, char, const std::string&);
 	virtual ~Anfibio();
 };

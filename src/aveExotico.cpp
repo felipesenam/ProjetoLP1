@@ -10,7 +10,7 @@
  * @param NF :: Nota fiscal da Ave Exotica
  * @param territorio :: Especifica o territorio do qual a Ave Exotica pertence
 */
-AveExotico::AveExotico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
+AveExotico::AveExotico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF, const std::string& territorio):
 Ave(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {}
 

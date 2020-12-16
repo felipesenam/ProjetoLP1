@@ -10,7 +10,7 @@
  * @param NF :: Nota fiscal do Mamifero Exotico
  * @param territorio :: Especifica o territorio do qual o Mamifero Exotico pertence
 */
-MamiferoExotico::MamiferoExotico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
+MamiferoExotico::MamiferoExotico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF, const std::string& territorio):
 Mamifero(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {
 	Debug("MamiferoExotico " << this->id << " [" << this << "] foi criado." << std::endl);

@@ -24,11 +24,11 @@ protected:
 
 public:
 	Animal();
-	Animal(std::string especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, std::string NF);
+	Animal(const std::string& especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, const std::string& NF);
 	virtual ~Animal();
 
 	std::string getEspecie() const;
-	void setEspecie(std::string);
+	void setEspecie(const std::string&);
 
 	Classe getClasse() const;
 	void setClasse(Classe);
@@ -45,7 +45,7 @@ public:
 	short getId() const;
 	
 	std::string getNF() const;
-	void setNF(std::string NF);
+	void setNF(const std::string& NF);
 	
 	Tratador* getTratador() const;
 	void setTratador(Tratador*);

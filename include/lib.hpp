@@ -133,10 +133,10 @@
 
 #endif
 
-std::string Color(std::string color);
+std::string Color(const std::string& color);
 
-void printTitle(std::string title, std::string cor);
-void printMenu(std::string title, std::string subtitle, std::string cor);
+void printTitle(const std::string& title, const std::string& cor);
+void printMenu(const std::string& title, const std::string& subtitle, const std::string& cor);
 
 void ffBuffer();
 

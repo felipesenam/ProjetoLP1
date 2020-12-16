@@ -7,7 +7,7 @@
  * @param color :: String referente à cor desejada, definida em lib.hpp
  * @return Retorna um string vazio
 */
-std::string Color(std::string color)
+std::string Color(const std::string& color)
 {
 #ifdef WIN32
 	int c = atoi(color.c_str());
@@ -40,7 +40,7 @@ std::string Color(std::string color)
  * @param title :: Título do menu
  * @param cor :: Cor do título do menu
 */
-void printTitle(std::string title, std::string cor)
+void printTitle(const std::string& title, const std::string& cor)
 {
 	CLS;
 	int spaceExtra = chartcount(title) % 2;
@@ -63,7 +63,7 @@ void printTitle(std::string title, std::string cor)
  * @param subtitle :: Subtítulo do menu
  * @param cor :: Cor do título do menu
 */
-void printMenu(std::string title, std::string subtitle, std::string cor)
+void printMenu(const std::string& title, const std::string& subtitle, const std::string& cor)
 {
 	CLS;
 	int spaceExtra = chartcount(title) % 2;

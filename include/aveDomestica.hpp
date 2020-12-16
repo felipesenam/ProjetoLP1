@@ -6,7 +6,7 @@
 class AveDomestica: public Ave, public Domestico
 {
 public:
-	AveDomestica(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF);
+	AveDomestica(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF);
 	~AveDomestica();
 	
 	void print(std::ostream&);

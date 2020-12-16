@@ -14,7 +14,7 @@ Tratador::Tratador()
  * @param status :: Informa se o Tratador está ativo ou suspenso na empresa
  * @param seguranca :: nivel de segurança do tratador para manejo de animais
 */
-Tratador::Tratador(std::string nome, short id, Status status, Seguranca seguranca) :
+Tratador::Tratador(const std::string& nome, short id, Status status, Seguranca seguranca) :
 Funcionario(nome, id, status), seguranca(seguranca)
 {}
 

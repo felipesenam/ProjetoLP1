@@ -13,12 +13,15 @@ class Funcionario
 {
 public:
 	Funcionario();
-	Funcionario(std::string, short, Status);
+	Funcionario(const std::string&, short, Status);
 	virtual ~Funcionario();
+
 	std::string getNome() const;
+	void setNome(const std::string& nome);
+
 	short getId() const;
+
 	Status getStatus() const;
-	void setNome(std::string nome);
 	void setStatus(Status status); 
 
 	virtual void print(std::ostream&) = 0;

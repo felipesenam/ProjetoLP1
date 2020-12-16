@@ -10,7 +10,7 @@
  * @param NF :: Nota fiscal da Ave Nativa
  * @param licenca :: Especifica a licença emitida pelo IBAMA
 */
-AveNativa::AveNativa (std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
+AveNativa::AveNativa (const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF, const std::string& licenca):
 Ave(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Nativo(licenca)
 {
 	Debug("AveNativa " << this->id << " [" << this << "] foi criado." << std::endl);

@@ -5,7 +5,7 @@
 class Exotico
 {
 public:
-	Exotico(std::string);
+	Exotico(const std::string&);
 	virtual ~Exotico();
 
 	std::string getTerritorio() const;

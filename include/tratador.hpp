@@ -33,7 +33,7 @@ class Tratador : public Funcionario
 {
 public:
 	Tratador();
-	Tratador(std::string, short, Status, Seguranca);
+	Tratador(const std::string&, short, Status, Seguranca);
 	~Tratador();
 
 	Seguranca getSeguranca() const;

@@ -16,7 +16,7 @@ Animal::Animal()
  * @param perigoso :: Informa se o Animal é perigoso
  * @param NF :: Nota fiscal do Animal
 */
-Animal::Animal(std::string especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, std::string NF):
+Animal::Animal(const std::string& especie, Classe classe, Classificacao classificacao, short id, bool ameacadaExtincao, bool perigoso, const std::string& NF):
 especie(especie), classe(classe), classificacao(classificacao), id(id), ameacadaExtincao(ameacadaExtincao), perigoso(perigoso), NF(NF)
 {}
 
@@ -39,7 +39,7 @@ std::string Animal::getEspecie() const
  * @brief Seta a especie do Animal
  * @param especie :: especie do animal
 */
-void Animal::setEspecie(std::string especie)
+void Animal::setEspecie(const std::string& especie)
 {
 	this->especie = especie;
 }
@@ -119,7 +119,7 @@ std::string Animal::getNF() const
  * @brief seta a Nota Fiscal do animal
  * @param NF :: Nota Fiscal do animal
 */
-void Animal::setNF(std::string NF)
+void Animal::setNF(const std::string& NF)
 {
 	this->NF = NF;
 }

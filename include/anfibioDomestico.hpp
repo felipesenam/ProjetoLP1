@@ -6,7 +6,7 @@
 class AnfibioDomestico: public Anfibio, public Domestico
 {
 public:
-	AnfibioDomestico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF);
+	AnfibioDomestico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF);
 	~AnfibioDomestico();
 	
 	void print(std::ostream&);

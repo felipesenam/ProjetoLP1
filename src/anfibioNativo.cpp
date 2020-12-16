@@ -10,7 +10,7 @@
  * @param NF :: Nota fiscal do Anfibio Nativo
  * @param licenca ::  Especifica a licença emitida pelo IBAMA
 */
-AnfibioNativo::AnfibioNativo(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string licenca):
+AnfibioNativo::AnfibioNativo(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF, const std::string& licenca):
 Anfibio(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Nativo(licenca)
 {
 	Debug("AnfibioNativo " << this->id << " [" << this << "] foi criado." << std::endl);

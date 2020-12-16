@@ -5,7 +5,7 @@
  * @brief Construtor parametrizado da classificação exotico
  * @param territorio :: Especifica o territorio do qual o animal Exotico pertence
 */
-Exotico::Exotico(std::string territorio):
+Exotico::Exotico(const std::string& territorio):
 territorio(territorio)
 {}
 

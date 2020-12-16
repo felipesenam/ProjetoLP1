@@ -9,11 +9,11 @@ class Veterinario : public Funcionario
 {
 public:
 	Veterinario();
-	Veterinario(std::string, short, Status, std::string);
+	Veterinario(const std::string&, short, Status, const std::string&);
 	~Veterinario();
 
 	std::string getCRMV() const;
-	void setCRMV(std::string);
+	void setCRMV(const std::string&);
 
 	void print(std::ostream&);
 

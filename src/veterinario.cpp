@@ -14,7 +14,7 @@ Veterinario::Veterinario()
  * @param status :: Informa se o veterinário está ativo ou suspenso na empresa
  * @param CRMV :: CRMV do veterinario
 */
-Veterinario::Veterinario(std::string nome, short id , Status status, std::string CRMV) : Funcionario(nome, 
+Veterinario::Veterinario(const std::string& nome, short id , Status status, const std::string& CRMV) : Funcionario(nome, 
 id, status), CRMV(CRMV)
 {}
 
@@ -37,7 +37,7 @@ std::string Veterinario::getCRMV() const
  * @brief Seta o numero do CRMV do veterinario
  * @param CRMV :: numero do CRMV do veterinario
 */
-void Veterinario::setCRMV(std::string CRMV)
+void Veterinario::setCRMV(const std::string& CRMV)
 {
 	this->CRMV = CRMV;
 }

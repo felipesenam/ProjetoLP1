@@ -10,7 +10,7 @@
  * @param perigoso :: Informa se o Reptil é perigoso
  * @param NF :: Nota fiscal do Reptil
 */
-ReptilDomestico::ReptilDomestico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF):
+ReptilDomestico::ReptilDomestico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF):
 Reptil(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF)
 {
 	Debug("ReptilDomestico " << this->id << " [" << this << "] foi criado." << std::endl);

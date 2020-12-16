@@ -5,6 +5,6 @@
 class Reptil: public Animal
 {
 public:
-	Reptil(std::string, Classe, Classificacao, short, char, char, std::string);
+	Reptil(const std::string&, Classe, Classificacao, short, char, char, const std::string&);
 	virtual ~Reptil();
 };

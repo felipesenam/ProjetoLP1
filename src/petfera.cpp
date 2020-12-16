@@ -361,7 +361,7 @@ void PetFera::cadAnimal()
  * @param extra :: Caso o animal seja do tipo nativo ou exótico, serão exigidos dados extras que dizem respeito ao porte legal e país de origem do mesmo.
  * @return Retorna um apontador ao animal recém-cadastrado
 */
-Animal* PetFera::cadAnimal(std::string especie, Classe classe, Classificacao classificacao, bool ameacadaExtincao, bool perigoso, std::string NF, Tratador* tratador, Veterinario* veterinario, std::string extra)
+Animal* PetFera::cadAnimal(const std::string& especie, Classe classe, Classificacao classificacao, bool ameacadaExtincao, bool perigoso, const std::string& NF, Tratador* tratador, Veterinario* veterinario, const std::string& extra)
 {
 	Animal* animal = nullptr;
 	short cid = 1;
@@ -501,7 +501,7 @@ bool PetFera::remAnimal(int id)
 	return false;
 }
 
-void PetFera::redoAnimal(Animal*& animal, std::string extra)
+void PetFera::redoAnimal(Animal*& animal, const std::string& extra)
 {
 	std::string especie         = animal->getEspecie();
 	Classe classe               = animal->getClasse();
@@ -1317,7 +1317,7 @@ void PetFera::cadVetr()
  * @param CRMV :: Informa o CRMV do veterinário
  * @return Retorna um apontador ao veterinário recém-cadastrado
 */
-Veterinario* PetFera::cadVetr(std::string nome, Status status, std::string CRMV, int id)
+Veterinario* PetFera::cadVetr(const std::string& nome, Status status, const std::string& CRMV, int id)
 {
 	Veterinario* vet = new Veterinario(nome, id, status, CRMV);
 	funcionarios[id] = vet;
@@ -1435,7 +1435,7 @@ void PetFera::altVetr()
  * @param CRMV :: CRMV referente ao veterinário
  * @return Retorna um iterador do vetor de funcionários referente ao veterinário
 */
-std::map<int, Funcionario*>::iterator PetFera::findCRMV(std::string CRMV)
+std::map<int, Funcionario*>::iterator PetFera::findCRMV(const std::string& CRMV)
 {
 	Veterinario* veterinario;
 	for(auto it = funcionarios.begin(); it != funcionarios.end(); ++it)
@@ -1514,7 +1514,7 @@ void PetFera::cadTrat()
  * @param seg :: Informa o nível de segurança indicando quais animais ele pode tratar
  * @return Retorna um apontador ao tratador recém-cadastrado
 */
-Tratador* PetFera::cadTrat(std::string nome, Status status, Seguranca seg, int id)
+Tratador* PetFera::cadTrat(const std::string& nome, Status status, Seguranca seg, int id)
 {
 	Tratador *tratador = new Tratador(nome, id, status, seg);
 	funcionarios[id] = tratador;

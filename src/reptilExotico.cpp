@@ -10,7 +10,7 @@
  * @param NF :: Nota fiscal do Reptil Exotico
  * @param territorio :: Especifica o territorio do qual o Reptil Exotico pertence
 */
-ReptilExotico::ReptilExotico(std::string especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, std::string NF, std::string territorio):
+ReptilExotico::ReptilExotico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF, const std::string& territorio):
 Reptil(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF), Exotico(territorio)
 {
 	Debug("ReptilExotico " << this->id << " [" << this << "] foi criado." << std::endl);
