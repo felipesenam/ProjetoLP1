@@ -1,103 +1,29 @@
-#Makefile for multiples projects *Generic version
-#By Felipe Sena - Last updated in 11/11/2020 at 00:59
-
-#################### SUBTITLE ####################
-#TARGET_LIST=[id]          #DON'T FORGET TO ADD THE TARGET ID TO THE TARGETS LIST
-
-#                       ...
-
-#              FILE-[id] = #EXECUTABLE NAME (AND EXTENSION)
-
-#          COMPILER-[id] = #COMPILER
-# COMPILATION_FLAGS-[id] = #COMPILATION FLAGS
-#      LINKER_FLAGS-[id] = #LINKER FLAGS
-
-#          MAINFILE-[id] = #MAIN FUNCTION'S FILE (WITHOUT EXTENSION)
-#           SRCPATH-[id] = #WHERE THE SOURCE FILES ARE LOCATED
-#           INCPATH-[id] = #WHERE THE HEADER FILES ARE LOCATED
-#           OBJPATH-[id] = #WHERE THE BINARY FILES WILL BE LOCATED
-
-#        SOURCE_EXT-[id] = #SOURCE FILES EXTENSION
-#        HEADER_EXT-[id] = #HEADER FILES EXTENSION
-##################################################
-
-#################### EXAMPLE #####################
-# TARGET_LIST=example #ALWAYS SEPARATE TARGETS WITH BLANK SPACES
-
-# FILE-example=prog.exe
-
-# COMPILER-example=x86_64-w64-mingw32-c++
-# COMPILATION_FLAGS-example=-Wall -Wextra -pedantic #YOU CAN LEAVE THIS SPACE IN BLANK
-# LINKER_FLAGS-example=-static -static-libgcc -static-libstdc++ #YOU CAN LEAVE THIS SPACE IN BLANK
-
-# MAINFILE-example=main
-# SRCPATH-example=./src/
-# INCPATH-example=./include/ #SEPARATE WITH BLANK SPACES IF THERE IS MORE THAN ONE PATH
-# OBJPATH-example=./objects/Windows/
-
-# SOURCE_EXT-example=.cpp
-# HEADER_EXT-example=.h
-##################################################
+#Makefile by Felipe Sena
+#Last updated in 14/11/2020 at 15:57
 
 ##################### TARGETS ####################
-TARGET_LIST=release release_windows debug
-#================================================#
 FILE-release=Pet_Fera
 
 COMPILER-release=g++
-COMPILATION_FLAGS-release=-O3 -Wall -Wextra -pedantic -Wno-unused-result -std=c++11
-LINKER_FLAGS-release=-static -static-libgcc -static-libstdc++
+COMPILATION_FLAGS-release=-O3 -Wall -Wextra -pedantic -Wno-unused-result -std=c++11 -I./include/
+LINKER_FLAGS-release=
 
-MAINFILE-release=main
- SRCPATH-release=./src/
- INCPATH-release=./include/
- OBJPATH-release=./objects/Unix/Release/
-
-SOURCE_EXT-release=.cpp
-HEADER_EXT-release=.hpp
-#================================================#
-FILE-release_windows=Pet_Fera.exe
-
-COMPILER-release_windows=x86_64-w64-mingw32-c++
-COMPILATION_FLAGS-release_windows=-O3 -Wall -Wextra -pedantic -Wno-unused-result -std=c++11
-LINKER_FLAGS-release_windows=-static -static-libgcc -static-libstdc++
-
-MAINFILE-release_windows=main
- SRCPATH-release_windows=./src/
- INCPATH-release_windows=./include/
- OBJPATH-release_windows=./objects/Windows/Release/
-
-SOURCE_EXT-release_windows=.cpp
-HEADER_EXT-release_windows=.hpp
+OBJPATH-release=./objects/Release/
 #================================================#
 FILE-debug=prog
 
 COMPILER-debug=g++
-COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -DDEBUG -DNOCLS -std=c++11
+COMPILATION_FLAGS-debug=-Wall -Wextra -pedantic -g -DDEBUG -DNOCLS -std=c++11 -I./include/
 LINKER_FLAGS-debug=
 
-MAINFILE-debug=main
- SRCPATH-debug=./src/
- INCPATH-debug=./include/
- OBJPATH-debug=./objects/Unix/Debug/
-
-SOURCE_EXT-debug=.cpp
-HEADER_EXT-debug=.hpp
-#================================================#
+OBJPATH-debug=./objects/Debug/
 ##################################################
 
-##################### DEFINES ####################
-FIRST_TARGET=$(firstword $(TARGET_LIST))
+##################### SYSTEM #####################
 
-.DEFAULT_GOAL:=$(FIRST_TARGET)
+REMOVE=rm -f   #COMO REMOVER ARQUIVOS
+MKDIR=mkdir -p #COMO CRIAR DIRETÓRIOS
 
-FILE=
-
-FILE_SOURCE=$(wildcard $(SRCPATH-$(FILE))*$(SOURCE_EXT-$(FILE)))
-HEADERS=$(wildcard $(INCPATH-$(FILE))*$(HEADER_EXT-$(FILE)))
-OBJECTS=$(subst $(SOURCE_EXT-$(FILE)),.o, $(subst $(SRCPATH-$(FILE)),$(OBJPATH-$(FILE)),$(FILE_SOURCE)))
-
-OBJCOUNT=$$(($(words $(OBJECTS))+1))
 ##################################################
 
 
@@ -108,30 +34,63 @@ OBJCOUNT=$$(($(words $(OBJECTS))+1))
 #	$*	Nome do arquivo sem sufixo
 
 
-all: objdir
-	@ $(foreach F,$(TARGET_LIST), $(MAKE) --silent --stop $(F);)
+.DEFAULT_GOAL:=release
 
-%:
-	@ $(eval FILE=$@)
-	@ if [ "$(findstring $(FILE),$(TARGET_LIST))" = "$(FILE)" ]; then ($(MAKE) --silent --stop FILE=$(FILE) objdir $(FILE-$(FILE));echo "[100%] Built target $(FILE)";); else (echo "make: There is no recipe for target '$(FILE)'"; exit); fi
+HEADERS=$(wildcard ./include/*.hpp)
+SOURCE=$(wildcard ./src/*.cpp)
 
-$(FILE-$(FILE)): $(OBJECTS)
-	@ echo " Linking executable $(FILE-$(FILE))"
-	@ $(COMPILER-$(FILE)) $^ $(COMPILATION_FLAGS-$(FILE)) $(LINKER_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $(FILE-$(FILE))
+OBJECTS-release=$(subst .cpp,.o, $(subst ./src/,$(OBJPATH-release),$(SOURCE)))
+OBJECTS-debug=$(subst .cpp,.o, $(subst ./src/,$(OBJPATH-debug),$(SOURCE)))
 
-$(OBJPATH-$(FILE))%.o: $(SRCPATH-$(FILE))%$(SOURCE_EXT-$(FILE)) $(HEADERS)
-	@ echo " Building $(COMPILER-$(FILE)) object $@"
-	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $@
+all: release debug
+	@ echo "Finished all"
 
-$(OBJPATH-$(FILE))$(MAINFILE-$(FILE)).o: $(SRCPATH-$(FILE))$(MAINFILE-$(FILE))$(SOURCE_EXT-$(FILE)) $(HEADERS)
-	@ echo " Building $(COMPILER-$(FILE)) object $@"
-	@ $(COMPILER-$(FILE)) $< -c $(COMPILATION_FLAGS-$(FILE)) $(foreach I,$(INCPATH-$(FILE)),$(shell echo -I$(I))) -o $@
+clean: release_clean debug_clean
+	@ $(REMOVE) *~
 
-objdir:
-	@ $(foreach F,$(TARGET_LIST), $(shell mkdir -p $(OBJPATH-$(F))))
+.PHONY: all clean release release_clean debug_clean debug  
 
-clean:
-	@ $(foreach F,$(TARGET_LIST), $(shell rm -rf $(OBJPATH-$(F))*.o $(FILE-$(F)) *~))
-	@ echo "All binaries have been deleted."
 
-.PHONY: all clean
+##################### RELEASE ####################
+release: $(OBJPATH-release) $(FILE-release)
+
+release_clean: $(OBJPATH-release)
+	@ $(REMOVE) $(OBJPATH-release)*.o $(FILE-release)
+
+$(OBJPATH-release):
+	@ $(MKDIR) $(OBJPATH-release)
+
+$(FILE-release): $(OBJECTS-release)
+	@ echo "Linking executable $@"
+	@ $(COMPILER-release) $^ $(COMPILATION_FLAGS-release) $(LINKER_FLAGS-release) -o $@
+	@ echo "Built target: release"
+
+$(OBJPATH-release)main.o: ./src/main.cpp $(HEADERS)
+	@ echo "Building object $@"
+	@ $(COMPILER-release) $< -c $(COMPILATION_FLAGS-release) -o $@
+
+$(OBJPATH-release)%.o: ./src/%.cpp ./include/%.hpp
+	@ echo "Building object $@"
+	@ $(COMPILER-release) $< -c $(COMPILATION_FLAGS-release) -o $@
+
+###################### DEBUG #####################
+debug: $(OBJPATH-debug) $(FILE-debug)
+
+debug_clean: $(OBJPATH-debug)
+	@ $(REMOVE) $(OBJPATH-debug)*.o $(FILE-debug)
+
+$(OBJPATH-debug):
+	@ $(MKDIR) $(OBJPATH-debug)
+
+$(FILE-debug): $(OBJECTS-debug)
+	@ echo "Linking executable $@"
+	@ $(COMPILER-debug) $^ $(COMPILATION_FLAGS-debug) $(LINKER_FLAGS-debug) -o $@
+	@ echo "Built target: debug"
+
+$(OBJPATH-debug)main.o: ./src/main.cpp $(HEADERS)
+	@ echo "Building object $@"
+	@ $(COMPILER-debug) $< -c $(COMPILATION_FLAGS-debug) -o $@
+
+$(OBJPATH-debug)%.o: ./src/%.cpp ./include/%.hpp
+	@ echo "Building object $@"
+	@ $(COMPILER-debug) $< -c $(COMPILATION_FLAGS-debug) -o $@
