@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <memory>
 
 #include "veterinario.hpp"
 #include "tratador.hpp"
@@ -11,8 +12,8 @@
 class Animal
 {
 protected:
-	Tratador* tratador = nullptr;
-	Veterinario* veterinario = nullptr;
+	std::shared_ptr<Tratador> tratador = nullptr;
+	std::shared_ptr<Veterinario> veterinario = nullptr;
 
 	std::string especie;
 	Classe classe;
@@ -47,11 +48,11 @@ public:
 	std::string getNF() const;
 	void setNF(const std::string& NF);
 	
-	Tratador* getTratador() const;
-	void setTratador(Tratador*);
+	std::shared_ptr<Tratador> getTratador() const;
+	void setTratador(std::shared_ptr<Tratador>&);
 	
-	Veterinario* getVeterinario() const;
-	void setVeterinario(Veterinario*);
+	std::shared_ptr<Veterinario> getVeterinario() const;
+	void setVeterinario(std::shared_ptr<Veterinario>&);
 
 	virtual void print(std::ostream& o) = 0;
 	friend std::ostream& operator<<(std::ostream& o, Animal& animal);

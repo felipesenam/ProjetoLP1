@@ -7,6 +7,7 @@
 #include <limits>
 #include <fstream>
 #include <cstring>
+#include <memory>
 
 #include "funcionario.hpp"
 #include "veterinario.hpp"
@@ -36,8 +37,8 @@
 class PetFera
 {
 private:
-	std::map<int, Funcionario*> funcionarios;
-	std::vector<Animal*> animais;
+	std::map<int, std::shared_ptr<Funcionario>> funcionarios;
+	std::vector<std::shared_ptr<Animal>> animais;
 
 public:
 	PetFera();
@@ -66,25 +67,25 @@ public:
 	void listFunc();
 
 	/********* ANIMAIS ********/
-	Animal* cadAnimal(const std::string&, Classe, Classificacao, bool, bool, const std::string&, Tratador*, Veterinario*, const std::string& = "");
+	std::shared_ptr<Animal> cadAnimal(const std::string&, Classe, Classificacao, bool, bool, const std::string&, std::shared_ptr<Tratador>&, std::shared_ptr<Veterinario>&, const std::string& = "");
 	bool remAnimal(int);
-	void redoAnimal(Animal*&, const std::string&);
+	void redoAnimal(std::shared_ptr<Animal>&, const std::string&);
 
 	int listClass(Classe classe, Classificacao classificacao);
-	int listRespn(Funcionario* funcionario);
+	int listRespn(std::shared_ptr<Funcionario>& funcionario);
 
-	Animal* buscarAnim(int);
+	std::shared_ptr<Animal> buscarAnim(int);
 
 	/****** VETERINARIOS ******/
-	Veterinario* cadVetr(const std::string&, Status, const std::string&, int);
-	std::map<int, Funcionario*>::iterator findCRMV(const std::string& CRMV);
+	std::shared_ptr<Veterinario> cadVetr(const std::string&, Status, const std::string&, int);
+	std::map<int, std::shared_ptr<Funcionario>>::iterator findCRMV(const std::string& CRMV);
 
 	/******* TRATADORES *******/
-	Tratador* cadTrat(const std::string&, Status, Seguranca, int);
+	std::shared_ptr<Tratador> cadTrat(const std::string&, Status, Seguranca, int);
 	
 	/****** FUNCIONARIOS ******/
-	Funcionario* cadFunc(Funcionario*);
-	Funcionario* buscaFunc(int);
+	std::shared_ptr<Funcionario> cadFunc(std::shared_ptr<Funcionario>&);
+	std::shared_ptr<Funcionario> buscaFunc(int);
 	bool remFunc(int id);
 	
 

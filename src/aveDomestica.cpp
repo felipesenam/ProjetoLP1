@@ -13,14 +13,16 @@
 AveDomestica::AveDomestica(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF):
 Ave(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF)
 {
-	Debug("AveDomestica " << this->id << " [" << this << "] foi criado." << std::endl);
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi criada." << std::endl);
 }
 
 /**
  * @brief Destrutor padrão
 */
 AveDomestica::~AveDomestica()
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi destruída." << std::endl);
+}
 
 /**
  * @brief Imprime os dados da AveDomestica

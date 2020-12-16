@@ -13,14 +13,16 @@
 AnfibioDomestico::AnfibioDomestico(const std::string& especie, Classe classe, Classificacao classificacao, short id, char ameacadaExtincao, char perigoso, const std::string& NF) :
 Anfibio(especie, classe, classificacao, id, ameacadaExtincao, perigoso, NF)
 {
-	Debug("AnfibioDomestico " << this->id << " [" << this << "] foi criado." << std::endl);
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi criado." << std::endl);
 }
 
 /**
  * @brief Destrutor padrão
 */
 AnfibioDomestico::~AnfibioDomestico()
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi destruído." << std::endl);
+}
 
 /**
  * @brief Imprime os dados do AnfibioDomestico

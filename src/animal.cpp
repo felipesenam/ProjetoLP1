@@ -128,7 +128,7 @@ void Animal::setNF(const std::string& NF)
  * @brief Retorna o tratador do qual o animal foi vinculado
  * @return tratador
 */
-Tratador* Animal::getTratador() const
+std::shared_ptr<Tratador> Animal::getTratador() const
 {
 	return this->tratador;
 }
@@ -137,7 +137,7 @@ Tratador* Animal::getTratador() const
  * @brief Retorna o veterinario do qual o animal foi vinculado
  * @return veterinario
 */
-Veterinario* Animal::getVeterinario() const
+std::shared_ptr<Veterinario> Animal::getVeterinario() const
 {
 	return this->veterinario;
 }
@@ -146,7 +146,7 @@ Veterinario* Animal::getVeterinario() const
  * @brief Define o tratador do animal
  * @param tratador :: tratador do animal
 */
-void Animal::setTratador(Tratador* tratador)
+void Animal::setTratador(std::shared_ptr<Tratador>& tratador)
 {
 	this->tratador = tratador;
 }
@@ -155,7 +155,7 @@ void Animal::setTratador(Tratador* tratador)
  * @brief Define o veterinario do animal
  * @param veterinario :: veterinario do animal
 */
-void Animal::setVeterinario(Veterinario* veterinario)
+void Animal::setVeterinario(std::shared_ptr<Veterinario>& veterinario)
 {
 	this->veterinario = veterinario;
 }

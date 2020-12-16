@@ -5,7 +5,9 @@
  * @brief Construtor padrão
 */
 Veterinario::Veterinario()
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi criado." << std::endl);
+}
 
 /**
  * @brief Construtor parametrizado do Veterinario
@@ -16,13 +18,17 @@ Veterinario::Veterinario()
 */
 Veterinario::Veterinario(const std::string& nome, short id , Status status, const std::string& CRMV) : Funcionario(nome, 
 id, status), CRMV(CRMV)
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi criado por parâmetro." << std::endl);
+}
 
 /**
  * @brief Destrutor padrão
 */
 Veterinario::~Veterinario()
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi destruído." << std::endl);
+}
 
 /**
  * @brief Retorna o numero do CRMV do veterinario

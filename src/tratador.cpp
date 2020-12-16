@@ -5,7 +5,9 @@
  * @brief Construtor padrão
 */
 Tratador::Tratador()
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi criado." << std::endl);
+}
 
 /**
  * @brief Construtor parametrizado do Tratador
@@ -16,13 +18,17 @@ Tratador::Tratador()
 */
 Tratador::Tratador(const std::string& nome, short id, Status status, Seguranca seguranca) :
 Funcionario(nome, id, status), seguranca(seguranca)
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi criado por parâmetro." << std::endl);
+}
 
 /**
  * @brief Destrutor padrão
 */
 Tratador::~Tratador()
-{}
+{
+	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi destruído." << std::endl);
+}
 
 /**
  * @brief Retorna o nivel de segurança do tratador

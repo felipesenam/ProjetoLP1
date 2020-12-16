@@ -12,16 +12,7 @@ PetFera::PetFera()
  * @details Desaloca toda a memória alocada por funcionários e animais
 */
 PetFera::~PetFera()
-{
-	for(auto& f : this->funcionarios)
-	{
-		delete f.second;
-	}
-	for(auto& a : this->animais)
-	{
-		delete a;
-	}
-}
+{}
 
 void PetFera::load()
 {
@@ -73,8 +64,8 @@ void PetFera::load()
 		bool ameacadaExtincao = false, perigoso = false;
 		std::string NF, especie, extra;
 		Classe classe;
-		Tratador* tratador = nullptr;
-		Veterinario* veterinario = nullptr;
+		std::shared_ptr<Tratador> tratador = nullptr;
+		std::shared_ptr<Veterinario> veterinario = nullptr;
 
 		getline(oss, data, ';');
 		id = atoi(data.c_str());
@@ -89,9 +80,9 @@ void PetFera::load()
 		perigoso = atoi(data.c_str());
 		getline(oss, NF, ';');
 		getline(oss, data, ';');
-		tratador = dynamic_cast<Tratador*>(buscaFunc(atoi(data.c_str())));
+		tratador = std::dynamic_pointer_cast<Tratador>(buscaFunc(atoi(data.c_str())));
 		getline(oss, data, ';');
-		veterinario = dynamic_cast<Veterinario*>(buscaFunc(atoi(data.c_str())));
+		veterinario = std::dynamic_pointer_cast<Veterinario>(buscaFunc(atoi(data.c_str())));
 		getline(oss, extra, ';');
 
 		cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra)->forceId(id);
@@ -104,21 +95,21 @@ void PetFera::save()
 
 	for(const auto& veterinario : this->funcionarios)
 	{
-		if(dynamic_cast<Veterinario*>(veterinario.second) != nullptr)
-			file << *veterinario.second << std::endl;
+		if(std::dynamic_pointer_cast<Veterinario>(veterinario.second) != nullptr)
+			file << (*veterinario.second) << std::endl;
 	}
 	file << std::endl;
 	
 	for(const auto& tratador : this->funcionarios)
 	{
-		if(dynamic_cast<Tratador*>(tratador.second) != nullptr)
-			file << *tratador.second << std::endl;
+		if(std::dynamic_pointer_cast<Tratador>(tratador.second) != nullptr)
+			file << (*tratador.second) << std::endl;
 	}
 	file << std::endl;
 	
 	for(const auto& animal : this->animais)
 	{
-		file << *animal << std::endl;
+		file << (*animal) << std::endl;
 	}
 }
 
@@ -134,8 +125,8 @@ void PetFera::cadAnimal()
 	std::string NF, especie, extra;
 	Classe classe;
 	int idt, idv;
-	Tratador* tratador = nullptr;
-	Veterinario* veterinario = nullptr;
+	std::shared_ptr<Tratador> tratador = nullptr;
+	std::shared_ptr<Veterinario> veterinario = nullptr;
 
 	do
 	{
@@ -285,7 +276,7 @@ void PetFera::cadAnimal()
 		std::cout << "Insira o ID do tratador do animal" << std::endl;
 		USERENTRY(collect<int>(idt));
 		IFEQ_WPAUSERETURN(idt, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((tratador = dynamic_cast<Tratador*>(buscaFunc(idt))) != nullptr)
+		if ((tratador = std::dynamic_pointer_cast<Tratador>(buscaFunc(idt))) != nullptr)
 		{
 			if(tratador->aptto(classe, perigoso))
 			{
@@ -314,7 +305,7 @@ void PetFera::cadAnimal()
 		std::cout << "Insira o ID do veterinário do animal" << std::endl;
 		USERENTRY(collect<int>(idv));
 		IFEQ_WPAUSERETURN(idv, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((veterinario = dynamic_cast<Veterinario*>(buscaFunc(idv))) != nullptr)
+		if ((veterinario = std::dynamic_pointer_cast<Veterinario>(buscaFunc(idv))) != nullptr)
 		{
 			char opt;
 			std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
@@ -361,70 +352,70 @@ void PetFera::cadAnimal()
  * @param extra :: Caso o animal seja do tipo nativo ou exótico, serão exigidos dados extras que dizem respeito ao porte legal e país de origem do mesmo.
  * @return Retorna um apontador ao animal recém-cadastrado
 */
-Animal* PetFera::cadAnimal(const std::string& especie, Classe classe, Classificacao classificacao, bool ameacadaExtincao, bool perigoso, const std::string& NF, Tratador* tratador, Veterinario* veterinario, const std::string& extra)
+std::shared_ptr<Animal> PetFera::cadAnimal(const std::string& especie, Classe classe, Classificacao classificacao, bool ameacadaExtincao, bool perigoso, const std::string& NF, std::shared_ptr<Tratador>& tratador, std::shared_ptr<Veterinario>& veterinario, const std::string& extra)
 {
-	Animal* animal = nullptr;
+	std::shared_ptr<Animal> animal = nullptr;
 	short cid = 1;
 	if(animais.size() > 0)
 	{
-		cid = (*--animais.end())->getId() + 1;
+		cid = std::prev(animais.end())->get()->getId() + 1;
 	}
 
 	if(classificacao == domestico)
 	{
 		if(classe == anfibio)
 		{
-			animal = new AnfibioDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = std::make_shared<AnfibioDomestico>(AnfibioDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF));
 		}
 		else if (classe == ave)
 		{
-			animal = new AveDomestica(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = std::make_shared<AveDomestica>(AveDomestica(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF));
 		}
 		else if (classe == mamifero)
 		{
-			animal = new MamiferoDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = std::make_shared<MamiferoDomestico>(MamiferoDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF));
 		}
 		else if (classe == reptil)
 		{
-			animal = new ReptilDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF);
+			animal = std::make_shared<ReptilDomestico>(ReptilDomestico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF));
 		}
 	}
 	else if(classificacao == exotico)
 	{
 		if(classe == anfibio)
 		{
-			animal = new AnfibioExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<AnfibioExotico>(AnfibioExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 		else if (classe == ave)
 		{
-			animal = new AveExotica(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<AveExotica>(AveExotica(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 		else if (classe == mamifero)
 		{
-			animal = new MamiferoExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<MamiferoExotico>(MamiferoExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 		else if (classe == reptil)
 		{
-			animal = new ReptilExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<ReptilExotico>(ReptilExotico(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 	}
 	else if(classificacao == nativo)
 	{
 		if(classe == anfibio)
 		{
-			animal = new AnfibioNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<AnfibioNativo>(AnfibioNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 		else if (classe == ave)
 		{
-			animal = new AveNativa(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<AveNativa>(AveNativa(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 		else if (classe == mamifero)
 		{
-			animal = new MamiferoNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<MamiferoNativo>(MamiferoNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 		else if (classe == reptil)
 		{
-			animal = new ReptilNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra);
+			animal = std::make_shared<ReptilNativo>(ReptilNativo(especie, classe, classificacao, cid, ameacadaExtincao, perigoso, NF, extra));
 		}
 	}
 
@@ -442,7 +433,7 @@ Animal* PetFera::cadAnimal(const std::string& especie, Classe classe, Classifica
 */
 void PetFera::remAnimal()
 {
-	Animal* animal = nullptr;
+	std::shared_ptr<Animal> animal = nullptr;
 	int id;
 	do
 	{
@@ -487,31 +478,30 @@ void PetFera::remAnimal()
 */
 bool PetFera::remAnimal(int id)
 {
-	Animal* animal;
+	std::shared_ptr<Animal> animal;
 	for(auto it = this->animais.begin(); it != this->animais.end(); ++it)
 	{
-		animal = *it;
+		animal = (*it);
 		if (animal->getId() == id)
 		{
 			animais.erase(it);
-			delete animal;
 			return true;
 		}
 	}
 	return false;
 }
 
-void PetFera::redoAnimal(Animal*& animal, const std::string& extra)
+void PetFera::redoAnimal(std::shared_ptr<Animal>& animal, const std::string& extra)
 {
-	std::string especie         = animal->getEspecie();
-	Classe classe               = animal->getClasse();
+	std::string especie = animal->getEspecie();
+	Classe classe = animal->getClasse();
 	Classificacao classificacao = animal->getClassificacao();
-	short id                    = animal->getId();
-	bool ameacadaExtincao       = animal->getAmeacadaExtincao();
-	bool perigoso               = animal->getPerigoso();
-	std::string NF              = animal->getNF();
-	Tratador* tratador          = animal->getTratador();
-	Veterinario* veterinario    = animal->getVeterinario();
+	short id = animal->getId();
+	bool ameacadaExtincao = animal->getAmeacadaExtincao();
+	bool perigoso = animal->getPerigoso();
+	std::string NF = animal->getNF();
+	std::shared_ptr<Tratador> tratador = animal->getTratador();
+	std::shared_ptr<Veterinario> veterinario = animal->getVeterinario();
 
 	remAnimal(id);
 	animal = cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
@@ -523,7 +513,7 @@ void PetFera::redoAnimal(Animal*& animal, const std::string& extra)
 */
 void PetFera::altAnimal()
 {
-	Animal* animal = nullptr;
+	std::shared_ptr<Animal> animal = nullptr;
 	short idAlter;
 	do
 	{
@@ -544,7 +534,7 @@ void PetFera::altAnimal()
 	do
 	{
 		printTitle(animal->getEspecie(), fGREEN);
-		std::cout << *animal << std::endl;
+		std::cout << (*animal) << std::endl;
 		NEWLINE;
 
 		std::cout << "E. Alterar espécie" << std::endl;
@@ -619,11 +609,11 @@ void PetFera::altAnimal()
 			}
 			else if(animal->getClassificacao() == exotico)
 			{
-				redoAnimal(animal, dynamic_cast<Exotico*>(animal)->getTerritorio());
+				redoAnimal(animal, std::dynamic_pointer_cast<Exotico>(animal)->getTerritorio());
 			}
 			else if(animal->getClassificacao() == nativo)
 			{
-				redoAnimal(animal, dynamic_cast<Nativo*>(animal)->getLicenca());
+				redoAnimal(animal, std::dynamic_pointer_cast<Nativo>(animal)->getLicenca());
 			}
 		}
 		else if(opt == "S" || opt == "s")
@@ -746,14 +736,14 @@ void PetFera::altAnimal()
 		}
 		else if(opt == "V" || opt == "v")
 		{
-			Veterinario* veterinario;
+			std::shared_ptr<Veterinario> veterinario;
 			int idv;
 			do
 			{
 				std::cout << "Insira o ID do veterinário do animal" << std::endl;
 				USERENTRY(collect<int>(idv));
 				IFEQ_BREAK(idv, 0);
-				if ((veterinario = dynamic_cast<Veterinario*>(buscaFunc(idv))) != nullptr)
+				if ((veterinario = std::dynamic_pointer_cast<Veterinario>(buscaFunc(idv))) != nullptr)
 				{
 					char opt;
 					std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
@@ -773,14 +763,14 @@ void PetFera::altAnimal()
 		}
 		else if(opt == "T" || opt == "t")
 		{
-			Tratador* tratador;
+			std::shared_ptr<Tratador> tratador;
 			int idt;
 			do
 			{
 				std::cout << "Insira o ID do tratador do animal" << std::endl;
 				USERENTRY(collect<int>(idt));
 				IFEQ_BREAK(idt, 0);
-				if ((tratador = dynamic_cast<Tratador*>(buscaFunc(idt))) != nullptr)
+				if ((tratador = std::dynamic_pointer_cast<Tratador>(buscaFunc(idt))) != nullptr)
 				{
 					if(tratador->aptto(animal->getClasse(), animal->getPerigoso()))
 					{
@@ -874,7 +864,7 @@ void PetFera::listAll()
 */
 void PetFera::listId()
 {
-	Animal* animal = nullptr;
+	std::shared_ptr<Animal> animal = nullptr;
 	short id;
 	std::cout << "Informe o id do animal a ser impresso: " << std::endl;
 	USERENTRY(collect<short>(id));
@@ -885,7 +875,7 @@ void PetFera::listId()
 	}
 	else
 	{
-		std::cout << *animal << std::endl;
+		std::cout << (*animal) << std::endl;
 	}
 	PAUSE;
 }
@@ -973,7 +963,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de anfíbios domésticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AnfibioDomestico*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AnfibioDomestico>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -986,7 +976,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de aves domésticas", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AveDomestica*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AveDomestica>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -999,7 +989,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de mamíferos domésticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<MamiferoDomestico*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<MamiferoDomestico>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1012,7 +1002,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de répteis domésticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<ReptilDomestico*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<ReptilDomestico>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1028,7 +1018,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de anfíbios exóticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AnfibioExotico*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AnfibioExotico>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1041,7 +1031,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de aves exóticas", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AveExotica*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AveExotica>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1054,7 +1044,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de mamíferos exóticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<MamiferoExotico*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<MamiferoExotico>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1067,7 +1057,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de répteis exóticos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<ReptilExotico*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<ReptilExotico>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1083,7 +1073,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de anfíbios nativos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AnfibioNativo*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AnfibioNativo>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1096,7 +1086,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de aves nativas", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<AveNativa*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AveNativa>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1109,7 +1099,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de mamíferos nativos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<MamiferoNativo*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<MamiferoNativo>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1122,7 +1112,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 			printTitle("Lista de répteis nativos", fLIGHT_GREEN);
 			for(auto a : animais)
 			{
-				Animal* animal = dynamic_cast<ReptilNativo*>(a);
+				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<ReptilNativo>(a);
 				if(animal)
 				{
 					std::cout << (*animal) << std::endl;
@@ -1139,7 +1129,7 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 */
 void PetFera::listRespn()
 {
-	Funcionario* funcionario = nullptr;
+	std::shared_ptr<Funcionario> funcionario = nullptr;
 	short id;
 	do
 	{
@@ -1164,7 +1154,7 @@ void PetFera::listRespn()
 	PAUSE;
 }
 
-int PetFera::listRespn(Funcionario* funcionario)
+int PetFera::listRespn(std::shared_ptr<Funcionario>& funcionario)
 {
 	int count = 0;
 	for(auto a : animais)
@@ -1242,11 +1232,11 @@ void PetFera::gerCad()
  * @param id :: id referente ao animal
  * @return Retorna um ponteiro para o animal ou nullptr caso não seja encontrado
 */
-Animal* PetFera::buscarAnim(int id)
+std::shared_ptr<Animal> PetFera::buscarAnim(int id)
 {
 	for (auto& animal : this->animais)
 	{
-		if (animal->getId()==id)
+		if (animal->getId() == id)
 		{
 			return animal;
 		}
@@ -1317,9 +1307,9 @@ void PetFera::cadVetr()
  * @param CRMV :: Informa o CRMV do veterinário
  * @return Retorna um apontador ao veterinário recém-cadastrado
 */
-Veterinario* PetFera::cadVetr(const std::string& nome, Status status, const std::string& CRMV, int id)
+std::shared_ptr<Veterinario> PetFera::cadVetr(const std::string& nome, Status status, const std::string& CRMV, int id)
 {
-	Veterinario* vet = new Veterinario(nome, id, status, CRMV);
+	std::shared_ptr<Veterinario> vet = std::make_shared<Veterinario>(Veterinario(nome, id, status, CRMV));
 	funcionarios[id] = vet;
 
 	return vet;
@@ -1330,14 +1320,14 @@ Veterinario* PetFera::cadVetr(const std::string& nome, Status status, const std:
 */
 void PetFera::altVetr()
 {
-	Veterinario* veterinario = nullptr;
+	std::shared_ptr<Veterinario> veterinario = nullptr;
 	short idAlter;
 	do
 	{
 		std::cout << "Insira o ID do veterinário a ser alterado: " << std::endl;
 		USERENTRY(collect<short>(idAlter));
 		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((veterinario = dynamic_cast<Veterinario*>(this->buscaFunc(idAlter))) == nullptr)
+		if ((veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idAlter))) == nullptr)
 		{
 			WARN("Funcionário não encontrado." << std::endl);
 		}
@@ -1351,7 +1341,7 @@ void PetFera::altVetr()
 	do
 	{
 		printTitle(veterinario->getNome(), fGREEN);
-		std::cout << *veterinario << std::endl;
+		std::cout << (*veterinario) << std::endl;
 		NEWLINE;
 
 		std::cout << "N. Alterar nome" << std::endl;
@@ -1435,12 +1425,12 @@ void PetFera::altVetr()
  * @param CRMV :: CRMV referente ao veterinário
  * @return Retorna um iterador do vetor de funcionários referente ao veterinário
 */
-std::map<int, Funcionario*>::iterator PetFera::findCRMV(const std::string& CRMV)
+std::map<int, std::shared_ptr<Funcionario>>::iterator PetFera::findCRMV(const std::string& CRMV)
 {
-	Veterinario* veterinario;
+	std::shared_ptr<Veterinario> veterinario;
 	for(auto it = funcionarios.begin(); it != funcionarios.end(); ++it)
 	{
-		veterinario = dynamic_cast<Veterinario*>(it->second);
+		veterinario = std::dynamic_pointer_cast<Veterinario>(it->second);
 		if(veterinario != nullptr && veterinario->getCRMV() == CRMV)
 		{
 			return it;
@@ -1514,9 +1504,9 @@ void PetFera::cadTrat()
  * @param seg :: Informa o nível de segurança indicando quais animais ele pode tratar
  * @return Retorna um apontador ao tratador recém-cadastrado
 */
-Tratador* PetFera::cadTrat(const std::string& nome, Status status, Seguranca seg, int id)
+std::shared_ptr<Tratador> PetFera::cadTrat(const std::string& nome, Status status, Seguranca seg, int id)
 {
-	Tratador *tratador = new Tratador(nome, id, status, seg);
+	std::shared_ptr<Tratador> tratador = std::make_shared<Tratador>(Tratador(nome, id, status, seg));
 	funcionarios[id] = tratador;
 
 	return tratador;
@@ -1527,14 +1517,14 @@ Tratador* PetFera::cadTrat(const std::string& nome, Status status, Seguranca seg
 */
 void PetFera::altTrat()
 {
-	Tratador* tratador = nullptr;
+	std::shared_ptr<Tratador> tratador = nullptr;
 	short idAlter;
 	do
 	{
 		std::cout << "Insira o ID do tratador a ser alterado: " << std::endl;
 		USERENTRY(collect<short>(idAlter));
 		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((tratador = dynamic_cast<Tratador*>(this->buscaFunc(idAlter))) == nullptr)
+		if ((tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idAlter))) == nullptr)
 		{
 			WARN("Funcionário não encontrado." << std::endl);
 		}
@@ -1548,7 +1538,7 @@ void PetFera::altTrat()
 	do
 	{
 		printTitle(tratador->getNome(), fGREEN);
-		std::cout << *tratador << std::endl;
+		std::cout << (*tratador) << std::endl;
 		NEWLINE;
 
 		std::cout << "N. Alterar nome" << std::endl;
@@ -1634,7 +1624,7 @@ void PetFera::altTrat()
  * @param funcionario :: Ponteiro para um funcionário
  * @return Retorna um apontador para o funcionário recém-cadastrado
 */
-Funcionario* PetFera::cadFunc(Funcionario* funcionario)
+std::shared_ptr<Funcionario> PetFera::cadFunc(std::shared_ptr<Funcionario>& funcionario)
 {
 	funcionarios[funcionario->getId()] = funcionario;
 
@@ -1646,7 +1636,7 @@ Funcionario* PetFera::cadFunc(Funcionario* funcionario)
  * @param id :: id referente ao funcionário
  * @return  Retorna um ponteiro para o funcionário ou nullptr caso não seja encontrado
 */
-Funcionario* PetFera::buscaFunc(int id)
+std::shared_ptr<Funcionario> PetFera::buscaFunc(int id)
 {
 	auto find = funcionarios.find(id);
 	if(find != funcionarios.end() && find->second->getStatus() == ativo)
@@ -1666,7 +1656,7 @@ Funcionario* PetFera::buscaFunc(int id)
 */
 void PetFera::remFunc()
 {
-	Funcionario* funcionario = nullptr;
+	std::shared_ptr<Funcionario> funcionario = nullptr;
 	short id;
 	do
 	{
@@ -1705,14 +1695,13 @@ void PetFera::remFunc()
 
 bool PetFera::remFunc(int id)
 {
-	Funcionario* funcionario = nullptr;
+	std::shared_ptr<Funcionario> funcionario = nullptr;
 	for(auto it = funcionarios.begin(); it != funcionarios.end(); ++it)
 	{
 		funcionario = it->second;
 		if(funcionario->getId() == id)
 		{
 			funcionarios.erase(it);
-			delete funcionario;
 			return true;
 		}
 	}
@@ -1726,18 +1715,18 @@ void PetFera::listFunc()
 	std::cout << Color(fCYAN) << "Veterinários:" << Color(fRESET) << std::endl;
 	for(auto f : funcionarios)
 	{
-		if(dynamic_cast<Veterinario*>(f.second))
+		if(std::dynamic_pointer_cast<Veterinario>(f.second))
 		{
-			std::cout << *f.second << std::endl;
+			std::cout << (*f.second) << std::endl;
 		}
 	}
 	NEWLINE;
 	std::cout << Color(fCYAN) << "Tratadores:" << Color(fRESET) << std::endl;
 	for(auto f : funcionarios)
 	{
-		if(dynamic_cast<Tratador*>(f.second))
+		if(std::dynamic_pointer_cast<Tratador>(f.second))
 		{
-			std::cout << *f.second << std::endl;
+			std::cout << (*f.second) << std::endl;
 		}
 	}
 	NEWLINE;
