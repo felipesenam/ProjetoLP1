@@ -208,12 +208,12 @@ void Animal::setInformacoes(const std::string& informacoes)
 void Animal::geral()
 {
 	std::cout
-	 << "ID: " << this->id << std::endl
-	 << "ESPECIE: " << this->especie << std::endl
-	 << "IDADE: " << this->idade << std::endl
-	 << "PESO: " << this->peso << std::endl
-	 << "TAMANHO: " << this->tamanho << std::endl
-	 << "SEXO: " << (this->sexo == macho ? "macho" : (this->sexo == femea ? "fêmea" : "indefinido")) << std::endl;
+	 << this->especie << ":" << std::endl
+	 << " - ID: " << this->id << std::endl
+	 << " - IDADE: " << this->idade << std::endl
+	 << " - PESO: " << this->peso << std::endl
+	 << " - TAMANHO: " << this->tamanho << std::endl
+	 << " - SEXO: " << (this->sexo == macho ? "macho" : (this->sexo == femea ? "fêmea" : "indefinido")) << std::endl;
 }
 
 /**
