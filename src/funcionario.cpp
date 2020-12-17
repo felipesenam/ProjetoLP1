@@ -12,7 +12,8 @@ Funcionario::Funcionario()
  * @param id :: Especifica o id do Funcionario
  * @param status :: Informa se o Funcionario está ativo ou suspenso na empresa
 */
-Funcionario::Funcionario(const std::string& nome, short id, Status status):nome(nome), id(id), status(status)
+Funcionario::Funcionario(const std::string& nome, short id, Status status):
+nome(nome), id(id), status(status)
 {}
 
 /**

@@ -60,25 +60,25 @@ void Tratador::print(std::ostream& o)
 	o << "NIVEL DE SEGURANÇA: ";
 	if (this->getSeguranca() == verde)
 	{
-		o << Color(fGREEN) << "Aves" << Color(fRESET) << std::endl;
+		o << lib::color(fGREEN) << "Aves" << lib::color(fRESET) << std::endl;
 	}
 	else if (this->getSeguranca() == azul)
 	{
-		o << Color(fBLUE) << "Aves, mamíferos e répteis" << Color(fRESET) << std::endl;
+		o << lib::color(fBLUE) << "Aves, mamíferos e répteis" << lib::color(fRESET) << std::endl;
 	}
 	else if (this->getSeguranca() == vermelho)
 	{
-		o << Color(fRED) << "Animais venenosos ou perigosos" << Color(fRESET) << std::endl;
+		o << lib::color(fRED) << "Animais venenosos ou perigosos" << lib::color(fRESET) << std::endl;
 	}
 
 	o << "STATUS: ";
 	if (this->status == inativo)
 	{
-		o << Color(fRED) << "inativo" << Color(fRESET) << std::endl;
+		o << lib::color(fRED) << "inativo" << lib::color(fRESET) << std::endl;
 	}
 	else
 	{
-		o << Color(fGREEN) << "ativo" << Color(fRESET) << std::endl;
+		o << lib::color(fGREEN) << "ativo" << lib::color(fRESET) << std::endl;
 	}
 }
 

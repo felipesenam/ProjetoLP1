@@ -34,7 +34,7 @@ void PetFera::load()
 		status = static_cast<Status>(atoi(data.c_str()));
 		getline(oss, CRMV, ';');
 
-		cadVetr(nome, status, CRMV, id);
+		this->cadVetr(nome, status, CRMV, id);
 	}
 
 	while(!getline(file, line).eof() && line != "")
@@ -53,7 +53,7 @@ void PetFera::load()
 		getline(oss, data, ';');
 		seg = static_cast<Seguranca>(atoi(data.c_str()));
 
-		cadTrat(nome, status, seg, id);
+		this->cadTrat(nome, status, seg, id);
 	}
 
 	while(!getline(file, line).eof() && line != "")
@@ -80,12 +80,12 @@ void PetFera::load()
 		perigoso = atoi(data.c_str());
 		getline(oss, NF, ';');
 		getline(oss, data, ';');
-		tratador = std::dynamic_pointer_cast<Tratador>(buscaFunc(atoi(data.c_str())));
+		tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(atoi(data.c_str())));
 		getline(oss, data, ';');
-		veterinario = std::dynamic_pointer_cast<Veterinario>(buscaFunc(atoi(data.c_str())));
+		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(data.c_str())));
 		getline(oss, extra, ';');
 
-		cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra)->forceId(id);
+		this->cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra)->forceId(id);
 	}
 }
 
@@ -148,9 +148,9 @@ void PetFera::cadAnimal()
 	do
 	{
 		std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
-		USERENTRY(collect<char>(cClasse));
+		USERENTRY(lib::collect<char>(cClasse));
 		IFEQ_WPAUSERETURN(cClasse, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
-		if (isany(cClasse, "AaBbMmRr"))
+		if (lib::isany(cClasse, "AaBbMmRr"))
 		{
 			break;
 		}
@@ -163,13 +163,13 @@ void PetFera::cadAnimal()
 	do
 	{
 		std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
-		USERENTRY(collect<char>(cClassificacao));
+		USERENTRY(lib::collect<char>(cClassificacao));
 		IFEQ_WPAUSERETURN(cClassificacao, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
-		if (isany(cClassificacao, "Dd"))
+		if (lib::isany(cClassificacao, "Dd"))
 		{
 			break;
 		}
-		else if (isany(cClassificacao, "NnEe"))
+		else if (lib::isany(cClassificacao, "NnEe"))
 		{
 			if(cClassificacao == 'N' || cClassificacao == 'n')
 			{
@@ -242,9 +242,9 @@ void PetFera::cadAnimal()
 	do
 	{
 		std::cout << "O animal possui algum grau de extinção? S (Sim) | N (Não)" << std::endl;
-		USERENTRY(collect<char>(cAmeacadaExtincao));
+		USERENTRY(lib::collect<char>(cAmeacadaExtincao));
 		IFEQ_WPAUSERETURN(cAmeacadaExtincao, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
-		if (isany(cAmeacadaExtincao, "SsNn"))
+		if (lib::isany(cAmeacadaExtincao, "SsNn"))
 		{
 			break;
 		}
@@ -253,14 +253,14 @@ void PetFera::cadAnimal()
 			WARN("Opção inválida" << std::endl);
 		}
 	} while (1);
-	ameacadaExtincao = isany(cAmeacadaExtincao, "Ss");
-	
+	ameacadaExtincao = lib::isany(cAmeacadaExtincao, "Ss");
+
 	do
 	{
 		std::cout << "O animal é considerado perigoso ou venenoso? S (Sim) | N (Não)" << std::endl;
-		USERENTRY(collect<char>(cPerigoso));
+		USERENTRY(lib::collect<char>(cPerigoso));
 		IFEQ_WPAUSERETURN(cPerigoso, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
-		if (isany(cPerigoso, "SsNn"))
+		if (lib::isany(cPerigoso, "SsNn"))
 		{
 			break;
 		}
@@ -269,20 +269,20 @@ void PetFera::cadAnimal()
 			WARN("Opção inválida" << std::endl);
 		}
 	} while (1);
-	perigoso = isany(cPerigoso, "Ss");
+	perigoso = lib::isany(cPerigoso, "Ss");
 
 	do
 	{
 		std::cout << "Insira o ID do tratador do animal" << std::endl;
-		USERENTRY(collect<int>(idt));
+		USERENTRY(lib::collect<int>(idt));
 		IFEQ_WPAUSERETURN(idt, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((tratador = std::dynamic_pointer_cast<Tratador>(buscaFunc(idt))) != nullptr)
+		if ((tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idt))) != nullptr)
 		{
 			if(tratador->aptto(classe, perigoso))
 			{
 				char opt;
 				std::cout << "Associar " << tratador->getNome() << " como tratador deste animal? S - Sim | N - Não" << std::endl;
-				USERENTRY(collect<char>(opt));
+				USERENTRY(lib::collect<char>(opt));
 				IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 				if(opt == 'S' || opt == 's')
 				{
@@ -303,13 +303,13 @@ void PetFera::cadAnimal()
 	do
 	{
 		std::cout << "Insira o ID do veterinário do animal" << std::endl;
-		USERENTRY(collect<int>(idv));
+		USERENTRY(lib::collect<int>(idv));
 		IFEQ_WPAUSERETURN(idv, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((veterinario = std::dynamic_pointer_cast<Veterinario>(buscaFunc(idv))) != nullptr)
+		if ((veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idv))) != nullptr)
 		{
 			char opt;
 			std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
-			USERENTRY(collect<char>(opt));
+			USERENTRY(lib::collect<char>(opt));
 			IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 			if(opt == 'S' || opt == 's')
 			{
@@ -331,7 +331,7 @@ void PetFera::cadAnimal()
 		break;
 	} while(1);
 
-	cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
+	this->cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
 	this->save();
 
 	FINALLY("Animal adicionado com sucesso" << std::endl);
@@ -356,9 +356,9 @@ std::shared_ptr<Animal> PetFera::cadAnimal(const std::string& especie, Classe cl
 {
 	std::shared_ptr<Animal> animal = nullptr;
 	short cid = 1;
-	if(animais.size() > 0)
+	if(this->animais.size() > 0)
 	{
-		cid = std::prev(animais.end())->get()->getId() + 1;
+		cid = std::prev(this->animais.end())->get()->getId() + 1;
 	}
 
 	if(classificacao == domestico)
@@ -438,13 +438,13 @@ void PetFera::remAnimal()
 	do
 	{
 		std::cout << "Insira o ID do animal a ser removido: " << std::endl;
-		USERENTRY(collect<int>(id));
+		USERENTRY(lib::collect<int>(id));
 		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if((animal = buscarAnim(id)) != nullptr)
+		if((animal = this->buscarAnim(id)) != nullptr)
 		{
 			char opt;
 			std::cout << "Remover " << animal->getEspecie() << "? S (Sim) | N (Não)" << std::endl;
-			USERENTRY(collect<char>(opt));
+			USERENTRY(lib::collect<char>(opt));
 			IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 			if(opt == 'S' || opt == 's')
 			{
@@ -457,7 +457,7 @@ void PetFera::remAnimal()
 		}
 	} while (1);
 
-	if(remAnimal(id))
+	if(this->remAnimal(id))
 	{
 		FINALLY("Animal removido com sucesso" << std::endl);
 		this->save();
@@ -484,7 +484,7 @@ bool PetFera::remAnimal(int id)
 		animal = (*it);
 		if (animal->getId() == id)
 		{
-			animais.erase(it);
+			this->animais.erase(it);
 			return true;
 		}
 	}
@@ -503,8 +503,8 @@ void PetFera::redoAnimal(std::shared_ptr<Animal>& animal, const std::string& ext
 	std::shared_ptr<Tratador> tratador = animal->getTratador();
 	std::shared_ptr<Veterinario> veterinario = animal->getVeterinario();
 
-	remAnimal(id);
-	animal = cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
+	this->remAnimal(id);
+	animal = this->cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
 	animal->forceId(id);
 }
 
@@ -518,7 +518,7 @@ void PetFera::altAnimal()
 	do
 	{
 		std::cout << "Insira o id do animal a ser alterado: " << std::endl;
-		USERENTRY(collect<short>(idAlter));
+		USERENTRY(lib::collect<short>(idAlter));
 		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
 		if ((animal = this->buscarAnim(idAlter)) == nullptr)
 		{
@@ -533,7 +533,7 @@ void PetFera::altAnimal()
 	std::string opt;
 	do
 	{
-		printTitle(animal->getEspecie(), fGREEN);
+		lib::printTitle(animal->getEspecie(), fGREEN);
 		std::cout << (*animal) << std::endl;
 		NEWLINE;
 
@@ -577,9 +577,9 @@ void PetFera::altAnimal()
 			do
 			{
 				std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
-				USERENTRY(collect<char>(cClasse));
+				USERENTRY(lib::collect<char>(cClasse));
 				IFEQ_BREAK(cClasse, '0');
-				if (isany(cClasse, "AaBbMmRr"))
+				if (lib::isany(cClasse, "AaBbMmRr"))
 				{
 					break;
 				}
@@ -605,15 +605,15 @@ void PetFera::altAnimal()
 
 			if(animal->getClassificacao() == domestico)
 			{
-				redoAnimal(animal, "");
+				this->redoAnimal(animal, "");
 			}
 			else if(animal->getClassificacao() == exotico)
 			{
-				redoAnimal(animal, std::dynamic_pointer_cast<Exotico>(animal)->getTerritorio());
+				this->redoAnimal(animal, std::dynamic_pointer_cast<Exotico>(animal)->getTerritorio());
 			}
 			else if(animal->getClassificacao() == nativo)
 			{
-				redoAnimal(animal, std::dynamic_pointer_cast<Nativo>(animal)->getLicenca());
+				this->redoAnimal(animal, std::dynamic_pointer_cast<Nativo>(animal)->getLicenca());
 			}
 		}
 		else if(opt == "S" || opt == "s")
@@ -623,13 +623,13 @@ void PetFera::altAnimal()
 			do
 			{
 				std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
-				USERENTRY(collect<char>(cClassificacao));
+				USERENTRY(lib::collect<char>(cClassificacao));
 				IFEQ_BREAK(cClassificacao, '0');
-				if (isany(cClassificacao, "Dd"))
+				if (lib::isany(cClassificacao, "Dd"))
 				{
 					break;
 				}
-				else if (isany(cClassificacao, "NnEe"))
+				else if (lib::isany(cClassificacao, "NnEe"))
 				{
 					if(cClassificacao == 'N' || cClassificacao == 'n')
 					{
@@ -686,7 +686,7 @@ void PetFera::altAnimal()
 				animal->setClassificacao(nativo);
 			} 
 
-			redoAnimal(animal, extra);
+			this->redoAnimal(animal, extra);
 		}
 		else if(opt == "A" || opt == "a")
 		{
@@ -694,9 +694,9 @@ void PetFera::altAnimal()
 			do
 			{
 				std::cout << "O animal possui algum grau de extinção? S (Sim) | N (Não)" << std::endl;
-				USERENTRY(collect<char>(cAmeacadaExtincao));
+				USERENTRY(lib::collect<char>(cAmeacadaExtincao));
 				IFEQ_BREAK(cAmeacadaExtincao, '0');
-				if (isany(cAmeacadaExtincao, "SsNn"))
+				if (lib::isany(cAmeacadaExtincao, "SsNn"))
 				{
 					break;
 				}
@@ -705,7 +705,7 @@ void PetFera::altAnimal()
 					WARN("Opção inválida" << std::endl);
 				}
 			} while (1);
-			animal->setAmeacadaExtincao(isany(cAmeacadaExtincao, "Ss"));
+			animal->setAmeacadaExtincao(lib::isany(cAmeacadaExtincao, "Ss"));
 		}
 		else if(opt == "P" || opt == "p")
 		{
@@ -713,9 +713,9 @@ void PetFera::altAnimal()
 			do
 			{
 				std::cout << "O animal é considerado perigoso ou venenoso? S (Sim) | N (Não)" << std::endl;
-				USERENTRY(collect<char>(cPerigoso));
+				USERENTRY(lib::collect<char>(cPerigoso));
 				IFEQ_BREAK(cPerigoso, '0');
-				if (isany(cPerigoso, "SsNn"))
+				if (lib::isany(cPerigoso, "SsNn"))
 				{
 					break;
 				}
@@ -724,7 +724,7 @@ void PetFera::altAnimal()
 					WARN("Opção inválida" << std::endl);
 				}
 			} while (1);
-			animal->setPerigoso(isany(cPerigoso, "Ss"));
+			animal->setPerigoso(lib::isany(cPerigoso, "Ss"));
 		}
 		else if(opt == "F" || opt == "f")
 		{
@@ -741,18 +741,18 @@ void PetFera::altAnimal()
 			do
 			{
 				std::cout << "Insira o ID do veterinário do animal" << std::endl;
-				USERENTRY(collect<int>(idv));
+				USERENTRY(lib::collect<int>(idv));
 				IFEQ_BREAK(idv, 0);
-				if ((veterinario = std::dynamic_pointer_cast<Veterinario>(buscaFunc(idv))) != nullptr)
+				if ((veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idv))) != nullptr)
 				{
 					char opt;
 					std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
-					USERENTRY(collect<char>(opt));
+					USERENTRY(lib::collect<char>(opt));
 					IFEQ_BREAK(opt, '0');
 					if(opt == 'S' || opt == 's')
 					{
 						animal->setVeterinario(veterinario);
-						break;	
+						break;
 					}
 				}
 				else
@@ -768,15 +768,15 @@ void PetFera::altAnimal()
 			do
 			{
 				std::cout << "Insira o ID do tratador do animal" << std::endl;
-				USERENTRY(collect<int>(idt));
+				USERENTRY(lib::collect<int>(idt));
 				IFEQ_BREAK(idt, 0);
-				if ((tratador = std::dynamic_pointer_cast<Tratador>(buscaFunc(idt))) != nullptr)
+				if ((tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idt))) != nullptr)
 				{
 					if(tratador->aptto(animal->getClasse(), animal->getPerigoso()))
 					{
 						char opt;
 						std::cout << "Associar " << tratador->getNome() << " como tratador deste animal? S - Sim | N - Não" << std::endl;
-						USERENTRY(collect<char>(opt));
+						USERENTRY(lib::collect<char>(opt));
 						IFEQ_BREAK(opt, '0');
 						if(opt == 'S' || opt == 's')
 						{
@@ -813,7 +813,7 @@ void PetFera::listAnimal()
 	do
 	{
 		CLS;
-		printMenu("Pet Fera", "Imprimir Animais", fLIGHT_GREEN);
+		lib::printMenu("Pet Fera", "Imprimir Animais", fLIGHT_GREEN);
 		std::cout << "A. Imprimir todos os animais" << std::endl;
 		std::cout << "E. Imprimir um animal especifico" << std::endl;
 		std::cout << "C. Listar todos os animais de uma classe" << std::endl;
@@ -824,17 +824,17 @@ void PetFera::listAnimal()
 
 		if(opt == "A" || opt == "a")
 		{
-			printTitle("Imprimir todos os animais", fLIGHT_GREEN);
+			lib::printTitle("Imprimir todos os animais", fLIGHT_GREEN);
 			this->listAll();
 		}
 		else if(opt == "E" || opt == "e")
 		{
-			printTitle("Imprimir um animal especifico", fLIGHT_GREEN);
+			lib::printTitle("Imprimir um animal especifico", fLIGHT_GREEN);
 			this->listId();
 		}
 		else if(opt == "C" || opt == "c")
 		{
-			printTitle("Listar todos os animais de uma classe", fLIGHT_GREEN);
+			lib::printTitle("Listar todos os animais de uma classe", fLIGHT_GREEN);
 			this->listClass();
 		}
 		else if(opt == "X" || opt == "x")
@@ -855,7 +855,7 @@ void PetFera::listAll()
 		std::cout << (*animal) << std::endl;
 	}
 
-	FINALLY("Foram listados " << animais.size() << " animais." << std::endl);
+	FINALLY("Foram listados " << this->animais.size() << " animais." << std::endl);
 	PAUSE;
 }
 
@@ -867,9 +867,9 @@ void PetFera::listId()
 	std::shared_ptr<Animal> animal = nullptr;
 	short id;
 	std::cout << "Informe o id do animal a ser impresso: " << std::endl;
-	USERENTRY(collect<short>(id));
+	USERENTRY(lib::collect<short>(id));
 	IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-	if ((animal = buscarAnim(id)) == nullptr)
+	if ((animal = this->buscarAnim(id)) == nullptr)
 	{
 		WARN("Animal não encontrado" << std::endl);
 	}
@@ -897,9 +897,9 @@ void PetFera::listClass()
 	do
 	{
 		std::cout << "Insira a classe do animal: A (Anfibio) | B (Ave) | M (Mamífero) | R (Réptil)" << std::endl;
-		USERENTRY(collect<char>(cClasse));
+		USERENTRY(lib::collect<char>(cClasse));
 		IFEQ_WPAUSERETURN(cClasse, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
-		if (isany(cClasse, "AaBbMmRr"))
+		if (lib::isany(cClasse, "AaBbMmRr"))
 		{
 			break;
 		}
@@ -912,9 +912,9 @@ void PetFera::listClass()
 	do
 	{
 		std::cout << "Insira a classificação para manejo: N (Nativo) | E (Exotico) | D (Domestico)" << std::endl;
-		USERENTRY(collect<char>(cClassificacao));
+		USERENTRY(lib::collect<char>(cClassificacao));
 		IFEQ_WPAUSERETURN(cClassificacao, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
-		if (isany(cClassificacao, "NnEeDd"))
+		if (lib::isany(cClassificacao, "NnEeDd"))
 		{
 			break;
 		}
@@ -948,7 +948,7 @@ void PetFera::listClass()
 		classe = mamifero;
 	}
 
-	int count = listClass(classe, classificacao);
+	int count = this->listClass(classe, classificacao);
 	FINALLY("Foram listados " << count << " animais." << std::endl);
 	PAUSE;
 }
@@ -960,8 +960,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 	{
 		if(classe == anfibio)
 		{
-			printTitle("Lista de anfíbios domésticos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de anfíbios domésticos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AnfibioDomestico>(a);
 				if(animal)
@@ -973,8 +973,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == ave)
 		{
-			printTitle("Lista de aves domésticas", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de aves domésticas", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AveDomestica>(a);
 				if(animal)
@@ -986,8 +986,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == mamifero)
 		{
-			printTitle("Lista de mamíferos domésticos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de mamíferos domésticos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<MamiferoDomestico>(a);
 				if(animal)
@@ -999,8 +999,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == reptil)
 		{
-			printTitle("Lista de répteis domésticos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de répteis domésticos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<ReptilDomestico>(a);
 				if(animal)
@@ -1015,8 +1015,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 	{
 		if(classe == anfibio)
 		{
-			printTitle("Lista de anfíbios exóticos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de anfíbios exóticos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AnfibioExotico>(a);
 				if(animal)
@@ -1028,8 +1028,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == ave)
 		{
-			printTitle("Lista de aves exóticas", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de aves exóticas", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AveExotica>(a);
 				if(animal)
@@ -1041,8 +1041,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == mamifero)
 		{
-			printTitle("Lista de mamíferos exóticos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de mamíferos exóticos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<MamiferoExotico>(a);
 				if(animal)
@@ -1054,8 +1054,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == reptil)
 		{
-			printTitle("Lista de répteis exóticos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de répteis exóticos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<ReptilExotico>(a);
 				if(animal)
@@ -1070,8 +1070,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 	{
 		if(classe == anfibio)
 		{
-			printTitle("Lista de anfíbios nativos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de anfíbios nativos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AnfibioNativo>(a);
 				if(animal)
@@ -1083,8 +1083,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == ave)
 		{
-			printTitle("Lista de aves nativas", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de aves nativas", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<AveNativa>(a);
 				if(animal)
@@ -1096,8 +1096,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == mamifero)
 		{
-			printTitle("Lista de mamíferos nativos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de mamíferos nativos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<MamiferoNativo>(a);
 				if(animal)
@@ -1109,8 +1109,8 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 		}
 		else if (classe == reptil)
 		{
-			printTitle("Lista de répteis nativos", fLIGHT_GREEN);
-			for(auto a : animais)
+			lib::printTitle("Lista de répteis nativos", fLIGHT_GREEN);
+			for(auto a : this->animais)
 			{
 				std::shared_ptr<Animal> animal = std::dynamic_pointer_cast<ReptilNativo>(a);
 				if(animal)
@@ -1134,9 +1134,9 @@ void PetFera::listRespn()
 	do
 	{
 		std::cout << "Informe o ID do funcionário" << std::endl;
-		USERENTRY(collect<short>(id));
+		USERENTRY(lib::collect<short>(id));
 		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if((funcionario = buscaFunc(id)) == nullptr)
+		if((funcionario = this->buscaFunc(id)) == nullptr)
 		{
 			WARN("Funcionário não encontrado." << std::endl);
 		}
@@ -1148,7 +1148,7 @@ void PetFera::listRespn()
 
 	std::cout << "Listando animais sob responsabilidade de " << funcionario->getNome() << ": " << std::endl;
 
-	int count = listRespn(funcionario);
+	int count = this->listRespn(funcionario);
 	FINALLY("Foram listados " << count << " animais." << std::endl);
 
 	PAUSE;
@@ -1157,7 +1157,7 @@ void PetFera::listRespn()
 int PetFera::listRespn(std::shared_ptr<Funcionario>& funcionario)
 {
 	int count = 0;
-	for(auto a : animais)
+	for(auto a : this->animais)
 	{
 		if(a->getTratador() == funcionario || a->getVeterinario() == funcionario)
 		{
@@ -1178,7 +1178,7 @@ void PetFera::gerCad()
 	do
 	{
 		CLS;
-		printMenu("Pet Fera", "Gerenciar cadastros", fLIGHT_GREEN);
+		lib::printMenu("Pet Fera", "Gerenciar cadastros", fLIGHT_GREEN);
 		std::cout << "V. Cadastrar veterinário" << std::endl;
 		std::cout << "A. Alterar dados de um veterinário" << std::endl;
 		std::cout << "T. Cadastrar tratador" << std::endl;
@@ -1192,32 +1192,32 @@ void PetFera::gerCad()
 
 		if(opt == "V" || opt == "v")
 		{
-			printTitle("Cadastrar veterinário", fLIGHT_GREEN);
+			lib::printTitle("Cadastrar veterinário", fLIGHT_GREEN);
 			this->cadVetr();
 		}
 		else if(opt == "R" || opt == "r")
 		{
-			printTitle("Remover funcionário", fLIGHT_GREEN);
+			lib::printTitle("Remover funcionário", fLIGHT_GREEN);
 			this->remFunc();
 		}
 		else if(opt == "A" || opt == "a")
 		{
-			printTitle("Alterar dados de um veterinário", fLIGHT_GREEN);
+			lib::printTitle("Alterar dados de um veterinário", fLIGHT_GREEN);
 			this->altVetr();
 		}
 		else if(opt == "T" || opt == "t")
 		{
-			printTitle("Cadastrar tratador", fLIGHT_GREEN);
+			lib::printTitle("Cadastrar tratador", fLIGHT_GREEN);
 			this->cadTrat();
 		}
 		else if(opt == "U" || opt == "u")
 		{
-			printTitle("Alterar dados de um tratador", fLIGHT_GREEN);
+			lib::printTitle("Alterar dados de um tratador", fLIGHT_GREEN);
 			this->altTrat();
 		}
 		else if(opt == "F" || opt == "f")
 		{
-			printTitle("Listar funcionários", fLIGHT_GREEN);
+			lib::printTitle("Listar funcionários", fLIGHT_GREEN);
 			this->listFunc();
 		}
 		else if(opt == "X" || opt == "x")
@@ -1281,7 +1281,7 @@ void PetFera::cadVetr()
 		else
 		{
 			
-			if(findCRMV(CRMV) == funcionarios.end())
+			if(this->findCRMV(CRMV) == this->funcionarios.end())
 			{
 				break;
 			}
@@ -1292,7 +1292,7 @@ void PetFera::cadVetr()
 		}	
 	} while (1);		
 
-	cadVetr(nome, Status::ativo, CRMV, funcionarios.size() + 1);
+	this->cadVetr(nome, Status::ativo, CRMV, this->funcionarios.size() + 1);
 	this->save();
 
 	FINALLY("Veterinário vinculado à loja com sucesso." << std::endl);
@@ -1310,7 +1310,7 @@ void PetFera::cadVetr()
 std::shared_ptr<Veterinario> PetFera::cadVetr(const std::string& nome, Status status, const std::string& CRMV, int id)
 {
 	std::shared_ptr<Veterinario> vet = std::make_shared<Veterinario>(Veterinario(nome, id, status, CRMV));
-	funcionarios[id] = vet;
+	this->funcionarios[id] = vet;
 
 	return vet;
 }
@@ -1325,7 +1325,7 @@ void PetFera::altVetr()
 	do
 	{
 		std::cout << "Insira o ID do veterinário a ser alterado: " << std::endl;
-		USERENTRY(collect<short>(idAlter));
+		USERENTRY(lib::collect<short>(idAlter));
 		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
 		if ((veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idAlter))) == nullptr)
 		{
@@ -1340,7 +1340,7 @@ void PetFera::altVetr()
 	std::string opt;
 	do
 	{
-		printTitle(veterinario->getNome(), fGREEN);
+		lib::printTitle(veterinario->getNome(), fGREEN);
 		std::cout << (*veterinario) << std::endl;
 		NEWLINE;
 
@@ -1389,7 +1389,7 @@ void PetFera::altVetr()
 				}
 				else
 				{
-					if(findCRMV(CRMV) == funcionarios.end())
+					if(this->findCRMV(CRMV) == this->funcionarios.end())
 					{
 						veterinario->setCRMV(CRMV);
 						break;
@@ -1428,7 +1428,7 @@ void PetFera::altVetr()
 std::map<int, std::shared_ptr<Funcionario>>::iterator PetFera::findCRMV(const std::string& CRMV)
 {
 	std::shared_ptr<Veterinario> veterinario;
-	for(auto it = funcionarios.begin(); it != funcionarios.end(); ++it)
+	for(auto it = this->funcionarios.begin(); it != this->funcionarios.end(); ++it)
 	{
 		veterinario = std::dynamic_pointer_cast<Veterinario>(it->second);
 		if(veterinario != nullptr && veterinario->getCRMV() == CRMV)
@@ -1436,7 +1436,7 @@ std::map<int, std::shared_ptr<Funcionario>>::iterator PetFera::findCRMV(const st
 			return it;
 		}
 	}
-	return funcionarios.end();
+	return this->funcionarios.end();
 }
 
 /**
@@ -1465,20 +1465,20 @@ void PetFera::cadTrat()
 
 	do
 	{
-		std::cout << "Informe o nível de segurança: (" << Color(fGREEN) << "VERDE" << Color(fRESET) << " | " << Color(fBLUE) << "AZUL" << Color(fRESET) << " | " << Color(fRED) << "VERMELHO" << Color(fRESET) << ")" << std::endl;
+		std::cout << "Informe o nível de segurança: (" << lib::color(fGREEN) << "VERDE" << lib::color(fRESET) << " | " << lib::color(fBLUE) << "AZUL" << lib::color(fRESET) << " | " << lib::color(fRED) << "VERMELHO" << lib::color(fRESET) << ")" << std::endl;
 		USERENTRY( getline(std::cin, seguranca) );
 		IFEQ_WPAUSERETURN(seguranca, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
-		if(seguranca == "VERDE" || seguranca == "verde" || seguranca == "Verde" )
+		if(lib::stolower(seguranca) == "verde" )
 		{
 			seg = verde;
 			break;
 		}
-		else if(seguranca == "AZUL" || seguranca == "azul" || seguranca == "Azul")
+		else if(lib::stolower(seguranca) == "azul")
 		{
 			seg = azul;
 			break;
 		}
-		else if(seguranca == "VERMELHO" || seguranca == "Vermelho" || seguranca == "vermelho")
+		else if(lib::stolower(seguranca) == "vermelho")
 		{
 			seg = vermelho;
 			break;
@@ -1489,7 +1489,7 @@ void PetFera::cadTrat()
 		}
 	} while(1);
 
-	cadTrat(nome, Status::ativo, seg, funcionarios.size() + 1);
+	this->cadTrat(nome, Status::ativo, seg, this->funcionarios.size() + 1);
 	this->save();
 
 	FINALLY("Tratador vinculado à loja com sucesso." << std::endl);
@@ -1507,7 +1507,7 @@ void PetFera::cadTrat()
 std::shared_ptr<Tratador> PetFera::cadTrat(const std::string& nome, Status status, Seguranca seg, int id)
 {
 	std::shared_ptr<Tratador> tratador = std::make_shared<Tratador>(Tratador(nome, id, status, seg));
-	funcionarios[id] = tratador;
+	this->funcionarios[id] = tratador;
 
 	return tratador;
 }
@@ -1522,7 +1522,7 @@ void PetFera::altTrat()
 	do
 	{
 		std::cout << "Insira o ID do tratador a ser alterado: " << std::endl;
-		USERENTRY(collect<short>(idAlter));
+		USERENTRY(lib::collect<short>(idAlter));
 		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
 		if ((tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idAlter))) == nullptr)
 		{
@@ -1537,7 +1537,7 @@ void PetFera::altTrat()
 	std::string opt;
 	do
 	{
-		printTitle(tratador->getNome(), fGREEN);
+		lib::printTitle(tratador->getNome(), fGREEN);
 		std::cout << (*tratador) << std::endl;
 		NEWLINE;
 
@@ -1575,20 +1575,20 @@ void PetFera::altTrat()
 			std::string seguranca;
 			do
 			{
-				std::cout << "Informe o nível de segurança: (" << Color(fGREEN) << "VERDE" << Color(fRESET) << " | " << Color(fBLUE) << "AZUL" << Color(fRESET) << " | " << Color(fRED) << "VERMELHO" << Color(fRESET) << ")" << std::endl;
+				std::cout << "Informe o nível de segurança: (" << lib::color(fGREEN) << "VERDE" << lib::color(fRESET) << " | " << lib::color(fBLUE) << "AZUL" << lib::color(fRESET) << " | " << lib::color(fRED) << "VERMELHO" << lib::color(fRESET) << ")" << std::endl;
 				USERENTRY( getline(std::cin, seguranca) );
 				IFEQ_WPAUSERETURN(seguranca, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
-				if(seguranca == "VERDE" || seguranca == "verde" || seguranca == "Verde" )
+				if(lib::stolower(seguranca) == "verde")
 				{
 					tratador->setSeguranca(verde);
 					break;
 				}
-				else if(seguranca == "AZUL" || seguranca == "azul" || seguranca == "Azul")
+				else if(lib::stolower(seguranca) == "azul")
 				{
 					tratador->setSeguranca(azul);
 					break;
 				}
-				else if(seguranca == "VERMELHO" || seguranca == "Vermelho" || seguranca == "vermelho")
+				else if(lib::stolower(seguranca) == "vermelho")
 				{
 					tratador->setSeguranca(vermelho);
 					break;
@@ -1626,7 +1626,7 @@ void PetFera::altTrat()
 */
 std::shared_ptr<Funcionario> PetFera::cadFunc(std::shared_ptr<Funcionario>& funcionario)
 {
-	funcionarios[funcionario->getId()] = funcionario;
+	this->funcionarios[funcionario->getId()] = funcionario;
 
 	return funcionario;
 }
@@ -1638,8 +1638,8 @@ std::shared_ptr<Funcionario> PetFera::cadFunc(std::shared_ptr<Funcionario>& func
 */
 std::shared_ptr<Funcionario> PetFera::buscaFunc(int id)
 {
-	auto find = funcionarios.find(id);
-	if(find != funcionarios.end() && find->second->getStatus() == ativo)
+	auto find = this->funcionarios.find(id);
+	if(find != this->funcionarios.end() && find->second->getStatus() == ativo)
 	{
 		return find->second;
 	}
@@ -1661,13 +1661,13 @@ void PetFera::remFunc()
 	do
 	{
 		std::cout << "Insira o ID do funcionário a ser removido: " << std::endl;
-		USERENTRY(collect<short>(id));
+		USERENTRY(lib::collect<short>(id));
 		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if((funcionario = buscaFunc(id)) != nullptr)
+		if((funcionario = this->buscaFunc(id)) != nullptr)
 		{
 			char opt;
 			std::cout << "Remover " << funcionario->getNome() << "? S (Sim) | N (Não)" << std::endl;
-			USERENTRY(collect<char>(opt));
+			USERENTRY(lib::collect<char>(opt));
 			IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 			if(opt == 'S' || opt == 's')
 			{
@@ -1680,7 +1680,7 @@ void PetFera::remFunc()
 		}
 	} while (1);
 
-	if(remFunc(id))
+	if(this->remFunc(id))
 	{
 		FINALLY("Funcionário removido com sucesso" << std::endl);
 		this->save();
@@ -1696,12 +1696,12 @@ void PetFera::remFunc()
 bool PetFera::remFunc(int id)
 {
 	std::shared_ptr<Funcionario> funcionario = nullptr;
-	for(auto it = funcionarios.begin(); it != funcionarios.end(); ++it)
+	for(auto it = this->funcionarios.begin(); it != this->funcionarios.end(); ++it)
 	{
 		funcionario = it->second;
 		if(funcionario->getId() == id)
 		{
-			funcionarios.erase(it);
+			this->funcionarios.erase(it);
 			return true;
 		}
 	}
@@ -1712,8 +1712,8 @@ bool PetFera::remFunc(int id)
 */
 void PetFera::listFunc()
 {
-	std::cout << Color(fCYAN) << "Veterinários:" << Color(fRESET) << std::endl;
-	for(auto f : funcionarios)
+	std::cout << lib::color(fCYAN) << "Veterinários:" << lib::color(fRESET) << std::endl;
+	for(auto f : this->funcionarios)
 	{
 		if(std::dynamic_pointer_cast<Veterinario>(f.second))
 		{
@@ -1721,8 +1721,8 @@ void PetFera::listFunc()
 		}
 	}
 	NEWLINE;
-	std::cout << Color(fCYAN) << "Tratadores:" << Color(fRESET) << std::endl;
-	for(auto f : funcionarios)
+	std::cout << lib::color(fCYAN) << "Tratadores:" << lib::color(fRESET) << std::endl;
+	for(auto f : this->funcionarios)
 	{
 		if(std::dynamic_pointer_cast<Tratador>(f.second))
 		{
@@ -1744,7 +1744,7 @@ void PetFera::run()
 	do
 	{
 		CLS;
-		printMenu("Pet Fera", "Menu Principal", fLIGHT_GREEN);
+		lib::printMenu("Pet Fera", "Menu Principal", fLIGHT_GREEN);
 		std::cout << "C. Cadastrar novo animal" << std::endl;
 		std::cout << "R. Remover um animal" << std::endl;
 		std::cout << "A. Alterar dados de um animal" << std::endl;
@@ -1759,18 +1759,18 @@ void PetFera::run()
 
 		if(opt == "C" || opt == "c")
 		{
-			printTitle("Cadastrar Animal", fLIGHT_GREEN);
+			lib::printTitle("Cadastrar Animal", fLIGHT_GREEN);
 			this->cadAnimal();
 			std::cout << "Operação realizada com sucesso." << std::endl;
 		}
 		else if(opt == "R" || opt == "r")
 		{
-			printTitle("Remover um animal", fLIGHT_GREEN);
+			lib::printTitle("Remover um animal", fLIGHT_GREEN);
 			this->remAnimal();
 		}
 		else if(opt == "A" || opt == "a")
 		{
-			printTitle("Alterar dados de um animal", fLIGHT_GREEN);
+			lib::printTitle("Alterar dados de um animal", fLIGHT_GREEN);
 			this->altAnimal();
 
 		}
@@ -1780,7 +1780,7 @@ void PetFera::run()
 		}
 		else if(opt == "D" || opt == "d")
 		{
-			printTitle("Listar animais sob responsabilidade", fLIGHT_GREEN);
+			lib::printTitle("Listar animais sob responsabilidade", fLIGHT_GREEN);
 			this->listRespn();
 		}
 		else if(opt == "G" || opt == "g")
@@ -1789,7 +1789,7 @@ void PetFera::run()
 		}
 		else if(opt == "F" || opt == "f")
 		{
-			printTitle("Lista de funcionários", fLIGHT_GREEN);
+			lib::printTitle("Lista de funcionários", fLIGHT_GREEN);
 			this->listFunc();
 		}
 		else if(opt == "X" || opt == "x")

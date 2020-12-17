@@ -7,7 +7,7 @@
  * @param color :: String referente à cor desejada, definida em lib.hpp
  * @return Retorna um string vazio
 */
-std::string Color(const std::string& color)
+std::string lib::color(const std::string& color)
 {
 #ifdef WIN32
 	int c = atoi(color.c_str());
@@ -40,19 +40,19 @@ std::string Color(const std::string& color)
  * @param title :: Título do menu
  * @param cor :: Cor do título do menu
 */
-void printTitle(const std::string& title, const std::string& cor)
+void lib::printTitle(const std::string& title, const std::string& cor)
 {
 	CLS;
 	int spaceExtra = chartcount(title) % 2;
 	int spaceOnLeft = (BOXWIDTH - chartcount(title) - spaceExtra) / 2;
 	
-	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
-	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
+	std::cout << color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << color(bRESET) << std::endl;
+	std::cout << color(bLIGHT_YELLOW) << "  " << color(bRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
-		<< Color(cor) << title << Color(fRESET) 
+		<< color(cor) << title << color(fRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
-		<< Color(bLIGHT_YELLOW) << "  " << Color(bRESET) << std::endl;
-	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
+		<< color(bLIGHT_YELLOW) << "  " << color(bRESET) << std::endl;
+	std::cout << color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << color(bRESET) << std::endl;
 	NEWLINE;
 }	
 
@@ -63,27 +63,27 @@ void printTitle(const std::string& title, const std::string& cor)
  * @param subtitle :: Subtítulo do menu
  * @param cor :: Cor do título do menu
 */
-void printMenu(const std::string& title, const std::string& subtitle, const std::string& cor)
+void lib::printMenu(const std::string& title, const std::string& subtitle, const std::string& cor)
 {
 	CLS;
 	int spaceExtra = chartcount(title) % 2;
 	int spaceOnLeft = (BOXWIDTH - chartcount(title) - spaceExtra) / 2;
 	
-	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
-	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
+	std::cout << color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << color(bRESET) << std::endl;
+	std::cout << color(bLIGHT_YELLOW) << "  " << color(bRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
-		<< Color(cor) << title << Color(fRESET) 
+		<< color(cor) << title << color(fRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
-		<< Color(bLIGHT_YELLOW) << "  " << Color(bRESET) << std::endl;
+		<< color(bLIGHT_YELLOW) << "  " << color(bRESET) << std::endl;
 
 	spaceOnLeft = (BOXWIDTH - chartcount(subtitle)) / 2;
 	spaceExtra = chartcount(subtitle) % 2;
-	std::cout << Color(bLIGHT_YELLOW) << "  " << Color(bRESET) 
+	std::cout << color(bLIGHT_YELLOW) << "  " << color(bRESET) 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2) << ""
 		<< subtitle 
 		<< std::setfill(' ') << std::setw(spaceOnLeft-2+spaceExtra) << ""
-		<< Color(bLIGHT_YELLOW) << "  " << Color(bRESET) << std::endl;
-	std::cout << Color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << Color(bRESET) << std::endl;
+		<< color(bLIGHT_YELLOW) << "  " << color(bRESET) << std::endl;
+	std::cout << color(bLIGHT_YELLOW) << std::setfill(' ') << std::setw(BOXWIDTH) << "" << color(bRESET) << std::endl;
 	NEWLINE;
 }
 
@@ -91,7 +91,7 @@ void printMenu(const std::string& title, const std::string& subtitle, const std:
  * @brief Limpa o buffer de entrada
  * @details A função coleta toda a informação armazenada no buffer de entrada até encontrar uma quebra de linha
 */
-void ffBuffer()
+void lib::ffBuffer()
 {
 	int input;
 	while ((input = std::cin.get()) != EOF && input != '\n');
@@ -103,7 +103,7 @@ void ffBuffer()
  * @param vect :: Vetor de caracteres a ser lido
  * @return Retorna um valor booleano referente à existência do caractere na palavra
 */
-bool isany(const char letter, const std::string& vect)
+bool lib::isany(const char letter, const std::string& vect)
 {
 	for(auto l : vect)
 	{
@@ -115,7 +115,7 @@ bool isany(const char letter, const std::string& vect)
 	return false;
 }
 
-bool isany(const std::string& word, const std::string& vect)
+bool lib::isany(const std::string& word, const std::string& vect)
 {
 	for(const auto& wl : word)
 	{
@@ -130,7 +130,7 @@ bool isany(const std::string& word, const std::string& vect)
 	return false;
 }
 
-size_t chartcount(const std::string& string)
+size_t lib::chartcount(const std::string& string)
 {
 	size_t count = string.length();
 	for(unsigned char cc : string)
@@ -141,4 +141,16 @@ size_t chartcount(const std::string& string)
 		}
 	}
 	return count;
+}
+
+std::string lib::stolower(const std::string& word)
+{
+	std::stringstream ss;
+
+	for(auto c : word)
+	{
+		ss << (unsigned char)tolower(c);
+	}
+
+	return ss.str();
 }

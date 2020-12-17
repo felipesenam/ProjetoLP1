@@ -60,11 +60,11 @@ void Veterinario::print(std::ostream& o)
 	
 	if (this->status == inativo)
 	{
-		o << "STATUS: " << Color(fRED) << "inativo" << Color(fRESET) << std::endl;
+		o << "STATUS: " << lib::color(fRED) << "inativo" << lib::color(fRESET) << std::endl;
 	}
 	else
 	{
-		o << "STATUS: " << Color(fGREEN) << "ativo" << Color(fRESET) << std::endl;
+		o << "STATUS: " << lib::color(fGREEN) << "ativo" << lib::color(fRESET) << std::endl;
 	}
 }
 void Veterinario::save(std::ofstream& file)
