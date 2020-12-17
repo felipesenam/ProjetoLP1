@@ -7,7 +7,13 @@
 
 #include "veterinario.hpp"
 #include "tratador.hpp"
-#include "lib.hpp"
+
+enum Sexo
+{
+	indefinido,
+	macho,
+	femea
+};
 
 class Animal
 {
@@ -22,6 +28,12 @@ protected:
 	bool ameacadaExtincao; // indica se a especie corre risco de extincao
 	bool perigoso;         // indica se o animal é perigoso/venenoso
 	std::string NF;        // Nota Fical
+
+	std::string idade;
+	std::string peso;
+	std::string tamanho;
+	Sexo sexo = indefinido;
+	std::string informacoes;
 
 public:
 	Animal();
@@ -53,6 +65,23 @@ public:
 	
 	std::shared_ptr<Veterinario> getVeterinario() const;
 	void setVeterinario(std::shared_ptr<Veterinario>&);
+
+	std::string getIdade();
+	void setIdade(const std::string&);
+
+	std::string getPeso();
+	void setPeso(const std::string&);
+
+	std::string getTamanho();
+	void setTamanho(const std::string&);
+
+	Sexo getSexo();
+	void setSexo(Sexo);
+
+	std::string getInformacoes();
+	void setInformacoes(const std::string&);
+
+	void geral();
 
 	virtual void print(std::ostream& o) = 0;
 	friend std::ostream& operator<<(std::ostream& o, Animal& animal);

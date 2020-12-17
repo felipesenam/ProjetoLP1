@@ -36,12 +36,17 @@ void AveNativa::print(std::ostream& o)
 	 << "ID: " << this->id << std::endl
 	 << "CLASSE: Ave" << std::endl
 	 << "CLASSIFICAÇÃO: Nativa" << std::endl
+	 << "LICENÇA: " << this->licenca << std:: endl
 	 << "AMEAÇADA DE EXTINÇÃO: " << (this->ameacadaExtincao ? "sim" : "não") << std::endl
 	 << "PERIGOSO: " << (this->perigoso ? "sim" : "não") << std::endl
-	 << "NOTA FISCAL: " << this->NF << std::endl
-	 << "LICENÇA: " << this->licenca << std::endl
+	 << "IDADE: " << this->idade << std::endl
+	 << "PESO: " << this->peso << std::endl
+	 << "TAMANHO: " << this->tamanho << std::endl
+	 << "SEXO: " << (this->sexo == macho ? "macho" : (this->sexo == femea ? "fêmea" : "indefinido")) << std::endl
 	 << "VETERINÁRIO RESPONSÁVEL: " << this->getVeterinario()->getNome() << std::endl
-	 << "TRATADOR RESPONSÁVEL: " << this->getTratador()->getNome() << std::endl;
+	 << "TRATADOR RESPONSÁVEL: " << this->getTratador()->getNome() << std::endl
+	 << "NOTA FISCAL: " << this->NF << std::endl
+	 << "INFORMAÇÕES ADICIONAIS: " << this->informacoes << std::endl;
 }
 
 void AveNativa::save(std::ofstream& file)
@@ -56,5 +61,10 @@ void AveNativa::save(std::ofstream& file)
 	 << this->NF                   << ";"
 	 << this->tratador->getId()    << ";"
 	 << this->veterinario->getId() << ";"
-	 << this->licenca;
+	 << this->licenca << ";"
+	 << this->idade << ";"
+	 << this->peso << ";"
+	 << this->tamanho << ";"
+	 << this->sexo << ";"
+	 << this->informacoes;
 }

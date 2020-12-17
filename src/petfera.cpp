@@ -5,14 +5,18 @@
  * @brief Construtor padrão
 */
 PetFera::PetFera()
-{}
+{
+	Debug(typeid(*this).name() << " [" << this << "] foi criada." << std::endl);
+}
 
 /**
  * @brief Destrutor padrão
  * @details Desaloca toda a memória alocada por funcionários e animais
 */
 PetFera::~PetFera()
-{}
+{
+	Debug(typeid(*this).name() << " [" << this << "] foi destruída." << std::endl);
+}
 
 void PetFera::load()
 {
@@ -62,7 +66,7 @@ void PetFera::load()
 		int id;
 		Classificacao classificacao;
 		bool ameacadaExtincao = false, perigoso = false;
-		std::string NF, especie, extra;
+		std::string NF, especie, extra, idade, peso, tamanho, informacoes;
 		Classe classe;
 		std::shared_ptr<Tratador> tratador = nullptr;
 		std::shared_ptr<Veterinario> veterinario = nullptr;
@@ -85,7 +89,19 @@ void PetFera::load()
 		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(data.c_str())));
 		getline(oss, extra, ';');
 
-		this->cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra)->forceId(id);
+		auto a = this->cadAnimal(especie, classe, classificacao, ameacadaExtincao, perigoso, NF, tratador, veterinario, extra);
+		a->forceId(id);
+
+		getline(oss, idade, ';');
+		a->setIdade(idade);
+		getline(oss, peso, ';');
+		a->setPeso(peso);
+		getline(oss, tamanho, ';');
+		a->setTamanho(tamanho);
+		getline(oss, data, ';');
+		a->setSexo(static_cast<Sexo>(atoi(data.c_str())));
+		getline(oss, informacoes, ';');
+		a->setInformacoes(informacoes);
 	}
 }
 
@@ -335,6 +351,7 @@ void PetFera::cadAnimal()
 	this->save();
 
 	FINALLY("Animal adicionado com sucesso" << std::endl);
+	std::cout << "Informações adicionais estão disponíveis na alteração do cadastro." << std::endl;
 	PAUSE;
 }
 
@@ -545,6 +562,11 @@ void PetFera::altAnimal()
 		std::cout << "F. Alterar nota fiscal" << std::endl;
 		std::cout << "V. Alterar veterinário responsável" << std::endl;
 		std::cout << "T. Alterar tratador responsável" << std::endl;
+		std::cout << "I. Informar idade" << std::endl;
+		std::cout << "K. Informar peso" << std::endl;
+		std::cout << "M. Informar tamanho" << std::endl;
+		std::cout << "O. Informar sexo" << std::endl;
+		std::cout << "Z. Alterar informações adicionais" << std::endl;
 		NEWLINE;
 		std::cout << "X. Voltar" << std::endl;
 		NEWLINE;
@@ -795,6 +817,65 @@ void PetFera::altAnimal()
 				}
 			} while (1);
 		}
+		else if(opt == "I" || opt == "i")
+		{
+			std::string idade;
+			USERENTRY( getline(std::cin, idade) );
+			IFEQ_CONTINUE(idade, "0");
+			IFFOUND_CONTINUE(idade, ";", "O dado informado possui caracteres não permitidos.");
+			animal->setIdade(idade);
+		}
+		else if(opt == "K" || opt == "k")
+		{
+			std::string peso;
+			USERENTRY( getline(std::cin, peso) );
+			IFEQ_CONTINUE(peso, "0");
+			IFFOUND_CONTINUE(peso, ";", "O dado informado possui caracteres não permitidos.");
+			animal->setPeso(peso);
+		}
+		else if(opt == "M" || opt == "m")
+		{
+			std::string tamanho;
+			USERENTRY( getline(std::cin, tamanho) );
+			IFEQ_CONTINUE(tamanho, "0");
+			IFFOUND_CONTINUE(tamanho, ";", "O dado informado possui caracteres não permitidos.");
+			animal->setTamanho(tamanho);
+		}
+		else if(opt == "O" || opt == "o")
+		{
+			char cSexo;
+			do
+			{
+				std::cout << "Informe o sexo do animal: M (Macho) | F (Fêmea)" << std::endl;
+				USERENTRY(lib::collect<char>(cSexo));
+				IFEQ_BREAK(cSexo, '0');
+				if (lib::isany(cSexo, "MmFf"))
+				{
+					break;
+				}
+				else
+				{
+					WARN("Opção inválida" << std::endl);
+				}
+			} while (1);
+			if(lib::isany(cSexo, "Mm"))
+			{
+				animal->setSexo(macho);
+			}
+			else
+			{
+				animal->setSexo(femea);
+			}
+			
+		}
+		else if(opt == "Z" || opt == "z")
+		{
+			std::string informacoes;
+			USERENTRY( getline(std::cin, informacoes) );
+			IFEQ_CONTINUE(informacoes, "0");
+			IFFOUND_CONTINUE(informacoes, ";", "O dado informado possui caracteres não permitidos.");
+			animal->setInformacoes(informacoes);
+		}
 		else if(opt == "X" || opt == "x")
 		{
 			break;
@@ -813,10 +894,11 @@ void PetFera::listAnimal()
 	do
 	{
 		CLS;
-		lib::printMenu("Pet Fera", "Imprimir Animais", fLIGHT_GREEN);
-		std::cout << "A. Imprimir todos os animais" << std::endl;
-		std::cout << "E. Imprimir um animal especifico" << std::endl;
-		std::cout << "C. Listar todos os animais de uma classe" << std::endl;
+		lib::printMenu("Pet Fera", "Listar animais", fLIGHT_GREEN);
+		std::cout << "A. Listar todos os animais" << std::endl;
+		std::cout << "E. Consultar um animal especifico" << std::endl;
+		std::cout << "C. Listar os animais por classe e classificação" << std::endl;
+		std::cout << "D. Listar animais sob responsabilidade" << std::endl;
 		NEWLINE;
 		std::cout << "X. Voltar" << std::endl;
 		NEWLINE;
@@ -837,6 +919,11 @@ void PetFera::listAnimal()
 			lib::printTitle("Listar todos os animais de uma classe", fLIGHT_GREEN);
 			this->listClass();
 		}
+		else if(opt == "D" || opt == "d")
+		{
+			lib::printTitle("Listar animais sob responsabilidade", fLIGHT_GREEN);
+			this->listRespn();
+		}
 		else if(opt == "X" || opt == "x")
 		{
 			break;
@@ -847,15 +934,17 @@ void PetFera::listAnimal()
 /**
  * @brief Lista todos os animais cadastrados
 */
-
 void PetFera::listAll()
 {
 	for (auto animal : this->animais)
 	{
-		std::cout << (*animal) << std::endl;
+		animal->geral();
+		NEWLINE;
 	}
 
 	FINALLY("Foram listados " << this->animais.size() << " animais." << std::endl);
+	std::cout << "Para mais informações, faça uma consulta direta." << std::endl;
+
 	PAUSE;
 }
 
@@ -1179,41 +1268,41 @@ void PetFera::gerCad()
 	{
 		CLS;
 		lib::printMenu("Pet Fera", "Gerenciar cadastros", fLIGHT_GREEN);
-		std::cout << "V. Cadastrar veterinário" << std::endl;
-		std::cout << "A. Alterar dados de um veterinário" << std::endl;
 		std::cout << "T. Cadastrar tratador" << std::endl;
+		std::cout << "V. Cadastrar veterinário" << std::endl;
 		std::cout << "U. Alterar dados de um tratador" << std::endl;
-		std::cout << "R. Remover funcinário" << std::endl;
+		std::cout << "A. Alterar dados de um veterinário" << std::endl;
+		std::cout << "R. Remover funcionário" << std::endl;
 		std::cout << "F. Listar funcionários" << std::endl;
 		NEWLINE;
 		std::cout << "X. Voltar" << std::endl;
 		NEWLINE;
 		USERENTRY( getline(std::cin, opt) );
 
-		if(opt == "V" || opt == "v")
+		if(opt == "T" || opt == "t")
+		{
+			lib::printTitle("Cadastrar tratador", fLIGHT_GREEN);
+			this->cadTrat();
+		}
+		else if(opt == "V" || opt == "v")
 		{
 			lib::printTitle("Cadastrar veterinário", fLIGHT_GREEN);
 			this->cadVetr();
 		}
-		else if(opt == "R" || opt == "r")
+		else if(opt == "U" || opt == "u")
 		{
-			lib::printTitle("Remover funcionário", fLIGHT_GREEN);
-			this->remFunc();
+			lib::printTitle("Alterar dados de um tratador", fLIGHT_GREEN);
+			this->altTrat();
 		}
 		else if(opt == "A" || opt == "a")
 		{
 			lib::printTitle("Alterar dados de um veterinário", fLIGHT_GREEN);
 			this->altVetr();
 		}
-		else if(opt == "T" || opt == "t")
+		else if(opt == "R" || opt == "r")
 		{
-			lib::printTitle("Cadastrar tratador", fLIGHT_GREEN);
-			this->cadTrat();
-		}
-		else if(opt == "U" || opt == "u")
-		{
-			lib::printTitle("Alterar dados de um tratador", fLIGHT_GREEN);
-			this->altTrat();
+			lib::printTitle("Remover funcionário", fLIGHT_GREEN);
+			this->remFunc();
 		}
 		else if(opt == "F" || opt == "f")
 		{
@@ -1745,13 +1834,12 @@ void PetFera::run()
 	{
 		CLS;
 		lib::printMenu("Pet Fera", "Menu Principal", fLIGHT_GREEN);
-		std::cout << "C. Cadastrar novo animal" << std::endl;
+		std::cout << "C. Cadastrar animal" << std::endl;
 		std::cout << "R. Remover um animal" << std::endl;
 		std::cout << "A. Alterar dados de um animal" << std::endl;
-		std::cout << "L. Listar animal ou classe" << std::endl;
-		std::cout << "D. Listar animais sob responsabilidade" << std::endl;
-		std::cout << "G. Gerenciar funcionários" << std::endl;
+		std::cout << "L. Listar animais" << std::endl;
 		std::cout << "F. Listar funcionários" << std::endl;
+		std::cout << "G. Gerenciar funcionários" << std::endl;
 		NEWLINE;
 		std::cout << "X. Sair" << std::endl;
 		NEWLINE;
@@ -1761,7 +1849,6 @@ void PetFera::run()
 		{
 			lib::printTitle("Cadastrar Animal", fLIGHT_GREEN);
 			this->cadAnimal();
-			std::cout << "Operação realizada com sucesso." << std::endl;
 		}
 		else if(opt == "R" || opt == "r")
 		{
@@ -1772,25 +1859,19 @@ void PetFera::run()
 		{
 			lib::printTitle("Alterar dados de um animal", fLIGHT_GREEN);
 			this->altAnimal();
-
 		}
 		else if(opt == "L" || opt == "l")
 		{
 			this->listAnimal();
 		}
-		else if(opt == "D" || opt == "d")
-		{
-			lib::printTitle("Listar animais sob responsabilidade", fLIGHT_GREEN);
-			this->listRespn();
-		}
-		else if(opt == "G" || opt == "g")
-		{
-			this->gerCad();
-		}
 		else if(opt == "F" || opt == "f")
 		{
 			lib::printTitle("Lista de funcionários", fLIGHT_GREEN);
 			this->listFunc();
+		}
+		else if(opt == "G" || opt == "g")
+		{
+			this->gerCad();
 		}
 		else if(opt == "X" || opt == "x")
 		{

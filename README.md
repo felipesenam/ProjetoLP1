@@ -36,7 +36,7 @@ ou ainda:
 > :.$ make debug\
 > :.$ ./prog
 
-Lembrando que **apenas** esta versão é compatível com o uso do _Valgrind_.
+Para esta versão do programa os comandos para limpar tela estão desabilitados e os ecos de chamada de construtores e destrutores ativados.
 
 
 ### Repositório git:

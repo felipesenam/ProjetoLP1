@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "funcionario.hpp"
+#include "lib.hpp"
 
 class Veterinario : public Funcionario
 {

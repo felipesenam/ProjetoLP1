@@ -16,8 +16,8 @@ Veterinario::Veterinario()
  * @param status :: Informa se o veterinário está ativo ou suspenso na empresa
  * @param CRMV :: CRMV do veterinario
 */
-Veterinario::Veterinario(const std::string& nome, short id , Status status, const std::string& CRMV) : Funcionario(nome, 
-id, status), CRMV(CRMV)
+Veterinario::Veterinario(const std::string& nome, short id , Status status, const std::string& CRMV):
+Funcionario(nome, id, status), CRMV(CRMV)
 {
 	Debug(typeid(*this).name() << " ID:" << this->id << " [" << this << "] foi criado por parâmetro." << std::endl);
 }

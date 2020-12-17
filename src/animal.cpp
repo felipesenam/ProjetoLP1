@@ -160,6 +160,62 @@ void Animal::setVeterinario(std::shared_ptr<Veterinario>& veterinario)
 	this->veterinario = veterinario;
 }
 
+std::string Animal::getIdade()
+{
+	return this->idade;
+}
+void Animal::setIdade(const std::string& idade)
+{
+	this->idade = idade;
+}
+
+std::string Animal::getPeso()
+{
+	return this->peso;
+}
+void Animal::setPeso(const std::string& peso)
+{
+	this->peso = peso;
+}
+
+std::string Animal::getTamanho()
+{
+	return this->tamanho;
+}
+void Animal::setTamanho(const std::string& tamanho)
+{
+	this->tamanho = tamanho;
+}
+
+Sexo Animal::getSexo()
+{
+	return this->sexo;
+}
+void Animal::setSexo(Sexo sexo)
+{
+	this->sexo = sexo;
+}
+
+std::string Animal::getInformacoes()
+{
+	return this->informacoes;
+}
+void Animal::setInformacoes(const std::string& informacoes)
+{
+	this->informacoes = informacoes;
+}
+
+void Animal::geral()
+{
+	std::cout
+	 << "ID: " << this->id << std::endl
+	 << "ESPECIE: " << this->especie << std::endl
+	 << "IDADE: " << this->idade << std::endl
+	 << "PESO: " << this->peso << std::endl
+	 << "TAMANHO: " << this->tamanho << std::endl
+	 << "SEXO: " << (this->sexo == macho ? "macho" : (this->sexo == femea ? "fêmea" : "indefinido")) << std::endl;
+}
+
 /**
  * @brief Sobrecarga do operador <<
  * @details Sobrecarga do operador << para imprimir o animal passado por parãmetro

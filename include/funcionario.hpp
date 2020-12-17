@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include "lib.hpp"
 
 enum Status
 {

@@ -35,62 +35,47 @@ MKDIR=mkdir -p #COMO CRIAR DIRETÓRIOS
 
 
 .DEFAULT_GOAL:=release
+TARGET?=release
 
 HEADERS=$(wildcard ./include/*.hpp)
 SOURCE=$(wildcard ./src/*.cpp)
 
-OBJECTS-release=$(subst .cpp,.o, $(subst ./src/,$(OBJPATH-release),$(SOURCE)))
-OBJECTS-debug=$(subst .cpp,.o, $(subst ./src/,$(OBJPATH-debug),$(SOURCE)))
+OBJECTS-$(TARGET)=$(subst .cpp,.o, $(subst ./src/,$(OBJPATH-$(TARGET)),$(SOURCE)))
 
 all: release debug
 	@ echo "Finished all"
 
-clean: release_clean debug_clean
+clean: clean-release clean-debug
 	@ $(REMOVE) *~
 
-.PHONY: all clean release release_clean debug_clean debug  
+.PHONY: all clean release clean-release debug clean-debug
 
 
-##################### RELEASE ####################
-release: $(OBJPATH-release) $(FILE-release)
+##################### TARGETS ####################
+release:
+	@ $(MAKE) --silent TARGET=$@ $(FILE-$@)
 
-release_clean: $(OBJPATH-release)
+clean-release: $(OBJPATH-release)
 	@ $(REMOVE) $(OBJPATH-release)*.o $(FILE-release)
 
-$(OBJPATH-release):
-	@ $(MKDIR) $(OBJPATH-release)
+debug:
+	@ $(MAKE) --silent TARGET=$@ $(FILE-$@)
 
-$(FILE-release): $(OBJECTS-release)
-	@ echo "Linking executable $@"
-	@ $(COMPILER-release) $^ $(COMPILATION_FLAGS-release) $(LINKER_FLAGS-release) -o $@
-	@ echo "Built target: release"
-
-$(OBJPATH-release)main.o: ./src/main.cpp $(HEADERS)
-	@ echo "Building object $@"
-	@ $(COMPILER-release) $< -c $(COMPILATION_FLAGS-release) -o $@
-
-$(OBJPATH-release)%.o: ./src/%.cpp ./include/%.hpp
-	@ echo "Building object $@"
-	@ $(COMPILER-release) $< -c $(COMPILATION_FLAGS-release) -o $@
-
-###################### DEBUG #####################
-debug: $(OBJPATH-debug) $(FILE-debug)
-
-debug_clean: $(OBJPATH-debug)
+clean-debug: $(OBJPATH-debug)
 	@ $(REMOVE) $(OBJPATH-debug)*.o $(FILE-debug)
 
-$(OBJPATH-debug):
-	@ $(MKDIR) $(OBJPATH-debug)
+$(OBJPATH-$(TARGET)):
+	@ $(MKDIR) $(OBJPATH-$(TARGET))
 
-$(FILE-debug): $(OBJECTS-debug)
+$(FILE-$(TARGET)): $(OBJECTS-$(TARGET))
 	@ echo "Linking executable $@"
-	@ $(COMPILER-debug) $^ $(COMPILATION_FLAGS-debug) $(LINKER_FLAGS-debug) -o $@
-	@ echo "Built target: debug"
+	@ $(COMPILER-$(TARGET)) $^ $(COMPILATION_FLAGS-$(TARGET)) $(LINKER_FLAGS-$(TARGET)) -o $@
+	@ echo "Built target: $(TARGET)"
 
-$(OBJPATH-debug)main.o: ./src/main.cpp $(HEADERS)
+$(OBJPATH-$(TARGET))main.o: ./src/main.cpp $(HEADERS)
 	@ echo "Building object $@"
-	@ $(COMPILER-debug) $< -c $(COMPILATION_FLAGS-debug) -o $@
+	@ $(COMPILER-$(TARGET)) $< -c $(COMPILATION_FLAGS-$(TARGET)) -o $@
 
-$(OBJPATH-debug)%.o: ./src/%.cpp ./include/%.hpp
+$(OBJPATH-$(TARGET))%.o: ./src/%.cpp ./include/%.hpp
 	@ echo "Building object $@"
-	@ $(COMPILER-debug) $< -c $(COMPILATION_FLAGS-debug) -o $@
+	@ $(COMPILER-$(TARGET)) $< -c $(COMPILATION_FLAGS-$(TARGET)) -o $@

@@ -3,33 +3,24 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <unordered_map>
-#include <limits>
 #include <fstream>
-#include <cstring>
 #include <memory>
 
-#include "funcionario.hpp"
 #include "veterinario.hpp"
 #include "tratador.hpp"
 
-#include "animal.hpp"
-#include "domestico.hpp"
-#include "exotico.hpp"
-#include "nativo.hpp"
-#include "anfibio.hpp"
 #include "anfibioDomestico.hpp"
 #include "anfibioExotico.hpp"
 #include "anfibioNativo.hpp"
-#include "ave.hpp"
+
 #include "aveDomestica.hpp"
 #include "aveExotica.hpp"
 #include "aveNativa.hpp"
-#include "mamifero.hpp"
+
 #include "mamiferoDomestico.hpp"
 #include "mamiferoExotico.hpp"
 #include "mamiferoNativo.hpp"
-#include "reptil.hpp"
+
 #include "reptilDomestico.hpp"
 #include "reptilExotico.hpp"
 #include "reptilNativo.hpp"
