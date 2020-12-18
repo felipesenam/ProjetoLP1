@@ -5,7 +5,7 @@ Integrantes: Charles Vitor e Felipe Sena
 
 ## Vídeo da apresentação
  * [Parte I - YouTube](https://youtu.be/LB74aCdCHhw)
- * [Parte II - YouTube](https://youtu.be/)
+ * [Parte II - YouTube](https://youtu.be/sArRN0coQPU)
 
 ## O que foi implementado
  * A remoção e o cadastro de um animal levando em conta a sua classe (anfíbio, ave, mamífero ou réptil), classificação (doméstico, exótico ou nativo), entre outros dados específicos;
