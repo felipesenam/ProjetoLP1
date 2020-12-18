@@ -1,17 +1,16 @@
-1;Charles Bulcão;0;239487083
+1;Charles Bulcão;0;123456
 
 2;Felipe Sena;0;2
 
-1;Sapo-cururu;0;2;0;0;2900784;2;1;-;;;0;0;-
-2;Salamandra;0;0;0;0;2900783;2;1;;;;0;0;8324793-BR
-3;Rã-venenosa-granulada;0;1;0;1;2900782;2;1;;;;0;0;Austrália
-4;Papagaio;2;2;0;0;2800784;2;1;-;;;0;0;-
-5;Arara Azul;2;0;1;0;2800783;2;1;;;;0;0;8324793-BR
-6;Falcão-peregrino;2;1;0;0;2800782;2;1;;;;0;0;EUA
-7;Cachorro;3;2;0;0;2700784;2;1;-;;;0;0;-
-8;Lobo Guará;3;0;1;1;2700783;2;1;;;;0;0;1452898-BR
-9;Lobo Cinza;3;1;0;1;2700782;2;1;;;;0;0;Alaska
-10;Iguana;1;2;0;0;2600784;2;1;-;;;0;0;-
-11;Sucuri;1;0;0;1;2600783;2;1;;;;0;0;93847923-BR
-12;Crocodilo;1;1;0;1;2600782;2;1;África;7 anos;120 Kg;200 Cm;1;não gosta de frio
-13;animal teste;3;0;0;0;02398409234097;2;1;83274-ML;;;;0;
+1;Sapo-cururu;0;2;0;0;2900784;2;1;-;5 meses;827 gramas;40 centímetros;1;Não gosta de calor
+2;Salamandra;0;0;0;0;2900783;2;1;8324793-BR;2 meses;100 gramas;15 centímetros;2;Gosta de laranjas
+3;Rã-venenosa-granulada;0;1;0;1;2900782;2;1;Austrália;5 meses;50 gramas;12 centímetros;1;NÃO ENCOSTE
+4;Papagaio;2;2;0;0;2800784;2;1;-;3 anos;679 gramas;63 centímetros;1;Fala demais
+5;Arara Azul;2;0;1;0;2800783;2;1;8324793-BR;4 anos;700 gramas;70 centímetros;1;Muito azul
+6;Falcão-peregrino;2;1;0;0;2800782;2;1;EUA;2 anos;não especificado;não especificado;1;
+7;Cachorro;3;2;0;0;2700784;2;1;-;11 meses;não especificado;não especificado;1;Muito dócil, um amorzinho
+8;Lobo Guará;3;0;1;1;2700783;2;1;1452898-BR;1 ano;não especificado;não especificado;1;
+9;Lobo Cinza;3;1;0;1;2700782;2;1;Alaska;2 anos;não especificado;não especificado;1;
+10;Iguana;1;2;0;0;2600784;2;1;-;7 meses;não especificado;não especificado;1;
+11;Sucuri;1;0;0;1;2600783;2;1;93847923-BR;1 ano;10 quilos;2 metros;1;
+12;Crocodilo;1;1;0;1;2600782;2;1;Africa;5 anos;200 quilos;2 metros;1;

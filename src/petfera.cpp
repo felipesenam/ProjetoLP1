@@ -293,7 +293,7 @@ void PetFera::cadAnimal()
 		USERENTRY( getline(std::cin, idt) );
 		IFEQ_WPAUSERETURN(idt, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(lib::stolower(idt)));
+		tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idt));
 			if(tratador == nullptr)
 				tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(atoi(idt.c_str())));
 
@@ -327,7 +327,7 @@ void PetFera::cadAnimal()
 		USERENTRY( getline(std::cin, idv) );
 		IFEQ_WPAUSERETURN(idv, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(lib::stolower(idv)));
+		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idv));
 		if(veterinario == nullptr)
 			veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(idv.c_str())));
 
@@ -465,7 +465,7 @@ void PetFera::remAnimal()
 		USERENTRY( getline(std::cin, id) );
 		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		animal = this->buscarAnim(lib::stolower(id));
+		animal = this->buscarAnim(id);
 		if(animal == nullptr)
 			animal = this->buscarAnim(atoi(id.c_str()));
 
@@ -557,7 +557,7 @@ void PetFera::altAnimal()
 		USERENTRY( getline(std::cin, idAlter) );
 		IFEQ_WPAUSERETURN(idAlter, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		animal = this->buscarAnim(lib::stolower(idAlter));
+		animal = this->buscarAnim(idAlter);
 		if(animal == nullptr)
 			animal = this->buscarAnim(atoi(idAlter.c_str()));
 
@@ -838,7 +838,7 @@ void PetFera::altAnimal()
 				USERENTRY( getline(std::cin, idv) );
 				IFEQ_WPAUSERETURN(idv, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-				veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(lib::stolower(idv)));
+				veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idv));
 					if(veterinario == nullptr)
 						veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(idv.c_str())));
 
@@ -866,7 +866,7 @@ void PetFera::altAnimal()
 				USERENTRY( getline(std::cin, idt) );
 				IFEQ_WPAUSERETURN(idt, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-				tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(lib::stolower(idt)));
+				tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idt));
 					if(tratador == nullptr)
 						tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(atoi(idt.c_str())));
 
@@ -1039,7 +1039,7 @@ void PetFera::listId()
 		USERENTRY( getline(std::cin, id) );
 		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		animal = this->buscarAnim(lib::stolower(id));
+		animal = this->buscarAnim(id);
 			if(animal == nullptr)
 				animal = this->buscarAnim(atoi(id.c_str()));
 
@@ -1314,7 +1314,7 @@ void PetFera::listRespn()
 		USERENTRY( getline(std::cin, id) );
 		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		funcionario = this->buscaFunc(lib::stolower(id));
+		funcionario = this->buscaFunc(id);
 			if(funcionario == nullptr)
 				funcionario = this->buscaFunc(atoi(id.c_str()));
 
@@ -1430,7 +1430,7 @@ std::shared_ptr<Animal> PetFera::buscarAnim(const std::string& especie)
 {
 	for (auto animal = this->animais.begin(); animal != this->animais.end(); ++animal)
 	{
-		if ((*animal)->getEspecie() == especie)
+		if (lib::stolower((*animal)->getEspecie()) == lib::stolower(especie))
 		{
 			return (*animal);
 		}
@@ -1522,7 +1522,7 @@ void PetFera::altVetr()
 		USERENTRY( getline(std::cin, idAlter) );
 		IFEQ_WPAUSERETURN(idAlter, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(lib::stolower(idAlter)));
+		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idAlter));
 			if(veterinario == nullptr)
 				veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(idAlter.c_str())));
 
@@ -1724,7 +1724,7 @@ void PetFera::altTrat()
 		USERENTRY( getline(std::cin, idAlter) );
 		IFEQ_WPAUSERETURN(idAlter, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(lib::stolower(idAlter)));
+		tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idAlter));
 			if(tratador == nullptr)
 				tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(atoi(idAlter.c_str())));
 
@@ -1857,7 +1857,7 @@ std::shared_ptr<Funcionario> PetFera::buscaFunc(const std::string& nome)
 {
 	for(auto f = this->funcionarios.begin(); f != this->funcionarios.end(); ++f)
 	{
-		if(lib::stolower(f->second->getNome()) == nome && f->second->getStatus() == ativo)
+		if(lib::stolower(f->second->getNome()) == lib::stolower(nome) && f->second->getStatus() == ativo)
 		{
 			return f->second;
 		}
@@ -1880,7 +1880,7 @@ void PetFera::remFunc()
 		USERENTRY( getline(std::cin, id) );
 		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
 
-		funcionario = this->buscaFunc(lib::stolower(id));
+		funcionario = this->buscaFunc(id);
 			if(funcionario == nullptr)
 				funcionario = this->buscaFunc(atoi(id.c_str()));
 
