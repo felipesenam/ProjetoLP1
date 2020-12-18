@@ -9,6 +9,7 @@ public:
 	virtual ~Nativo();
 
 	std::string getLicenca() const;
+	void setLicenca(const std::string&);
 protected:
 	std::string licenca;
 };

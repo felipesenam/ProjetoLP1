@@ -1,7 +1,6 @@
 1;Charles Bulcão;0;239487083
 
 2;Felipe Sena;0;2
-3;Tratador verde;0;0
 
 1;Sapo-cururu;0;2;0;0;2900784;2;1;-;;;0;0;-
 2;Salamandra;0;0;0;0;2900783;2;1;;;;0;0;8324793-BR
@@ -14,5 +13,5 @@
 9;Lobo Cinza;3;1;0;1;2700782;2;1;;;;0;0;Alaska
 10;Iguana;1;2;0;0;2600784;2;1;-;;;0;0;-
 11;Sucuri;1;0;0;1;2600783;2;1;;;;0;0;93847923-BR
-12;Crocodilo;1;1;0;1;2600782;2;1;;;;0;0;Africa
-13;animal teste;3;2;0;0;;2;1;-;100 anos;999 kg;grande;1;oi isso é uma informação muito relevante
+12;Crocodilo;1;1;0;1;2600782;2;1;África;7 anos;120 Kg;200 Cm;1;não gosta de frio
+13;animal teste;3;0;0;0;02398409234097;2;1;83274-ML;;;;0;

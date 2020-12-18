@@ -60,12 +60,15 @@ public:
 	/********* ANIMAIS ********/
 	std::shared_ptr<Animal> cadAnimal(const std::string&, Classe, Classificacao, bool, bool, const std::string&, std::shared_ptr<Tratador>&, std::shared_ptr<Veterinario>&, const std::string& = "");
 	bool remAnimal(int);
+	bool remAnimal(const std::string&);
+
 	void redoAnimal(std::shared_ptr<Animal>&, const std::string&);
 
 	int listClass(Classe classe, Classificacao classificacao);
 	int listRespn(std::shared_ptr<Funcionario>& funcionario);
 
 	std::shared_ptr<Animal> buscarAnim(int);
+	std::shared_ptr<Animal> buscarAnim(const std::string&);
 
 	/****** VETERINARIOS ******/
 	std::shared_ptr<Veterinario> cadVetr(const std::string&, Status, const std::string&, int);
@@ -77,7 +80,9 @@ public:
 	/****** FUNCIONARIOS ******/
 	std::shared_ptr<Funcionario> cadFunc(std::shared_ptr<Funcionario>&);
 	std::shared_ptr<Funcionario> buscaFunc(int);
-	bool remFunc(int id);
+	std::shared_ptr<Funcionario> buscaFunc(const std::string&);
+	bool remFunc(int);
+	bool remFunc(const std::string&);
 	
 
 	/********** MENUS *********/

@@ -23,3 +23,8 @@ std::string Nativo::getLicenca() const
 {
 	return this->licenca;
 }
+
+void Nativo::setLicenca(const std::string& licenca)
+{
+	this->licenca = licenca;
+}

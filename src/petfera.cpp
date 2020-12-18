@@ -140,7 +140,7 @@ void PetFera::cadAnimal()
 	char cClassificacao, cClasse, cAmeacadaExtincao, cPerigoso;        
 	std::string NF, especie, extra;
 	Classe classe;
-	int idt, idv;
+	std::string idt, idv;
 	std::shared_ptr<Tratador> tratador = nullptr;
 	std::shared_ptr<Veterinario> veterinario = nullptr;
 
@@ -289,10 +289,15 @@ void PetFera::cadAnimal()
 
 	do
 	{
-		std::cout << "Insira o ID do tratador do animal" << std::endl;
-		USERENTRY(lib::collect<int>(idt));
-		IFEQ_WPAUSERETURN(idt, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idt))) != nullptr)
+		std::cout << "Insira o tratador do animal (nome ou ID):" << std::endl;
+		USERENTRY( getline(std::cin, idt) );
+		IFEQ_WPAUSERETURN(idt, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(lib::stolower(idt)));
+			if(tratador == nullptr)
+				tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(atoi(idt.c_str())));
+
+		if (tratador != nullptr)
 		{
 			if(tratador->aptto(classe, perigoso))
 			{
@@ -318,23 +323,25 @@ void PetFera::cadAnimal()
 
 	do
 	{
-		std::cout << "Insira o ID do veterinário do animal" << std::endl;
-		USERENTRY(lib::collect<int>(idv));
-		IFEQ_WPAUSERETURN(idv, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idv))) != nullptr)
+		std::cout << "Insira o veterinário do animal (nome ou ID):" << std::endl;
+		USERENTRY( getline(std::cin, idv) );
+		IFEQ_WPAUSERETURN(idv, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(lib::stolower(idv)));
+		if(veterinario == nullptr)
+			veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(idv.c_str())));
+
+		if (veterinario != nullptr)
 		{
+
 			char opt;
-			std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
+			std::cout << "Associar " << veterinario->getNome() << " como veterinário deste animal? S - Sim | N - Não" << std::endl;
 			USERENTRY(lib::collect<char>(opt));
 			IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 			if(opt == 'S' || opt == 's')
 			{
 				break;	
 			}
-		}
-		else
-		{
-			WARN("Funcionário não encontrado ou não se encaixa na posição de veterinário" << std::endl);
 		}
 	} while (1);
 
@@ -451,13 +458,18 @@ std::shared_ptr<Animal> PetFera::cadAnimal(const std::string& especie, Classe cl
 void PetFera::remAnimal()
 {
 	std::shared_ptr<Animal> animal = nullptr;
-	int id;
+	std::string id;
 	do
 	{
-		std::cout << "Insira o ID do animal a ser removido: " << std::endl;
-		USERENTRY(lib::collect<int>(id));
-		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if((animal = this->buscarAnim(id)) != nullptr)
+		std::cout << "Insira o animal a ser removido (nome ou ID): " << std::endl;
+		USERENTRY( getline(std::cin, id) );
+		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		animal = this->buscarAnim(lib::stolower(id));
+		if(animal == nullptr)
+			animal = this->buscarAnim(atoi(id.c_str()));
+
+		if(animal != nullptr)
 		{
 			char opt;
 			std::cout << "Remover " << animal->getEspecie() << "? S (Sim) | N (Não)" << std::endl;
@@ -487,19 +499,26 @@ void PetFera::remAnimal()
 	PAUSE;
 }
 
+bool PetFera::remAnimal(int id)
+{
+	std::stringstream ss;
+	ss << id;
+	return remAnimal(ss.str());
+}
+
 /**
  * @brief Remove um Animal da loja
  * @details Recebe o id de um animal da PetFera e o retira do catálogo
  * @param id :: Informa o número de identificação do animal
  * @return Retorna um valor booleano referente ao sucesso da operação
 */
-bool PetFera::remAnimal(int id)
+bool PetFera::remAnimal(const std::string& id)
 {
 	std::shared_ptr<Animal> animal;
 	for(auto it = this->animais.begin(); it != this->animais.end(); ++it)
 	{
 		animal = (*it);
-		if (animal->getId() == id)
+		if (animal->getEspecie() == id || animal->getId() == atoi(id.c_str()))
 		{
 			this->animais.erase(it);
 			return true;
@@ -531,19 +550,24 @@ void PetFera::redoAnimal(std::shared_ptr<Animal>& animal, const std::string& ext
 void PetFera::altAnimal()
 {
 	std::shared_ptr<Animal> animal = nullptr;
-	short idAlter;
+	std::string idAlter;
 	do
 	{
-		std::cout << "Insira o id do animal a ser alterado: " << std::endl;
-		USERENTRY(lib::collect<short>(idAlter));
-		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((animal = this->buscarAnim(idAlter)) == nullptr)
+		std::cout << "Insira o animal a ser alterado (nome ou ID): " << std::endl;
+		USERENTRY( getline(std::cin, idAlter) );
+		IFEQ_WPAUSERETURN(idAlter, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		animal = this->buscarAnim(lib::stolower(idAlter));
+		if(animal == nullptr)
+			animal = this->buscarAnim(atoi(idAlter.c_str()));
+
+		if (animal != nullptr)
 		{
-			WARN("Animal não encontrado." << std::endl);
+			break;
 		}
 		else
 		{
-			break;
+			WARN("Animal não encontrado." << std::endl);
 		}
 	}while(1);
 
@@ -559,6 +583,14 @@ void PetFera::altAnimal()
 		std::cout << "S. Alterar classificacao" << std::endl;
 		std::cout << "A. Alterar status de ameaçado de extinção" << std::endl;
 		std::cout << "P. Alterar status de perigoso" << std::endl;
+		if(animal->getClassificacao() == exotico)
+		{
+			std::cout << "N. Alterar território de origem" << std::endl;
+		}
+		else if(animal->getClassificacao() == nativo)
+		{
+			std::cout << "N. Alterar licença de transporte" << std::endl;
+		}
 		std::cout << "F. Alterar nota fiscal" << std::endl;
 		std::cout << "V. Alterar veterinário responsável" << std::endl;
 		std::cout << "T. Alterar tratador responsável" << std::endl;
@@ -748,6 +780,46 @@ void PetFera::altAnimal()
 			} while (1);
 			animal->setPerigoso(lib::isany(cPerigoso, "Ss"));
 		}
+		else if(animal->getClassificacao() == exotico && (opt == "N" || opt == "n"))
+		{
+			std::string extra;
+			do
+			{
+				std::cout << "Informe o território de origem do animal:" << std::endl;
+				USERENTRY( getline(std::cin, extra) );
+				IFEQ_BREAK(extra, "0");
+				IFFOUND_CONTINUE(extra, ";", "O dado informado possui caracteres não permitidos.");
+				if (extra != "")
+				{
+					std::dynamic_pointer_cast<Exotico>(animal)->setTerritorio(extra);
+					break;
+				}
+				else
+				{
+					WARN("Este campo não pode ser deixado em branco" << std::endl);
+				}
+			} while (1);
+		}
+		else if(animal->getClassificacao() == nativo && (opt == "N" || opt == "n"))
+		{
+			std::string extra;
+			do
+			{
+				std::cout << "Informe a licença de transporte:" << std::endl;
+				USERENTRY( getline(std::cin, extra) );
+				IFEQ_BREAK(extra, "0");
+				IFFOUND_CONTINUE(extra, ";", "O dado informado possui caracteres não permitidos.");
+				if (extra != "")
+				{
+					std::dynamic_pointer_cast<Nativo>(animal)->setLicenca(extra);
+					break;
+				}
+				else
+				{
+					WARN("Este campo não pode ser deixado em branco" << std::endl);
+				}
+			} while (1);
+		}
 		else if(opt == "F" || opt == "f")
 		{
 			std::string NF;
@@ -759,47 +831,53 @@ void PetFera::altAnimal()
 		else if(opt == "V" || opt == "v")
 		{
 			std::shared_ptr<Veterinario> veterinario;
-			int idv;
+			std::string idv;
 			do
 			{
-				std::cout << "Insira o ID do veterinário do animal" << std::endl;
-				USERENTRY(lib::collect<int>(idv));
-				IFEQ_BREAK(idv, 0);
-				if ((veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idv))) != nullptr)
+				std::cout << "Insira o veterinário do animal (nome ou ID)" << std::endl;
+				USERENTRY( getline(std::cin, idv) );
+				IFEQ_WPAUSERETURN(idv, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+				veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(lib::stolower(idv)));
+					if(veterinario == nullptr)
+						veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(idv.c_str())));
+
+				if (veterinario != nullptr)
 				{
 					char opt;
-					std::cout << "Associar " << veterinario->getNome() << " como veterinario deste animal? S - Sim | N - Não" << std::endl;
+					std::cout << "Associar " << veterinario->getNome() << " como veterinário deste animal? S - Sim | N - Não" << std::endl;
 					USERENTRY(lib::collect<char>(opt));
-					IFEQ_BREAK(opt, '0');
+					IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 					if(opt == 'S' || opt == 's')
 					{
 						animal->setVeterinario(veterinario);
-						break;
+						break;	
 					}
-				}
-				else
-				{
-					WARN("Funcionário não encontrado ou não se encaixa na posição de veterinário" << std::endl);
 				}
 			} while (1);
 		}
 		else if(opt == "T" || opt == "t")
 		{
 			std::shared_ptr<Tratador> tratador;
-			int idt;
+			std::string idt;
 			do
 			{
-				std::cout << "Insira o ID do tratador do animal" << std::endl;
-				USERENTRY(lib::collect<int>(idt));
-				IFEQ_BREAK(idt, 0);
-				if ((tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idt))) != nullptr)
+				std::cout << "Insira o tratador do animal (nome ou ID)" << std::endl;
+				USERENTRY( getline(std::cin, idt) );
+				IFEQ_WPAUSERETURN(idt, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+				tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(lib::stolower(idt)));
+					if(tratador == nullptr)
+						tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(atoi(idt.c_str())));
+
+				if (tratador != nullptr)
 				{
 					if(tratador->aptto(animal->getClasse(), animal->getPerigoso()))
 					{
 						char opt;
 						std::cout << "Associar " << tratador->getNome() << " como tratador deste animal? S - Sim | N - Não" << std::endl;
 						USERENTRY(lib::collect<char>(opt));
-						IFEQ_BREAK(opt, '0');
+						IFEQ_WPAUSERETURN(opt, '0', VOIDRETURN, "Operação cancelada pelo usuário.");
 						if(opt == 'S' || opt == 's')
 						{
 							animal->setTratador(tratador);
@@ -954,18 +1032,28 @@ void PetFera::listAll()
 void PetFera::listId()
 {
 	std::shared_ptr<Animal> animal = nullptr;
-	short id;
-	std::cout << "Informe o id do animal a ser impresso: " << std::endl;
-	USERENTRY(lib::collect<short>(id));
-	IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-	if ((animal = this->buscarAnim(id)) == nullptr)
+	std::string id;
+	do
 	{
-		WARN("Animal não encontrado" << std::endl);
-	}
-	else
-	{
-		std::cout << (*animal) << std::endl;
-	}
+		std::cout << "Informe o animal a ser impresso (nome ou ID): " << std::endl;
+		USERENTRY( getline(std::cin, id) );
+		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		animal = this->buscarAnim(lib::stolower(id));
+			if(animal == nullptr)
+				animal = this->buscarAnim(atoi(id.c_str()));
+
+		if (animal != nullptr)
+		{
+			std::cout << (*animal) << std::endl;
+			break;
+		}
+		else
+		{
+			WARN("Animal não encontrado" << std::endl);
+		}
+	} while(1);
+
 	PAUSE;
 }
 
@@ -1219,19 +1307,24 @@ int PetFera::listClass(Classe classe, Classificacao classificacao)
 void PetFera::listRespn()
 {
 	std::shared_ptr<Funcionario> funcionario = nullptr;
-	short id;
+	std::string id;
 	do
 	{
-		std::cout << "Informe o ID do funcionário" << std::endl;
-		USERENTRY(lib::collect<short>(id));
-		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if((funcionario = this->buscaFunc(id)) == nullptr)
+		std::cout << "Informe o funcionário (nome ou ID)" << std::endl;
+		USERENTRY( getline(std::cin, id) );
+		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		funcionario = this->buscaFunc(lib::stolower(id));
+			if(funcionario == nullptr)
+				funcionario = this->buscaFunc(atoi(id.c_str()));
+
+		if(funcionario != nullptr)
 		{
-			WARN("Funcionário não encontrado." << std::endl);
+			break;
 		}
 		else
 		{
-			break;
+			WARN("Funcionário não encontrado." << std::endl);
 		}
 	}while(1);
 
@@ -1333,6 +1426,18 @@ std::shared_ptr<Animal> PetFera::buscarAnim(int id)
 	return nullptr;
 }
 
+std::shared_ptr<Animal> PetFera::buscarAnim(const std::string& especie)
+{
+	for (auto animal = this->animais.begin(); animal != this->animais.end(); ++animal)
+	{
+		if ((*animal)->getEspecie() == especie)
+		{
+			return (*animal);
+		}
+	}
+	return nullptr;
+}
+
 /**
  * @brief Interface de cadastro de um Veterinario
  * @details Recolhe os dados necessários para realizar o cadastro de um veterinario
@@ -1410,19 +1515,24 @@ std::shared_ptr<Veterinario> PetFera::cadVetr(const std::string& nome, Status st
 void PetFera::altVetr()
 {
 	std::shared_ptr<Veterinario> veterinario = nullptr;
-	short idAlter;
+	std::string idAlter;
 	do
 	{
-		std::cout << "Insira o ID do veterinário a ser alterado: " << std::endl;
-		USERENTRY(lib::collect<short>(idAlter));
-		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(idAlter))) == nullptr)
+		std::cout << "Informe o veterinário a ser alterado (nome ou ID): " << std::endl;
+		USERENTRY( getline(std::cin, idAlter) );
+		IFEQ_WPAUSERETURN(idAlter, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(lib::stolower(idAlter)));
+			if(veterinario == nullptr)
+				veterinario = std::dynamic_pointer_cast<Veterinario>(this->buscaFunc(atoi(idAlter.c_str())));
+
+		if (veterinario != nullptr)
 		{
-			WARN("Funcionário não encontrado." << std::endl);
+			break;
 		}
 		else
 		{
-			break;
+			WARN("Funcionário não encontrado." << std::endl);
 		}
 	}while(1);
 
@@ -1607,19 +1717,24 @@ std::shared_ptr<Tratador> PetFera::cadTrat(const std::string& nome, Status statu
 void PetFera::altTrat()
 {
 	std::shared_ptr<Tratador> tratador = nullptr;
-	short idAlter;
+	std::string idAlter;
 	do
 	{
-		std::cout << "Insira o ID do tratador a ser alterado: " << std::endl;
-		USERENTRY(lib::collect<short>(idAlter));
-		IFEQ_WPAUSERETURN(idAlter, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if ((tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(idAlter))) == nullptr)
+		std::cout << "Insira o tratador a ser alterado (nome ou ID): " << std::endl;
+		USERENTRY( getline(std::cin, idAlter) );
+		IFEQ_WPAUSERETURN(idAlter, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(lib::stolower(idAlter)));
+			if(tratador == nullptr)
+				tratador = std::dynamic_pointer_cast<Tratador>(this->buscaFunc(atoi(idAlter.c_str())));
+
+		if (tratador != nullptr)
 		{
-			WARN("Funcionário não encontrado." << std::endl);
+			break;
 		}
 		else
 		{
-			break;
+			WARN("Funcionário não encontrado." << std::endl);
 		}
 	}while(1);
 
@@ -1738,6 +1853,18 @@ std::shared_ptr<Funcionario> PetFera::buscaFunc(int id)
 	}
 }
 
+std::shared_ptr<Funcionario> PetFera::buscaFunc(const std::string& nome)
+{
+	for(auto f = this->funcionarios.begin(); f != this->funcionarios.end(); ++f)
+	{
+		if(lib::stolower(f->second->getNome()) == nome && f->second->getStatus() == ativo)
+		{
+			return f->second;
+		}
+	}
+	return nullptr;
+}
+
 /**
  * @brief Remove um Funcionario da loja
  * @details Recolhe os dados necessários para que o funcionário seja removido do catálogo
@@ -1746,13 +1873,18 @@ std::shared_ptr<Funcionario> PetFera::buscaFunc(int id)
 void PetFera::remFunc()
 {
 	std::shared_ptr<Funcionario> funcionario = nullptr;
-	short id;
+	std::string id;
 	do
 	{
-		std::cout << "Insira o ID do funcionário a ser removido: " << std::endl;
-		USERENTRY(lib::collect<short>(id));
-		IFEQ_WPAUSERETURN(id, 0, VOIDRETURN, "Operação cancelada pelo usuário.");
-		if((funcionario = this->buscaFunc(id)) != nullptr)
+		std::cout << "Insira o funcionário a ser removido (nome ou ID): " << std::endl;
+		USERENTRY( getline(std::cin, id) );
+		IFEQ_WPAUSERETURN(id, "0", VOIDRETURN, "Operação cancelada pelo usuário.");
+
+		funcionario = this->buscaFunc(lib::stolower(id));
+			if(funcionario == nullptr)
+				funcionario = this->buscaFunc(atoi(id.c_str()));
+
+		if(funcionario != nullptr)
 		{
 			char opt;
 			std::cout << "Remover " << funcionario->getNome() << "? S (Sim) | N (Não)" << std::endl;
@@ -1784,11 +1916,18 @@ void PetFera::remFunc()
 
 bool PetFera::remFunc(int id)
 {
+	std::stringstream ss;
+	ss << id;
+	return this->remFunc(ss.str());
+}
+
+bool PetFera::remFunc(const std::string& id)
+{
 	std::shared_ptr<Funcionario> funcionario = nullptr;
 	for(auto it = this->funcionarios.begin(); it != this->funcionarios.end(); ++it)
 	{
 		funcionario = it->second;
-		if(funcionario->getId() == id)
+		if(funcionario->getNome() == id || funcionario->getId() == atoi(id.c_str()))
 		{
 			this->funcionarios.erase(it);
 			return true;
@@ -1796,6 +1935,7 @@ bool PetFera::remFunc(int id)
 	}
 	return false;
 }
+
 /**
  * @brief Lista todos os funcionários da PetFera
 */

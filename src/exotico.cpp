@@ -23,3 +23,9 @@ std::string Exotico::getTerritorio() const
 {
 	return this->territorio;
 }
+
+
+void Exotico::setTerritorio(const std::string& territorio)
+{
+	this->territorio = territorio;
+}

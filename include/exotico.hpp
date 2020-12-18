@@ -9,6 +9,7 @@ public:
 	virtual ~Exotico();
 
 	std::string getTerritorio() const;
+	void setTerritorio(const std::string&);
 protected:
 	std::string territorio;
 };
