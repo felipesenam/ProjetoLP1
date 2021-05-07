@@ -1,9 +1,14 @@
-objects/
-make/
+.vs
+.vscode
+doxygen
+objects
+make
+video
 
 *.sublime-workspace
 *.sublime-project
 *.zip
+*.rar
 *.pdf
 
 prog
